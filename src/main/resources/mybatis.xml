@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- mybatis的基本配置文件：主要配置基本的上下文参数和运行环境 -->
+<configuration>
+
+    <!--其他设置-->
+    <settings>
+        <!--开启日志-->
+        <setting name="logImpl" value="LOG4J"/>
+        <!--开启驼峰命名-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!--类型别名：定义pojo别名-->
+    <!--<typeAliases>
+        &lt;!&ndash;批量定义别名：默认别名是类名(不计大小写)&ndash;&gt;
+        <package name=""/>
+        <package name=""/>
+    </typeAliases>-->
+
+    <!--配置转换器
+    javaType：实体类字段类型
+    jdbcType：数据库字段类型
+    -->
+    <!--<typeHandlers>
+        <typeHandler handler="com.hy.employmanager_ssm.service.converter.BooleanAndIntegerConverter" javaType="Boolean" jdbcType="INTEGER"/>
+    </typeHandlers>-->
+
+</configuration>
