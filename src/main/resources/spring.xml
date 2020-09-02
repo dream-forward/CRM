@@ -11,7 +11,6 @@
     <!--开启扫描Bean-->
     <context:component-scan base-package="com.hy.crm"/>
 
-
     <!--配置数据库连接池-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="${db.driver}"/>
