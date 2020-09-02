@@ -2,209 +2,297 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <title>后台管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>XXXX系统</title>
-    <link rel="stylesheet" href="/layui/css/layui.css">
-    <link rel="stylesheet" href="/css/home.css">
+    <!-- <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />-->
+    <link rel="shortcut icon" type="image/ico" href="/favicon.ico"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <script type="text/javascript" src="/static/xiyuan/lib/loading/okLoading.js"></script>
+    <link rel="stylesheet" href="/css/x-admin.css" media="all">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2036587_en7ugjqvud.css" media="all">
+    <link rel="stylesheet" href="../fonts/css/font-awesome.min.css">
 </head>
+<style>
+    .show_list {
+        display: block;
+    }
+
+    .hide_lits {
+        display: none;
+    }
+
+</style>
 <body class="layui-layout-body">
-<div class="layui-layout layui-layout-admin">
-    <div class="layui-header" style="background-color: #20222A">
-        <div class="layui-logo"
-             style="background-color: #393D49;color: white;height: 210px;border-bottom: 1px solid white">
-            <div style="background-color: #393D49;color: #009E94;font-weight: bolder">XXXX系统</div>
-            <a href="#" id="tip" onmouseenter="tip()">
-                <img id="userImg"  src="img/admin.jpg"
-                     style="width: 90px;height: 90px" class="layui-nav-img">
-            </a>
-            <div style="font-size: 10px;text-align: center;height: 15px;margin-bottom: 8px;padding-right: 6px">
-                咸鱼
-            </div>
-            <div style="font-size: 10px;padding-right: 10px">
-                老师您好，欢迎登录
-            </div>
+
+<div class="layui-layout">
+
+
+    <!--左侧导航区域-->
+    <div class="layui-side layui-bg-black x-side show_list" style="width:20%;float:left;background: #92B8B1;left:0px;"
+         id="table1">
+
+        <!--系统标题-->
+        <div class="admin-logo-box">
+            <a class="logo" href="" title="logo">CRM客户关系管理系统</a>
         </div>
-        <!-- 头部区域（可配合layui已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
+        <!--头像-->
+        <div>
+            <a class="img" title="我的头像" style="display: block;width: 80px;height: 80px;margin: 10px auto 10px;">
+                <img src="/images/index.jpg" class="userAvatar"
+                     style="display: block;width: 100%;height: 100%;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;border: 4px solid #44576b;box-sizing: border-box;">
+            </a>
 
-            <li class="layui-nav-item">
-                <div id="scrollWrap" style="float: left">
-                    <ul id="scrollMsg">
-                        <li><a class="scrollText" href="http://www.baidu.com"><i
-                                class="layui-icon layui-icon-speaker"></i>让金企信成为企业软件的标杆</a>
-                        </li>
-                        <li><a class="scrollText" href="http://www.baidu.com"><i
-                                class="layui-icon layui-icon-speaker"></i>XXXX技术公司</a>
-                        </li>
-                        <li><a class="scrollText" href="http://www.baidu.com"><i
-                                class="layui-icon layui-icon-speaker"></i>金企文库</a>
-                        </li>
-                        <li><a class="scrollText" href="http://www.baidu.com"><i
-                                class="layui-icon layui-icon-speaker"></i>轻骑兵V8平台，新一代低快速开发平台<img
-                                src="img/hot001.gif"></a>
-                        </li>
-                    </ul>
-                </div>
-                <div id="time"></div>
-            </li>
-        </ul>
+            <p style="text-align: center;">
+                <span class="" id="time" style="font-size: 20px;font-family: 'yjsz'"></span>
+            </p>
+            <p style=" display: block;width: 100%;height: 25px;color: #ffffff;text-align: center;font-size: 12px;white-space: nowrap;line-height: 25px;overflow: hidden;">
+                你好！<span class="userName">admin</span>, 欢迎回来
+            </p>
+        </div>
 
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item"><a href="" id="refresh">
-                <i class="layui-icon layui-icon-refresh"></i></a>
-            </li>
-
-            <li class="layui-nav-item">
-                <a href="javascript:;">
-                    <img src="img/admin.jpg" class="layui-nav-img">
-                    <span>咸鱼</span>
-                </a>
-                <dl class="layui-nav-child">
-                    <dd><a href="#" data-id="0" class="site-demo-active"><i class="layui-icon layui-icon-user"></i> 基本资料</a>
-                    </dd>
-                    <dd><a href="#" data-url="#" data-id="9" data-title="修改密码" class="site-demo-active"><i
-                            class="layui-icon layui-icon-set"></i> 修改密码</a></dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item"><a href="login.html" onclick="clearCookie()" id="logout"><i
-                    class="layui-icon layui-icon-logout"></i>退出</a></li>
-        </ul>
-    </div>
-
-    <div class="layui-side layui-bg-black" style="padding-top: 150px">
+        <!--菜单-->
         <div class="layui-side-scroll">
-            <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item" id="userManage" style="text-align: center">
-                    <a href="#" data-url="https://www.layui.com/" data-id="1" data-title="用户管理" class="site-demo-active"
-                       data-type="tabAdd">
-                        <i class="layui-icon layui-icon-username"></i>用户管理
+            <ul class="layui-nav layui-nav-tree site-demo-nav" lay-filter="side">
+                <li class="layui-nav-item">
+                    <a href="/view/mydesktop.html" target="right">
+                        <i class="layui-icon iconfont icon-zhuomian" style="top: 3px;"></i>
+                        <cite>我的桌面</cite>
                     </a>
+                    <!-- <dl class="layui-nav-child">
+                         <dd class="">
+                         <dd class=""><a href="/view/test.html" target="right"> <cite>栏目列表</cite> </a></dd>
+                         </dd>
+                     </dl>-->
                 </li>
-                <li class="layui-nav-item" id="class" style="text-align: center">
-                    <a href="#" data-url="https://www.layui.com/" data-id="2" data-title="班级管理" class="site-demo-active"
-                       data-type="tabAdd">
-                        <i class="layui-icon layui-icon-read"></i> 班级管理
+                <li class="layui-nav-item">
+                    <a class="javascript:;" href="javascript:;" target="right">
+                        <i class="layui-icon iconfont icon-kehuguanli-copy-copy" style="top: 3px;"></i>
+                        <cite>客户管理</cite>
                     </a>
-                </li>
-                <li class="layui-nav-item" id="student" style="text-align: center">
-                    <a href="#" data-url="https://www.layui.com/" data-id="3" data-title="学生管理" class="site-demo-active"
-                       data-type="tabAdd">
-                        <i class="layui-icon layui-icon-user"></i> 学生管理
-                    </a>
-                </li>
-                <li class="layui-nav-item" id="dept" style="text-align: center">
-                    <a href="#" data-url="https://www.layui.com/" data-id="4" data-title="部门管理" class="site-demo-active"
-                       data-type="tabAdd">
-                        <i class="layui-icon layui-icon-chart-screen"></i> 部门管理
-                    </a>
-                </li>
-                <li class="layui-nav-item" id="course" style="text-align: center">
-                    <a href="#" data-url="https://www.layui.com/" data-id="5" data-title="课程管理" class="site-demo-active"
-                       data-type="tabAdd">
-                        <i class="layui-icon layui-icon-read"></i> 课程管理
-                    </a>
-                </li>
-                <li class="layui-nav-item" style="text-align: center">
-                    <a href="javascript:;"><i class="layui-icon layui-icon-survey"></i> 评价管理</a>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <a href="#" data-url="https://www.layui.com/" data-id="10" data-title="分项管理"
-                               class="site-demo-active">
-                                <i class="layui-icon layui-icon-table"></i> 分项管理
-                            </a>
-                        </dd>
-                        <dd>
-                            <a href="#" data-url="https://www.layui.com/" data-id="11" data-title="总评"
-                               class="site-demo-active">
-                                <i class="layui-icon layui-icon-table"></i> 总评
-                            </a>
-                        </dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item" style="text-align: center">
-                    <a href="javascript:;"><i class="layui-icon layui-icon-table"></i> 成绩管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="#" data-url="https://www.layui.com/" data-id="7" data-title="经理评分"
-                               class="site-demo-active">
-                            <i class="layui-icon layui-icon-table"></i> 经理评分
+                    <!--<dl class="layui-nav-child">
+                        <dd class="">
+                        <dd class=""><a href="javascript:;" _href="./articletype-list.html"> <cite>文章类型列表</cite>
                         </a>
                         </dd>
-                        <dd>
-                            <a href="#" data-url="https://www.layui.com/" data-id="8" data-title="教师评分"
-                               class="site-demo-active">
-                                <i class="layui-icon layui-icon-table"></i> 教师评分
-                            </a>
+                        <dd class=""><a href="javascript:;" _href="./article-list.html"> <cite>文章列表</cite> </a></dd>
                         </dd>
-                    </dl>
+                    </dl>-->
                 </li>
+                <li class="layui-nav-item">
+                    <a class="javascript:;" href="javascript:;" target="right">
+                        <i class="layui-icon iconfont icon-wodeshangjizhuanhuan" style="top: 3px;"></i>
+                        <cite>我的商机</cite>
+                    </a>
+                    <!--<dl class="layui-nav-child">
+                        <dd class="">
+                        <dd class=""><a href="javascript:;" _href="./noticetype-list.html"> <cite>公告类型</cite> </a>
+                        </dd>
+                        </dd>
+                        <dd class="">
+                        <dd class=""><a href="javascript:;" _href="./notice-list.html"> <cite>公告列表</cite> </a></dd>
+                        </dd>
+
+                    </dl>-->
+                </li>
+                <li class="layui-nav-item">
+                    <a class="javascript:;" href="javascript:;" target="right">
+                        <i class="layui-icon iconfont icon-shangji2" style="top: 3px;"></i>
+                        <cite>全部商机</cite>
+                    </a>
+                    <!--<dl class="layui-nav-child">
+                        <dd class="">
+                        <dd class=""><a href="javascript:;" _href="./banner-list.html"> <cite>轮播列表</cite> </a></dd>
+                        </dd>
+                    </dl>-->
+                </li>
+
+                <li class="layui-nav-item"><a class="javascript:;" href="javascript:;" target="right">
+                    <i class="layui-icon iconfont icon-wodegendan" style="top: 3px;"></i>
+                    <cite>我的跟单</cite>
+                </a>
+                    <!--<dl class="layui-nav-child">
+                        <dd class=""><a href="javascript:;" _href="./category.html"> <cite>分类列表</cite> </a></dd>
+                    </dl>-->
+                </li>
+                <li class="layui-nav-item"><a class="javascript:;" href="javascript:;" target="right">
+                    <i class="layui-icon iconfont icon-gendan" style="top: 3px;"></i>
+                    <cite>全部跟单</cite>
+                </a>
+                    <!--<dl class="layui-nav-child">
+                        <dd class=""><a href="javascript:;" _href="./category.html"> <cite>分类列表</cite> </a></dd>
+                    </dl>-->
+                </li>
+                <li class="layui-nav-item"><a class="javascript:;" href="javascript:;" target="right">
+                    <i class="layui-icon iconfont icon-tiezi1" style="top: 3px;"></i>
+                    <cite>全部讨论帖子</cite>
+                </a>
+                    <!--<dl class="layui-nav-child">
+                        <dd class=""><a href="javascript:;" _href="./comment-list.html"> <cite>评论列表</cite> </a></dd>
+                        <dd class=""><a href="javascript:;" _href="./feedback-list.html"> <cite>意见反馈</cite> </a>
+                        </dd>
+                    </dl>-->
+                </li>
+                <li class="layui-nav-item"><a class="javascript:;" href="javascript:;" target="right">
+                    <i class="layui-icon iconfont icon-htcn" style="top: 3px;"></i>
+                    <cite>我的合同</cite>
+                </a>
+                    <!--<dl class="layui-nav-child">
+                        <dd class=""><a href="javascript:;" _href="./comment-list.html"> <cite>评论列表</cite> </a></dd>
+                        <dd class=""><a href="javascript:;" _href="./feedback-list.html"> <cite>意见反馈</cite> </a>
+                        </dd>
+                    </dl>-->
+                </li>
+                <li class="layui-nav-item"><a class="javascript:;" href="javascript:;" target="right">
+                    <i class="layui-icon iconfont icon-quanbuhetong" style="top: 3px;"></i>
+                    <cite>全部合同</cite>
+                </a>
+                    <!--<dl class="layui-nav-child">
+                        <dd class=""><a href="javascript:;" _href="./comment-list.html"> <cite>评论列表</cite> </a></dd>
+                        <dd class=""><a href="javascript:;" _href="./feedback-list.html"> <cite>意见反馈</cite> </a>
+                        </dd>
+                    </dl>-->
+                </li>
+                <li class="layui-nav-item"><a class="javascript:;" href="/view/aftersales.html;" target="right">
+                    <i class="layui-icon iconfont icon-shouhoufuwu" style="top: 3px;"></i>
+                    <cite>售后服务</cite>
+                </a>
+                    <!--<dl class="layui-nav-child">
+                        <dd class=""><a href="javascript:;" _href="./comment-list.html"> <cite>评论列表</cite> </a></dd>
+                        <dd class=""><a href="javascript:;" _href="./feedback-list.html"> <cite>意见反馈</cite> </a>
+                        </dd>
+                    </dl>-->
+                </li>
+                <li class="layui-nav-item">
+                    <a class="javascript:;" href="javascript:;" target="right">
+                        <i class="layui-icon iconfont icon-tongjifenxi" style="top: 3px;"></i>
+                        <cite>统计分析</cite>
+                    </a>
+                    <!--<dl class="layui-nav-child">
+                        <dd class=""><a href="javascript:;" _href="./comment-list.html"> <cite>评论列表</cite> </a></dd>
+                        <dd class=""><a href="javascript:;" _href="./feedback-list.html"> <cite>意见反馈</cite> </a>
+                        </dd>
+                    </dl>-->
+                </li>
+                <li class="layui-nav-item"><a class="javascript:;" href="javascript:;" target="right">
+                    <i class="layui-icon iconfont icon-jichu" style="top: 3px;"></i>
+                    <cite>基础设置</cite>
+                </a>
+                    <!--<dl class="layui-nav-child">
+                        <dd class=""><a href="javascript:;" _href="./comment-list.html"> <cite>评论列表</cite> </a></dd>
+                        <dd class=""><a href="javascript:;" _href="./feedback-list.html"> <cite>意见反馈</cite> </a>
+                        </dd>
+                    </dl>-->
+                </li>
+                <li class="layui-nav-item">
+                    <a class="javascript:;" href="javascript:;" target="right">
+                        <i class="layui-icon iconfont icon-anquantuichu2" style="top: 3px;"></i>
+                        <cite>安全退出</cite>
+                    </a>
+                    <!--<dl class="layui-nav-child">
+                        <dd class=""><a href="javascript:;" _href="./comment-list.html"> <cite>评论列表</cite> </a></dd>
+                        <dd class=""><a href="javascript:;" _href="./feedback-list.html"> <cite>意见反馈</cite> </a>
+                        </dd>
+                    </dl>-->
+                </li>
+
             </ul>
         </div>
     </div>
-
-    <div class="layui-body"
-         style="background: url() no-repeat ;background-size: 100% 100%    ">
-        <!-- 内容主体区域 -->
-        <div class="layui-tab layui-tab-card" lay-filter="demo" lay-allowclose="true" style="">
-            <ul class="layui-tab-title" style="background-color: rgba(255,255,255,0.1)">
-                <li class="layui-this" lay-id="0"><i style="font-size: smaller"
-                                                     class="layui-icon layui-icon-circle-dot"></i>首页
-                </li>
-            </ul>
-            <div class="layui-tab-content" style="height:400px">
-                <div class="layui-tab-item layui-show">
-                    <div style="padding-top: 100px;padding-left:400px;width: 300px">
-                        <table class="layui-table" style="background-color:rgba(255,255,255,0.1);font-weight: bolder"
-                               lay-skin="line">
-
-                            <tr>
-                                <td class="tableC1">用户名：</td>
-                                <td class="tableC2">咸鱼
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tableC1">联系方式：</td>
-                                <td class="tableC2">12315684891
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td class="tableC1">邮箱：</td>
-                                <td class="tableC2">2645346680@qq.com
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td class="tableC1">备注：</td>
-                                <td class="tableC2">有问题，欢迎联系；不喜勿喷！
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tableC1">所属部门：</td>
-                                <td class="tableC2">开发</td>
-                            </tr>
-                            <tr>
-                                <td class="tableC1">上次登录时间：</td>
-                                <td class="tableC2">2020-7-28
-                                </td>
-                            </tr>
-
-                        </table>
-                    </div>
-
-                </div>
+    <!--右侧-->
+    <div lay-filter="x-tab" lay-allowclose="true"
+         style="border-left: solid 2px #2299ee;width:80%;float:right;">
+        <!--<ul class="layui-tab-title">
+            &lt;!&ndash;<li class="layui-this">你们好</li>&ndash;&gt;
+        </ul>
+        <div class="layui-tab-content site-demo site-demo-body">
+            <div class="layui-tab-item layui-show">
+                <iframe frameborder="0" src="#" class="x-iframe"></iframe>
             </div>
+        </div>-->
+        <div id="iframe-wrap" style="width:100%;height: 100vh;">
+            <iframe id="iframe" src="/view/mydesktop.html" frameborder="0" width="100%" height="100%"
+                    name="right"></iframe>
         </div>
     </div>
-
-    <div class="layui-footer">
-        <!-- 底部固定区域 -->
-        <div style="text-align: center">
-            © 欢迎交流讨论
-        </div>
-    </div>
+    <!--<div class="site-mobile-shade"></div>-->
 </div>
-<script src="js/jquery-3.3.1.js"></script>
-<script src="/layui/layui.js"></script>
-<script src="/js/home.js"></script>
+
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script src="/js/x-admin.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/x-layui.js" charset="utf-8"></script>
+
+
+<script>
+    layui.use(['laydate', 'element', 'laypage', 'layer'], function () {
+        $ = layui.jquery;//jquery
+        laydate = layui.laydate;//日期插件
+        lement = layui.element();//面包导航
+        laypage = layui.laypage;//分页
+        layer = layui.layer;//弹出层
+        //以上模块根据需要引入
+
+    });
+
+    /*function logout() {
+
+        $.ajax({
+            type:"post",
+            url:"",
+            data:{e:1},
+            dataType:"json",
+            success:function (data) {
+                if(data.status==1){
+                    layer.msg(data.info,{icon:1,time:1000});
+                    setTimeout("window.location.href='{:url('Login/login')}'",2000);return false;
+                    return false;
+                }else{
+                    layer.msg(data.info,{icon:5,time:2000});return false;
+                }
+            }
+
+        })
+        return false;
+    }*/
+
+    /*function member_show(title, url, id, w, h) {
+        x_admin_show(title, url, w, h);
+    }*/
+</script>
+<script>
+    //顶部时间
+    function getTime() {
+        var myDate = new Date();
+        var myYear = myDate.getFullYear(); //获取完整的年份(4位,1970-????)
+        var myMonth = myDate.getMonth() + 1; //获取当前月份(0-11,0代表1月)
+        var myToday = myDate.getDate(); //获取当前日(1-31)
+        var myDay = myDate.getDay(); //获取当前星期X(0-6,0代表星期天)
+        var myHour = myDate.getHours(); //获取当前小时数(0-23)
+        var myMinute = myDate.getMinutes(); //获取当前分钟数(0-59)
+        var mySecond = myDate.getSeconds(); //获取当前秒数(0-59)
+        var week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+        var nowTime;
+
+        nowTime = myYear + '-' + fillZero(myMonth) + '-' + fillZero(myToday) + '&nbsp;&nbsp;' + fillZero(myHour) + ':' + fillZero(myMinute) + ':' + fillZero(mySecond) + '&nbsp;&nbsp;' + week[myDay] + '&nbsp;&nbsp;';
+        //console.log(nowTime);
+        $('#time').html(nowTime);
+    };
+
+    function fillZero(str) {
+        var realNum;
+        if (str < 10) {
+            realNum = '0' + str;
+        } else {
+            realNum = str;
+        }
+        return realNum;
+    }
+
+    setInterval(getTime, 1000);
+</script>
 </body>
 </html>
