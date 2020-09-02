@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>售后服务</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<script src="/js/jquery-1.12.3.min.js"></script>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<body>
+<div style="width:1366px;overflow-x:auto;overflow-y:hidden">
+    <!--头部-->
+
+
+    <!--左侧-->
+    <div id="left" style="width:20%;float:left;">
+        <div class="layui-header" style="height: 15vh;margin: 0 auto;text-align: left;line-height: 80px;">
+            <a class="logo">
+                <img src="/images/index.jpg" style="width: 50px;height: 50px;">
+            </a>
+            <span style="color: #0C0C0C;font-size: 30px">售后服务</span>
+        </div>
+        <div class="layui-col-md8" style="border: 1px solid #ddd;width: 90%;border-radius: 10px">
+            <div class="layui-card">
+                <div class="layui-card-header"><span style="float: left;"><b>分类</b></span></div>
+                <div class="layui-card-body" style="width: 100%;">
+                    <ul>
+                        <li><a lay-href="" style="color: #01AAED">处理中的服务</a><span class="layui-badge layui-bg-blue"
+                                                                                  style="width:20px;float: right;margin-top: 2px;margin-right: 20px">18</span>
+                        </li>
+                        <li><a lay-href="" style="color: #01AAED">已结束的服务</a><span class="layui-badge layui-bg-blue"
+                                                                                  style="width:20px;float: right;margin-top: 2px;margin-right: 20px">4</span>
+                        </li>
+                        <li><a lay-href="" style="color: #01AAED">已撤销的服务</a><span class="layui-badge layui-bg-blue"
+                                                                                  style="width:20px;float: right;margin-top: 2px;margin-right: 20px">9</span>
+                        </li>
+                    </ul>
+                </div>
+                <hr>
+                <div class="layui-card-body" style="width: 100%;">
+                    <ul>
+                        <li><a lay-href="" style="color: #01AAED">本周新增</a><span class="layui-badge layui-bg-blue"
+                                                                                style="width:20px;float: right;margin-top: 2px;margin-right: 20px">0</span>
+                        </li>
+                        <li><a lay-href="" style="color: #01AAED">上周新增</a><span class="layui-badge layui-bg-blue"
+                                                                                style="width:20px;float: right;margin-top: 2px;margin-right: 20px">0</span>
+                        </li>
+                        <li><a lay-href="" style="color: #01AAED">本月新增</a><span class="layui-badge layui-bg-blue"
+                                                                                style="width:20px;float: right;margin-top: 2px;margin-right: 20px">0</span>
+                        </li>
+                        <li><a lay-href="" style="color: #01AAED">上月新增</a><span class="layui-badge layui-bg-blue"
+                                                                                style="width:20px;float: right;margin-top: 2px;margin-right: 20px">0</span>
+                        </li>
+                        <li><a lay-href="" style="color: #01AAED">本季度新增</a><span class="layui-badge layui-bg-blue"
+                                                                                 style="width:20px;float: right;margin-top: 2px;margin-right: 20px">0</span>
+                        </li>
+                        <li><a lay-href="" style="color: #01AAED">上季度新增</a><span class="layui-badge layui-bg-blue"
+                                                                                 style="width:20px;float: right;margin-top: 2px;margin-right: 20px">0</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--右侧-->
+    <div style="margin-right:10px;float:right;width:78%;">
+        <div class="layui-header" style="height: 15vh;margin: 0 auto;text-align: left;line-height: 80px;">
+            <form class="layui-form">
+                <!--下拉框-->
+                <div class="layui-inline" style="height: 40px;width: 180px;">
+                    <select id="zhiwei" name="positionname">
+                        <option value=''>请选择</option>
+                        <option>按主题</option>
+                        <option>按服务类型</option>
+                        <option>按开始时间</option>
+                        <option>按服务人员</option>
+                        <option>按服务评分</option>
+                    </select>
+                </div>
+                <!--文本框-->
+                <div class="layui-inline" style="height: 40px;width: 300px;">
+                    <input type="text" name="title" height="0" size="80px;" required lay-verify="required"
+                           placeholder="请输入关键字模糊查询" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn" lay-submit lay-filter="search" style="width: 90px;height: 40px;">🔍查找
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-primary" style="height: 40px;">重置</button>
+                </div>
+                <div class="layui-inline" style="left: 80px;">
+                    <a href="javascript:window.open('/view/addaftersales.html');" id="add" style="color: black" class="layui-btn layui-icon layui-icon-add-1">新增售后服务</a>
+                    <a href="http://www.layui.com" style="color: black" class="layui-btn layui-icon layui-icon-refresh">刷新</a>
+                </div>
+            </form>
+        </div>
+
+
+        <!--<table lay-even lay-skin="line" lay-size="lg" id="demo" lay-filter="test" class="layui-table"></table>-->
+        <table id="demo" lay-filter="test" style="width: 100%"></table>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'table'], function () {
+        var form = layui.form;
+        var table = layui.table;
+
+        //第一个表格
+        var tableIns = table.render({
+            elem: '#demo'
+            , height: 'auto'
+            , title: '售后服务一览'
+            , autoSort: true
+            , url: '/.do' //数据接口
+            , page: true //开启分页
+            , limit: 10
+            , limits: [1, 3, 5, 7, 10, 20, 30]
+            , cols: [
+                [ //表头
+                    , {field: '', title: '主题', align: 'center'}
+                    , {field: '', title: '服务类型', align: 'center'}
+                    , {field: '', title: '开始时间', align: 'center'}
+                    , {field: '', title: '服务人员', align: 'center'}
+                    , {field: '', title: '服务评分', align: 'center'}
+                ]
+            ]
+        });
+    });
+</script>
+</body>
+</html>
