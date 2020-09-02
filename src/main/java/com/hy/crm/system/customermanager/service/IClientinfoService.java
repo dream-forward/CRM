@@ -1,7 +1,7 @@
 package com.hy.crm.system.customermanager.service;
 
-import com.hy.crm.system.customermanager.pojo.Clientinfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hy.crm.system.customermanager.pojo.Clientinfo;
 
 /**
  * <p>

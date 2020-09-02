@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>客户管理页面</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <script src="/js/jquery-1.12.3.min.js"></script>
+    <script src="/layui/layui.js"></script>
+</head>
+<body>
+<div style="width: 100%">
+    <div id="left" style="width:22%;float:left;">
+        <div class="layui-header" style="height: 15vh;margin: 0 auto;text-align: left;line-height: 80px;">
+            <a class="logo">
+                <img src="/images/index.jpg" style="width: 50px;height: 50px;">
+            </a>
+            <span style="color: #0C0C0C;font-size: 30px">客户管理</span>
+        </div>
+        <div class="layui-col-md8" style="border: 1px solid #ddd;width: 90%">
+            <div class="layui-card">
+                <div class="layui-card-header"><span style="float: left;"><b>分类</b></span></div>
+                <div class="layui-card-body" style="width: 100%;">
+                    <ul>
+                        <li><a lay-href="">VIP</a>
+                        </li>
+                        <li><a lay-href="">SVIP</a>
+                        </li>
+                        <li><a lay-href="">普通客户</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Unnamed (Rectangle) -->
+        <div id="u225" class="ax_default _文本段落">
+            <div id="u225_text" style="width: 90%"  class="text ">
+                <p><span style="color:#999999;">* 一个客户通常对应着多个商机。可以在本模块中新增客户，然后在新增商机时下拉选取；更方便的做法是，在新增商机时登记新客户的信息，系统将自动新增客户到本模块中</span></p><p><span style="color:#FF0000;">* 如果一个客户已经包含有商机、合同或售后服务信息，请不要修改其名称、也不要删除它</span></p>
+            </div>
+        </div>
+
+    </div>
+
+
+
+<div id="right" style="float:right;  width:78%; height:100%;">
+        <form class="layui-form">
+                    <!--下拉框-->
+                    <div class="layui-inline" style="height: 40px;width:180px;">
+                            <select name="did">
+                                <option value="0">请选择方式</option>
+                                <option value="1001">按客户名称</option>
+                                <option value="1003">按拼音</option>
+                                <option value="1002">按客户来源</option>
+                                <option value="1004">按国家/地区</option>
+                                <option value="1004">按所在城市</option>
+                                <option value="1004">按所属来源</option>
+                            </select>
+                    </div>
+                    <!--文本框-->
+                    <div class="layui-inline" style="height: 40px;width: 300px;">
+                        <div class="layui-inline" style="height: 40px;width: 300px;">
+                            <input type="text" name="title" height="0" size="80px;" required  lay-verify="required" placeholder="请输入关键字模糊查询" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline" style="height: 40px;width: 140px;">
+                        <div class="layui-inline" style="height: 40px;width: 140px;">
+                            <button class="layui-btn" lay-submit lay-filter="formDemo" style="width: 90px;"><a href="#" class="layui-icon layui-icon-search" />查询</a></button>
+                        </div>
+                    </div>
+            <div class="layui-inline" style="left: 80px;">
+                <a href="javascript:;" id="add" style="color: black" class="layui-btn layui-icon layui-icon-add-1" ><font color="black">新增客户</font>
+                </a><a href="http://www.layui.com" style="color: black"  class="layui-btn layui-icon layui-icon-refresh"><font color="black">刷新</font></a>
+            </div>
+        </form>
+
+
+        <table lay-even lay-skin="line" lay-size="lg" id="demo" lay-filter="test" class="layui-table"></table>
+</div>
+</div>
+<script>
+    layui.use(['table','jquery'], function () {
+        var table = layui.table;
+        var $ = layui.jquery;
+
+        $("#add").click(function(){
+            window.open("addclient.html");
+        });
+        //table
+        table.render({
+             limit: 5
+            , limits: [1, 3, 5, 7, 9]
+            , elem: '#demo'
+            , url: '/.do' //数据接口
+            , page: true //开启分页
+            , cols: [[ //表头
+                  {field: '', title: '客户名称'}
+                , {field: '', title: '商机数'}
+                , {field: '', title: '预计成交金额',}
+                , {field: '', title: '合同数',}
+                , {field: '', title: '合同金额',}
+                , {field: '', title: '回款额'}
+                , {field: '', title: '售后服务数'}
+                , {field: '', title: '服务均分'}
+
+            ]]
+        });
+
+
+    });
+        </script>
+
+</body>
+</html>
