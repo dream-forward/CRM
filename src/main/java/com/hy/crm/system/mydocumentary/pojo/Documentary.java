@@ -7,6 +7,7 @@ import java.util.Date;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -29,6 +30,7 @@ public class Documentary implements Serializable {
     private Integer busiid;
 
     @ApiModelProperty(value = "跟单时间")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date doctime;
 
     @ApiModelProperty(value = "跟单主题")
