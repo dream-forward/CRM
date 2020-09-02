@@ -1,13 +1,12 @@
 package com.hy.crm.system.customermanager.pojo;
 
-import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -101,6 +100,8 @@ public class Clientinfo implements Serializable {
     @ApiModelProperty(value = "电话")
     private String bankphone;
 
+    private Integer buserid;
+
     public Integer getCliid() {
         return cliid;
     }
@@ -108,6 +109,7 @@ public class Clientinfo implements Serializable {
     public void setCliid(Integer cliid) {
         this.cliid = cliid;
     }
+
     public String getCliname() {
         return cliname;
     }
@@ -115,6 +117,7 @@ public class Clientinfo implements Serializable {
     public void setCliname(String cliname) {
         this.cliname = cliname;
     }
+
     public String getClipingyin() {
         return clipingyin;
     }
@@ -122,6 +125,7 @@ public class Clientinfo implements Serializable {
     public void setClipingyin(String clipingyin) {
         this.clipingyin = clipingyin;
     }
+
     public String getClitype() {
         return clitype;
     }
@@ -129,6 +133,7 @@ public class Clientinfo implements Serializable {
     public void setClitype(String clitype) {
         this.clitype = clitype;
     }
+
     public String getClifrom() {
         return clifrom;
     }
@@ -136,6 +141,7 @@ public class Clientinfo implements Serializable {
     public void setClifrom(String clifrom) {
         this.clifrom = clifrom;
     }
+
     public String getCliindustry() {
         return cliindustry;
     }
@@ -143,6 +149,7 @@ public class Clientinfo implements Serializable {
     public void setCliindustry(String cliindustry) {
         this.cliindustry = cliindustry;
     }
+
     public String getCliurl() {
         return cliurl;
     }
@@ -150,6 +157,7 @@ public class Clientinfo implements Serializable {
     public void setCliurl(String cliurl) {
         this.cliurl = cliurl;
     }
+
     public String getClicountry() {
         return clicountry;
     }
@@ -157,6 +165,7 @@ public class Clientinfo implements Serializable {
     public void setClicountry(String clicountry) {
         this.clicountry = clicountry;
     }
+
     public String getClicity() {
         return clicity;
     }
@@ -164,6 +173,7 @@ public class Clientinfo implements Serializable {
     public void setClicity(String clicity) {
         this.clicity = clicity;
     }
+
     public String getCliaddress() {
         return cliaddress;
     }
@@ -171,6 +181,7 @@ public class Clientinfo implements Serializable {
     public void setCliaddress(String cliaddress) {
         this.cliaddress = cliaddress;
     }
+
     public String getClipostlcode() {
         return clipostlcode;
     }
@@ -178,6 +189,7 @@ public class Clientinfo implements Serializable {
     public void setClipostlcode(String clipostlcode) {
         this.clipostlcode = clipostlcode;
     }
+
     public String getPerson() {
         return person;
     }
@@ -185,6 +197,7 @@ public class Clientinfo implements Serializable {
     public void setPerson(String person) {
         this.person = person;
     }
+
     public String getPersondept() {
         return persondept;
     }
@@ -192,6 +205,7 @@ public class Clientinfo implements Serializable {
     public void setPersondept(String persondept) {
         this.persondept = persondept;
     }
+
     public String getPersonposition() {
         return personposition;
     }
@@ -199,6 +213,7 @@ public class Clientinfo implements Serializable {
     public void setPersonposition(String personposition) {
         this.personposition = personposition;
     }
+
     public String getPerofficenum() {
         return perofficenum;
     }
@@ -206,6 +221,7 @@ public class Clientinfo implements Serializable {
     public void setPerofficenum(String perofficenum) {
         this.perofficenum = perofficenum;
     }
+
     public String getPernum() {
         return pernum;
     }
@@ -213,6 +229,7 @@ public class Clientinfo implements Serializable {
     public void setPernum(String pernum) {
         this.pernum = pernum;
     }
+
     public String getPerqq() {
         return perqq;
     }
@@ -220,6 +237,7 @@ public class Clientinfo implements Serializable {
     public void setPerqq(String perqq) {
         this.perqq = perqq;
     }
+
     public String getPerparent() {
         return perparent;
     }
@@ -227,6 +245,7 @@ public class Clientinfo implements Serializable {
     public void setPerparent(String perparent) {
         this.perparent = perparent;
     }
+
     public BigDecimal getRegisteredcapital() {
         return registeredcapital;
     }
@@ -234,6 +253,7 @@ public class Clientinfo implements Serializable {
     public void setRegisteredcapital(BigDecimal registeredcapital) {
         this.registeredcapital = registeredcapital;
     }
+
     public String getAppend() {
         return append;
     }
@@ -241,6 +261,7 @@ public class Clientinfo implements Serializable {
     public void setAppend(String append) {
         this.append = append;
     }
+
     public String getBankaccount() {
         return bankaccount;
     }
@@ -248,6 +269,7 @@ public class Clientinfo implements Serializable {
     public void setBankaccount(String bankaccount) {
         this.bankaccount = bankaccount;
     }
+
     public String getBankname() {
         return bankname;
     }
@@ -255,6 +277,7 @@ public class Clientinfo implements Serializable {
     public void setBankname(String bankname) {
         this.bankname = bankname;
     }
+
     public String getBank() {
         return bank;
     }
@@ -262,6 +285,7 @@ public class Clientinfo implements Serializable {
     public void setBank(String bank) {
         this.bank = bank;
     }
+
     public String getBankaddress() {
         return bankaddress;
     }
@@ -269,6 +293,7 @@ public class Clientinfo implements Serializable {
     public void setBankaddress(String bankaddress) {
         this.bankaddress = bankaddress;
     }
+
     public String getTaxnum() {
         return taxnum;
     }
@@ -276,6 +301,7 @@ public class Clientinfo implements Serializable {
     public void setTaxnum(String taxnum) {
         this.taxnum = taxnum;
     }
+
     public String getBankphone() {
         return bankphone;
     }
@@ -284,35 +310,44 @@ public class Clientinfo implements Serializable {
         this.bankphone = bankphone;
     }
 
+    public Integer getBuserid() {
+        return buserid;
+    }
+
+    public void setBuserid(Integer buserid) {
+        this.buserid = buserid;
+    }
+
     @Override
     public String toString() {
         return "Clientinfo{" +
-            "cliid=" + cliid +
-            ", cliname=" + cliname +
-            ", clipingyin=" + clipingyin +
-            ", clitype=" + clitype +
-            ", clifrom=" + clifrom +
-            ", cliindustry=" + cliindustry +
-            ", cliurl=" + cliurl +
-            ", clicountry=" + clicountry +
-            ", clicity=" + clicity +
-            ", cliaddress=" + cliaddress +
-            ", clipostlcode=" + clipostlcode +
-            ", person=" + person +
-            ", persondept=" + persondept +
-            ", personposition=" + personposition +
-            ", perofficenum=" + perofficenum +
-            ", pernum=" + pernum +
-            ", perqq=" + perqq +
-            ", perparent=" + perparent +
-            ", registeredcapital=" + registeredcapital +
-            ", append=" + append +
-            ", bankaccount=" + bankaccount +
-            ", bankname=" + bankname +
-            ", bank=" + bank +
-            ", bankaddress=" + bankaddress +
-            ", taxnum=" + taxnum +
-            ", bankphone=" + bankphone +
-        "}";
+                "cliid=" + cliid +
+                ", cliname='" + cliname + '\'' +
+                ", clipingyin='" + clipingyin + '\'' +
+                ", clitype='" + clitype + '\'' +
+                ", clifrom='" + clifrom + '\'' +
+                ", cliindustry='" + cliindustry + '\'' +
+                ", cliurl='" + cliurl + '\'' +
+                ", clicountry='" + clicountry + '\'' +
+                ", clicity='" + clicity + '\'' +
+                ", cliaddress='" + cliaddress + '\'' +
+                ", clipostlcode='" + clipostlcode + '\'' +
+                ", person='" + person + '\'' +
+                ", persondept='" + persondept + '\'' +
+                ", personposition='" + personposition + '\'' +
+                ", perofficenum='" + perofficenum + '\'' +
+                ", pernum='" + pernum + '\'' +
+                ", perqq='" + perqq + '\'' +
+                ", perparent='" + perparent + '\'' +
+                ", registeredcapital=" + registeredcapital +
+                ", append='" + append + '\'' +
+                ", bankaccount='" + bankaccount + '\'' +
+                ", bankname='" + bankname + '\'' +
+                ", bank='" + bank + '\'' +
+                ", bankaddress='" + bankaddress + '\'' +
+                ", taxnum='" + taxnum + '\'' +
+                ", bankphone='" + bankphone + '\'' +
+                ", buserid=" + buserid +
+                '}';
     }
 }
