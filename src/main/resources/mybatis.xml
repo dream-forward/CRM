@@ -14,11 +14,10 @@
     </settings>
 
     <!--类型别名：定义pojo别名-->
-    <!--<typeAliases>
-        &lt;!&ndash;批量定义别名：默认别名是类名(不计大小写)&ndash;&gt;
-        <package name=""/>
-        <package name=""/>
-    </typeAliases>-->
+    <typeAliases>
+        <!--批量定义别名：默认别名是类名(不计大小写)-->
+        <!--<package name="com.hy.crm.system.customermanager"/>-->
+    </typeAliases>
 
     <!--配置转换器
     javaType：实体类字段类型
