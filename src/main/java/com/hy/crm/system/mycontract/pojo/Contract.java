@@ -6,8 +6,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -44,12 +46,15 @@ public class Contract implements Serializable {
     @ApiModelProperty(value = "合同金额")
     private Double conmoney;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @ApiModelProperty(value = "签约日期")
     private Date condate;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @ApiModelProperty(value = "生效时间")
     private Date begindate;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @ApiModelProperty(value = "失效日期")
     private Date enddate;
 
@@ -76,7 +81,7 @@ public class Contract implements Serializable {
     private String confile;
 
     @ApiModelProperty(value = "合同所属部门")
-    private Integer condept;
+    private String  condept;
 
     @ApiModelProperty(value = "关联人员")
     private String associatedpersonnel;
@@ -203,13 +208,15 @@ public class Contract implements Serializable {
     public void setConfile(String confile) {
         this.confile = confile;
     }
-    public Integer getCondept() {
+
+    public String getCondept() {
         return condept;
     }
 
-    public void setCondept(Integer condept) {
+    public void setCondept(String condept) {
         this.condept = condept;
     }
+
     public String getAssociatedpersonnel() {
         return associatedpersonnel;
     }

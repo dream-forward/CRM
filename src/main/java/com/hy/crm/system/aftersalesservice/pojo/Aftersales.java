@@ -6,7 +6,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -61,9 +63,14 @@ public class Aftersales implements Serializable {
     @ApiModelProperty(value = "服务类型")
     private String servicetype;
 
+    @ApiModelProperty(value = "服务方式")
+    private String servicefs;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty(value = "服务开启时间")
     private Date beginservicedate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty(value = "服务停止时间")
     private Date endservicedate;
 
@@ -81,6 +88,25 @@ public class Aftersales implements Serializable {
 
     @ApiModelProperty(value = "相关附件")
     private String asfile;
+
+    @ApiModelProperty(value = "售后状态")
+    private String aftersalesstatus;
+
+    public String getServicefs() {
+        return servicefs;
+    }
+
+    public void setServicefs(String servicefs) {
+        this.servicefs = servicefs;
+    }
+
+    public String getAftersalesstatus() {
+        return aftersalesstatus;
+    }
+
+    public void setAftersalesstatus(String aftersalesstatus) {
+        this.aftersalesstatus = aftersalesstatus;
+    }
 
     public Integer getAsid() {
         return asid;
