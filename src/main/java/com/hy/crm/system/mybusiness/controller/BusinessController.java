@@ -40,7 +40,6 @@ public class BusinessController {
 
     @RequestMapping(value = "/business.do")
     public void addBusiness(Business business){
-        System.out.println("进来");
         business.setBusiphase("初期沟通");
         businessServiceImpl.save(business);
     }

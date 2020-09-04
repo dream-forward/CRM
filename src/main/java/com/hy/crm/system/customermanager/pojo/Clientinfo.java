@@ -100,6 +100,7 @@ public class Clientinfo implements Serializable {
     @ApiModelProperty(value = "电话")
     private String bankphone;
 
+    @ApiModelProperty(value = "用户")
     private Integer buserid;
 
     public Integer getCliid() {

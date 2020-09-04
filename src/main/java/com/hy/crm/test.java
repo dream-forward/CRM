@@ -52,7 +52,7 @@ public class test {
         // 指定文件生成路径
         gc.setOutputDir(projectPath + "/src/main/java");
         // 作者
-        gc.setAuthor("zzx");
+        gc.setAuthor("TH");
         gc.setOpen(false);
         //实体属性 Swagger2 注解
         gc.setSwagger2(true);
