@@ -1,7 +1,7 @@
 package com.hy.crm.system.customermanager.mapper;
 
-import com.hy.crm.system.customermanager.pojo.Clientinfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.hy.crm.system.customermanager.pojo.Clientinfo;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -14,5 +14,4 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface ClientinfoMapper extends BaseMapper<Clientinfo> {
-
 }
