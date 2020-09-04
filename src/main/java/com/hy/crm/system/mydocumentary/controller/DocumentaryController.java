@@ -3,6 +3,7 @@ package com.hy.crm.system.mydocumentary.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hy.crm.system.mybusiness.service.IBusinessService;
 import com.hy.crm.system.mydocumentary.pojo.Documentary;
 import com.hy.crm.system.mydocumentary.pojo.JsonTable;
 import com.hy.crm.system.mydocumentary.service.IDocumentaryService;
@@ -30,56 +31,46 @@ public class DocumentaryController {
     @Autowired
     private IDocumentaryService documentaryService;
 
+    @Autowired
+    private IBusinessService businessServiceImpl;
+//    private
     /**
-     * 查询所有跟单
+     * 模糊查询 and 查询所有
      */
-    @ResponseBody
-    @RequestMapping("/QueryDocumentary.do")
-    public JsonTable QueryDocumentary(int limit,int page){
-        JsonTable jsonTable = new JsonTable();
-        IPage iPage = new Page<Documentary>(page, limit);
-        IPage iPage1 = documentaryService.page(iPage,null);
-        jsonTable.setData(iPage1.getRecords());
-        jsonTable.setCount((int)iPage1.getTotal());
-        jsonTable.setCode(0);
-        jsonTable.setMsg("查询成功");
-        return jsonTable;
-    }
-
-
     @RequestMapping("/LikeDocumentary.do")
     @ResponseBody
-    public JsonTable LikeDocumentary(int selects,int limit,int page,Documentary documentary){
-        Page page1 = new Page(page,limit);
-        JsonTable jsontable = new JsonTable();
-        jsontable.setCode(0);
-        jsontable.setData(documentaryService.LikeDocumentary(selects,documentary));
-        jsontable.setCount((int) page1.getTotal());
-        return jsontable;
+    public JsonTable LikeDocumentary(int limit, int page, int selects, String inputs){
+        return documentaryService.LikeDocumentary(limit,page,selects,inputs);
+    }
+
+    /**
+     * 去新增跟单
+     */
+    @RequestMapping("/QueryDocumentaryByid.do")
+    @ResponseBody
+    public List<Documentary> QueryDocumentaryByid(Integer busiid){
+        return documentaryService.QueryDocumentaryByid(busiid);
     }
 
 
-//    @RequestMapping("/LikeDocSubject.do")
-//    public JsonTable LikeDocSubject(int limit,int page,Documentary documentary){
-//        Page page1 = new Page(page,limit);
-//        JsonTable jsontable = new JsonTable();
-//        jsontable.setCode(0);
-//        jsontable.setData(documentaryService.LikeDocSubject(documentary));
-//        jsontable.setCount((int) page1.getTotal());
-//        return jsontable;
-//    }
-//
-//
-//    @RequestMapping("/LikeDocUser.do")
-//    public JsonTable LikeDocUser(int limit,int page,Documentary documentary){
-//        Page page1 = new Page(page,limit);
-//        JsonTable jsontable = new JsonTable();
-//        jsontable.setCode(0);
-//        jsontable.setData(documentaryService.LikeDocUser(documentary));
-//        jsontable.setCount((int) page1.getTotal());
-//        return jsontable;
-//    }
+    /**
+     * 去新增跟单
+     */
+    @RequestMapping("/AddDocumentary.do")
+    public String AddDocumentary(Model model){
+        model.addAttribute("business",businessServiceImpl.list());
+        return "documentary/add.html";
+    }
 
+
+    /**
+     * 新增跟单
+     */
+    @RequestMapping("/InsertDocumentary.do")
+    public String InsertDocumentary(Documentary documentary){
+        documentaryService.InsertDocumentary(documentary);
+        return "documentary/list.html";
+    }
 
 
 

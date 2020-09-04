@@ -3,48 +3,55 @@
 <head>
     <meta charset="utf-8">
     <title>跟单管理</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../layui/css/layui.css" media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
+<script src="../layui/layui.js" charset="utf-8"></script>
+<script src="../js/jquery-1.12.3.min.js"></script>
 <body>
-<br>
-
-<table class="layui-hide" id="demo" lay-filter="test"></table>
-
-<script type="text/html" id="toolbarDemo">
-    <form class="layui-form" id="myform">
-        <div class="demoTable">
-            <div class="layui-input-inline">
-                <select name="selects" id="selects" >
-                    <option value="">请选择</option>
-                    <option value="1">跟单人</option>
-                    <option value="2">跟单时间</option>
-                    <option value="3">跟单主题</option>
-                </select>
-            </div>
-            <div class="layui-input-inline">
-                <input type="text" name="inputs" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-            <button class="layui-btn" lay-submit lay-filter="demo1">搜索</button>
+<div style="width:1366px;overflow-x:auto;overflow-y:hidden">
+    <!--头部-->
+<br><br>
+    <!--右侧-->
+    <div style="margin-right:10px;float:right;width:78%;">
+        <div class="layui-header" style="height: 15vh;margin: 0 auto;text-align: left;line-height: 80px;">
+            <form class="layui-form">
+                <!--左侧-->
+                <div class="layui-inline">
+                    <span style="color: #0C0C0C;font-size: 30px">全部跟单</span>
+                </div>&nbsp;&nbsp;&nbsp;
+                <!--下拉框-->
+                <div class="layui-inline" style="height: 40px;width: 180px;">
+                    <select name="selects" id="selects" >
+                        <option value="">请选择</option>
+                        <option value="1">按跟单人</option>
+                        <option value="2">按跟单时间</option>
+                        <option value="3">按跟单主题</option>
+                    </select>
+                </div>
+                <!--文本框-->
+                <div class="layui-inline" style="height: 40px;width: 300px;">
+                    <input type="text" name="inputs" height="0" size="80px;" required lay-verify="required"
+                           placeholder="请输入关键字查询" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn layui-btn-radius" lay-submit lay-filter="demo1" style="width: 90px;height: 40px;">查找
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-radius" style="height: 40px;">重置</button>
+                </div>
+                <div class="layui-inline" style="left: 80px;">
+                    <a href="javascript:;" id="add" style="color: black" class="layui-btn layui-btn-radius layui-icon-add-1">新增跟单</a>
+                    <a href="http://www.layui.com" style="color: black" class="layui-btn layui-btn-radius">刷新</a>
+                </div>
+            </form>
         </div>
-
-        <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" lay-event="add">新建</button>
-        </div>
-    </form>
-
-    <!--<button class="layui-btn layui-btn-sm" lay-event="deletes">删除选中行数据</button>-->
-</script>
-
+        <table id="demo" lay-filter="test" style="width: 100%"></table>
+    </div>
+</div>
 <!--<script type="text/html" id="barDemo">-->
     <!--<a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>-->
     <!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>-->
 <!--</script>-->
-
-<script src="../layui/layui.js" charset="utf-8"></script>
 <script>
     layui.use(['table','upload','form'], function(){
         var table = layui.table,
@@ -53,20 +60,26 @@
 
         table.render({
             elem: '#demo'
-            ,url:'/documentary/QueryDocumentary.do'
-            ,toolbar: '#toolbarDemo'
+            ,url:'/documentary/LikeDocumentary.do?selects=0'
+            , height: 'auto'
+            , autoSort: true
             ,limit:2
             ,page:true
             ,limits:[2,4,6,8,10]
-            ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
             ,cols: [[
-                {field:'docid', width:80, title: 'ID', sort: true}
-                ,{field:'doctime', width:80, title: '跟单时间'}
-                ,{field:'docsubject', width:80, title: '跟单主题', sort: true}
-                ,{field:'docuser', width:80, title: '跟单人'}
-                ,{field:'content', width:80, title: '详细内容'}
-                ,{field:'docfile', width:80, title: '相关附件', sort: true}
+                // {field:'docid',  title: 'ID',align: 'center'}
+                // ,templet:function(d){return util.toDateString(d.aftStartdate, "yyyy-MM-dd");}
+                ,{field:'doctime', title: '跟单时间',align: 'center',templet: "<div>{{layui.util.toDateString(d.starttime, 'yyyy-MM-dd HH:mm:ss')}}</div>"}
+                ,{field:'docsubject',  title: '跟单主题', align: 'center'}
+                ,{field:'docuser',  title: '跟单人', align: 'center'}
+                ,{field:'content',  title: '详细内容', align: 'center'}
+                ,{field:'docfile',  title: '相关附件', align: 'center'}
             ]]
+        });
+
+        //新增商机
+        $("#add").click(function(){
+            window.open("/documentary/AddDocumentary.do");
         });
 
         //头工具栏事件

@@ -2,6 +2,7 @@ package com.hy.crm.system.mydocumentary.service;
 
 import com.hy.crm.system.mydocumentary.pojo.Documentary;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hy.crm.system.mydocumentary.pojo.JsonTable;
 
 import java.util.List;
 
@@ -16,26 +17,24 @@ import java.util.List;
 public interface IDocumentaryService extends IService<Documentary> {
 
     /**
-     * 根据跟单时间模糊查询
-     * @param documentary
-     * @return
+     * 模糊查询 and 查询所有
      */
-    public List<Documentary> LikeDocumentary(int selects,Documentary documentary);
+    public JsonTable LikeDocumentary(int limit, int page, int selects, String inputs);
 
-//    /**
-//     * 根据跟单主题模糊查询
-//     * @param documentary
-//     * @return
-//     */
-//    public List<Documentary> LikeDocSubject(Documentary documentary);
-//
-//    /**
-//     * 根据跟单人模糊查询
-//     * @param documentary
-//     * @return
-//     */
-//    public List<Documentary> LikeDocUser(Documentary documentary);
+    /**
+     * 查询所有
+     */
+    public List<Documentary> QueryDocumentary();
 
+    /**
+     * 根据商机ID查询
+     */
+    public List<Documentary> QueryDocumentaryByid(Integer busiid);
+
+    /**
+     * 新增跟单
+     */
+    public int InsertDocumentary(Documentary documentary);
 
 
 }

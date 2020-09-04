@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import io.swagger.annotations.ApiModel;
@@ -42,7 +43,7 @@ public class Contract implements Serializable {
     private String connum;
 
     @ApiModelProperty(value = "合同金额")
-    private Double conmoney;
+    private BigDecimal conmoney;
 
     @ApiModelProperty(value = "签约日期")
     private Date condate;
@@ -76,13 +77,24 @@ public class Contract implements Serializable {
     private String confile;
 
     @ApiModelProperty(value = "合同所属部门")
-    private Integer condept;
+    private String condept;
 
     @ApiModelProperty(value = "关联人员")
     private String associatedpersonnel;
 
     @ApiModelProperty(value = "合同状态:1-执行,2-关闭,3-撤除,4-搁置")
     private String currentstatus;
+
+    @ApiModelProperty(value = "用户id")
+    private Integer userid;
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
 
     public Integer getConid() {
         return conid;
@@ -126,13 +138,15 @@ public class Contract implements Serializable {
     public void setConnum(String connum) {
         this.connum = connum;
     }
-    public Double getConmoney() {
+
+    public BigDecimal getConmoney() {
         return conmoney;
     }
 
-    public void setConmoney(Double conmoney) {
+    public void setConmoney(BigDecimal conmoney) {
         this.conmoney = conmoney;
     }
+
     public Date getCondate() {
         return condate;
     }
@@ -203,13 +217,15 @@ public class Contract implements Serializable {
     public void setConfile(String confile) {
         this.confile = confile;
     }
-    public Integer getCondept() {
+
+    public String getCondept() {
         return condept;
     }
 
-    public void setCondept(Integer condept) {
+    public void setCondept(String condept) {
         this.condept = condept;
     }
+
     public String getAssociatedpersonnel() {
         return associatedpersonnel;
     }

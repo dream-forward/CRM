@@ -1,8 +1,11 @@
 package com.hy.crm.system.mydocumentary.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hy.crm.system.mydocumentary.pojo.Documentary;
 import com.hy.crm.system.mydocumentary.mapper.DocumentaryMapper;
+import com.hy.crm.system.mydocumentary.pojo.JsonTable;
 import com.hy.crm.system.mydocumentary.service.IDocumentaryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,29 +27,53 @@ public class DocumentaryServiceImpl extends ServiceImpl<DocumentaryMapper, Docum
     @Autowired
     private DocumentaryMapper documentaryMapper;
 
+
+
+    /**
+     * 模糊查询 and 查询所有
+     */
     @Override
-    public List<Documentary> LikeDocumentary(int selects,Documentary documentary) {
+    public JsonTable LikeDocumentary(int limit, int page, int selects, String inputs) {
+        JsonTable jsonTable = new JsonTable();
+        IPage iPage = new Page<Documentary>(page, limit);
         QueryWrapper<Documentary> queryWrapper = new QueryWrapper<>();
-//        System.out.println("000000"+ selects);
-//        if (selects == 1){
-//            System.out.println("111111111111"+ selects);
-//            if(documentary.getDocuser() != null && documentary.getDocuser() != ""){
-//                queryWrapper.like("docuser",documentary.getDocuser());
-//            }
-//        }else if (selects == 2){
-//            System.out.println("22222"+ selects);
-//            if(documentary.getDoctime() != null){
-//                queryWrapper.like("doctime",documentary.getDoctime());
-//            }
-//        }else
-//            if (selects == 3){
-//            System.out.println("3333333"+ selects);
-//            if(documentary.getDocsubject() != null && documentary.getDocsubject() != ""){
-//                queryWrapper.like("docsubject",documentary.getDocsubject());
-//            }
-//        }
+        if (selects == 1){
+                queryWrapper.like("docuser",inputs);
+        }else if (selects == 2){
+                queryWrapper.like("doctime",inputs);
+        }else
+            if (selects == 3){
+                queryWrapper.like("docsubject",inputs);
+        }
+        IPage iPage1 = documentaryMapper.selectPage(iPage,queryWrapper);
+        jsonTable.setData(iPage1.getRecords());
+        jsonTable.setCount((int)iPage1.getTotal());
+        jsonTable.setCode(0);
+        jsonTable.setMsg("查询成功");
+        return jsonTable;
+    }
+
+
+    /**
+     * 查询所有商机
+     */
+    @Override
+    public List<Documentary> QueryDocumentary() {
+        QueryWrapper<Documentary> queryWrapper = new QueryWrapper<>();
         return documentaryMapper.selectList(queryWrapper);
     }
 
+    @Override
+    public List<Documentary> QueryDocumentaryByid(Integer busiid) {
+        return documentaryMapper.QueryDocumentaryByid(busiid);
+    }
+
+    /**
+     * 新增跟单
+     */
+    @Override
+    public int InsertDocumentary(Documentary documentary) {
+        return documentaryMapper.insert(documentary);
+    }
 
 }
