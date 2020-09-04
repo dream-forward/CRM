@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -85,7 +86,10 @@ public class Contract implements Serializable {
     private String confile;
 
     @ApiModelProperty(value = "合同所属部门")
+
     private String condept;
+
+
 
     @ApiModelProperty(value = "关联人员")
     private String associatedpersonnel;
@@ -229,6 +233,7 @@ public class Contract implements Serializable {
     public void setCondept(String condept) {
         this.condept = condept;
     }
+
     public String getAssociatedpersonnel() {
         return associatedpersonnel;
     }

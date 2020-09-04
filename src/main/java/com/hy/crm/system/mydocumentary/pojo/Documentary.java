@@ -30,7 +30,7 @@ public class Documentary implements Serializable {
     private Integer busiid;
 
     @ApiModelProperty(value = "跟单时间")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date doctime;
 
     @ApiModelProperty(value = "跟单主题")

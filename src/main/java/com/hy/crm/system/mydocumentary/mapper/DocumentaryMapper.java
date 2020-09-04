@@ -3,6 +3,9 @@ package com.hy.crm.system.mydocumentary.mapper;
 import com.hy.crm.system.mydocumentary.pojo.Documentary;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,4 +18,9 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface DocumentaryMapper extends BaseMapper<Documentary> {
 
+    /**
+     * 根据商机ID查询
+     */
+    @Select("select * from documentary where busiid = #{busiid}")
+    public List<Documentary> QueryDocumentaryByid(Integer busiid);
 }
