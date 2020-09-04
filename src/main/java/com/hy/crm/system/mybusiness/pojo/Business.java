@@ -2,6 +2,7 @@ package com.hy.crm.system.mybusiness.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -17,6 +18,7 @@ import java.util.Date;
  * @author zzx
  * @since 2020-08-28
  */
+@TableName("business")
 public class Business implements Serializable {
 
     private static final long serialVersionUID = 1L;

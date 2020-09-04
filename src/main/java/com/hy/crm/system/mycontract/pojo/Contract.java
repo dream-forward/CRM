@@ -1,9 +1,13 @@
 package com.hy.crm.system.mycontract.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -19,7 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author zzx
  * @since 2020-08-28
  */
-@ApiModel(value="Contract对象", description="合同表")
+@TableName("contract")
 public class Contract implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,7 +48,7 @@ public class Contract implements Serializable {
     private String connum;
 
     @ApiModelProperty(value = "合同金额")
-    private Double conmoney;
+    private BigDecimal conmoney;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @ApiModelProperty(value = "签约日期")
@@ -81,13 +85,23 @@ public class Contract implements Serializable {
     private String confile;
 
     @ApiModelProperty(value = "合同所属部门")
-    private String  condept;
+    private String condept;
 
     @ApiModelProperty(value = "关联人员")
     private String associatedpersonnel;
 
     @ApiModelProperty(value = "合同状态:1-执行,2-关闭,3-撤除,4-搁置")
     private String currentstatus;
+
+    private Integer userid;
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
 
     public Integer getConid() {
         return conid;
@@ -131,11 +145,11 @@ public class Contract implements Serializable {
     public void setConnum(String connum) {
         this.connum = connum;
     }
-    public Double getConmoney() {
+    public BigDecimal getConmoney() {
         return conmoney;
     }
 
-    public void setConmoney(Double conmoney) {
+    public void setConmoney(BigDecimal conmoney) {
         this.conmoney = conmoney;
     }
     public Date getCondate() {
@@ -208,7 +222,6 @@ public class Contract implements Serializable {
     public void setConfile(String confile) {
         this.confile = confile;
     }
-
     public String getCondept() {
         return condept;
     }
@@ -216,7 +229,6 @@ public class Contract implements Serializable {
     public void setCondept(String condept) {
         this.condept = condept;
     }
-
     public String getAssociatedpersonnel() {
         return associatedpersonnel;
     }
@@ -235,26 +247,27 @@ public class Contract implements Serializable {
     @Override
     public String toString() {
         return "Contract{" +
-            "conid=" + conid +
-            ", conname=" + conname +
-            ", shortname=" + shortname +
-            ", conpriority=" + conpriority +
-            ", clientid=" + clientid +
-            ", connum=" + connum +
-            ", conmoney=" + conmoney +
-            ", condate=" + condate +
-            ", begindate=" + begindate +
-            ", enddate=" + enddate +
-            ", conperson=" + conperson +
-            ", conofficenum=" + conofficenum +
-            ", conphone=" + conphone +
-            ", conqq=" + conqq +
-            ", Technicalclause=" + Technicalclause +
-            ", businessclause=" + businessclause +
-            ", confile=" + confile +
-            ", condept=" + condept +
-            ", associatedpersonnel=" + associatedpersonnel +
-            ", currentstatus=" + currentstatus +
-        "}";
+                "conid=" + conid +
+                ", conname='" + conname + '\'' +
+                ", shortname='" + shortname + '\'' +
+                ", conpriority='" + conpriority + '\'' +
+                ", clientid=" + clientid +
+                ", connum='" + connum + '\'' +
+                ", conmoney=" + conmoney +
+                ", condate=" + condate +
+                ", begindate=" + begindate +
+                ", enddate=" + enddate +
+                ", conperson='" + conperson + '\'' +
+                ", conofficenum='" + conofficenum + '\'' +
+                ", conphone='" + conphone + '\'' +
+                ", conqq='" + conqq + '\'' +
+                ", Technicalclause='" + Technicalclause + '\'' +
+                ", businessclause='" + businessclause + '\'' +
+                ", confile='" + confile + '\'' +
+                ", condept='" + condept + '\'' +
+                ", associatedpersonnel='" + associatedpersonnel + '\'' +
+                ", currentstatus='" + currentstatus + '\'' +
+                ", userid=" + userid +
+                '}';
     }
 }

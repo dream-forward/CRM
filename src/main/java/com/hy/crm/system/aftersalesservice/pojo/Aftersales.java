@@ -2,13 +2,13 @@ package com.hy.crm.system.aftersalesservice.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
-import java.util.Date;
-
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -84,7 +84,7 @@ public class Aftersales implements Serializable {
     private String serviceperson;
 
     @ApiModelProperty(value = "服务评分")
-    private String servicecore;
+    private Integer servicecore;
 
     @ApiModelProperty(value = "相关附件")
     private String asfile;
@@ -234,11 +234,11 @@ public class Aftersales implements Serializable {
     public void setServiceperson(String serviceperson) {
         this.serviceperson = serviceperson;
     }
-    public String getServicecore() {
+    public Integer getServicecore() {
         return servicecore;
     }
 
-    public void setServicecore(String servicecore) {
+    public void setServicecore(Integer servicecore) {
         this.servicecore = servicecore;
     }
     public String getAsfile() {
