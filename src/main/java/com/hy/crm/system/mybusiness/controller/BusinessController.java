@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -91,11 +90,16 @@ public class BusinessController {
     /*全部商机*/
     @RequestMapping("/queryBusiness.do")
     @ResponseBody
-    public LayuiUtils queryBusiness(Integer page, Integer limit, @ModelAttribute Business business,Integer day, String time,String jieduan,String doing,HttpServletRequest request){
+    public LayuiUtils queryBusiness(Integer page, Integer limit,Business business,String maymoney,Integer day, String time,String jieduan,String doing,HttpServletRequest request){
         if(null==page){
             page=1;
         }
+
         Page page1=new Page(page,limit);
+        if(null!=maymoney) {
+            BigDecimal bigDecimal = new BigDecimal(maymoney);
+            business.setMaymoney(bigDecimal);
+        }
         IPage iPage=businessServiceImpl.queryBusiness(page1,business,day,time,jieduan,doing,request);
         if(null!=iPage){
             LayuiUtils utils=new LayuiUtils();
@@ -130,11 +134,15 @@ public class BusinessController {
     /*我的商机*/
     @RequestMapping("/myqueryBusiness.do")
     @ResponseBody
-    public LayuiUtils myQueryBusiness(Integer page, Integer limit, @ModelAttribute Business business,String type,Integer day, String time,String jieduan,HttpServletRequest request){
+    public LayuiUtils myQueryBusiness(Integer page, Integer limit,Business business,String maymoney,String type,Integer day, String time,String jieduan,HttpServletRequest request){
         if(null==page){
             page=1;
         }
         Page page1=new Page(page,limit);
+        if(null!=maymoney) {
+            BigDecimal bigDecimal = new BigDecimal(maymoney);
+            business.setMaymoney(bigDecimal);
+        }
         IPage iPage=businessServiceImpl.myQueryBusiness(page1,business,type,day,time,jieduan,request);
         if(null!=iPage){
             LayuiUtils utils=new LayuiUtils();

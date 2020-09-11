@@ -1,6 +1,7 @@
 package com.hy.crm.system.mybusiness.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
@@ -95,6 +96,7 @@ public class Business implements Serializable {
     private String lastdate;
 
     //讨论版数量
+    @TableField(exist = false)
     private Integer forumcount;
 
     public Integer getForumcount() {

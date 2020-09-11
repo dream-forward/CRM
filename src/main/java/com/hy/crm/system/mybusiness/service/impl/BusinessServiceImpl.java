@@ -48,15 +48,15 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
                   queryWrapper.in("busiphase","初期沟通","方案和报价","竞争或投标","商务谈判");
                 iPage=businessMapper.selectPage(page,queryWrapper);
             }else if(null!=day && !"".equals(day)){//7/30/90天未跟单
-                if("day7".equals(day)){
+                if(7==day){
                     queryWrapper.isNull("lastdate");
                     queryWrapper.apply("date_sub(curdate(), INTERVAL 7 DAY) <= date(busdate)");
                     iPage=businessMapper.selectPage(page,queryWrapper);
-                }else if("day30".equals(day)){
+                }else if(30==day){
                     queryWrapper.isNull("lastdate");
                     queryWrapper.apply("date_sub(curdate(), INTERVAL 30 DAY) <= date(busdate)");
                     iPage=businessMapper.selectPage(page,queryWrapper);
-                }else if("day90".equals(day)){
+                }else if(90==day){
                     queryWrapper.isNull("lastdate");
                     queryWrapper.apply("date_sub(curdate(), INTERVAL 90 DAY) <= date(busdate)");
                     iPage=businessMapper.selectPage(page,queryWrapper);
@@ -142,17 +142,17 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, Business> i
                 }
                 iPage=businessMapper.selectPage(page,queryWrapper);
             }else if(null!=day && !"".equals(day)){//7/30/90天未跟单（通用）
-                if("day7".equals(day)){
+                if(7==day){
                     queryWrapper.isNull("lastdate");
                     queryWrapper.apply("date_sub(curdate(), INTERVAL 7 DAY) <= date(busdate)");
                     queryWrapper.eq("busprincipal","张三");
                     iPage=businessMapper.selectPage(page,queryWrapper);
-                }else if("day30".equals(day)){
+                }else if(30==day){
                     queryWrapper.isNull("lastdate");
                     queryWrapper.apply("date_sub(curdate(), INTERVAL 30 DAY) <= date(busdate)");
                     queryWrapper.eq("busprincipal","张三");
                     iPage=businessMapper.selectPage(page,queryWrapper);
-                }else if("day90".equals(day)){
+                }else if(90==day){
                     queryWrapper.isNull("lastdate");
                     queryWrapper.apply("date_sub(curdate(), INTERVAL 90 DAY) <= date(busdate)");
                     queryWrapper.eq("busprincipal","张三");
