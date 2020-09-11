@@ -1,5 +1,7 @@
 package com.hy.crm.system.mycontract.mapper;
 
+import com.github.pagehelper.Page;
+import com.hy.crm.system.alldiscussionposts.pojo.LikeSql;
 import com.hy.crm.system.mycontract.pojo.Contract;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hy.crm.system.mycontract.pojo.ContractBo;
@@ -98,7 +100,7 @@ public interface ContractMapper extends BaseMapper<Contract> {
     @Select("select count(*) from contract where YEAR(condate)=YEAR(NOW()) and userid=#{uid}")
     public Integer LastYear(Integer uid);
     @SelectProvider(type= LikeSql.class,method="select2")
-    public List<ContractBo> QueryContractBo(Page page,int selectss, String inputss);
+    public List<ContractBo> QueryContractBo(Page page, int selectss, String inputss);
 
 
 }
