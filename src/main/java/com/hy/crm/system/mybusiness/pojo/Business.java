@@ -86,6 +86,39 @@ public class Business implements Serializable {
     private Integer clientid;
 
     private String busiphase;
+    //商机添加时间
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date busdate;
+
+    //最后跟单时间
+    private String lastdate;
+
+    //讨论版数量
+    private Integer forumcount;
+
+    public Integer getForumcount() {
+        return forumcount;
+    }
+
+    public void setForumcount(Integer forumcount) {
+        this.forumcount = forumcount;
+    }
+
+    public String getLastdate() {
+        return lastdate;
+    }
+
+    public void setLastdate(String lastdate) {
+        this.lastdate = lastdate;
+    }
+
+    public Date getBusdate() {
+        return busdate;
+    }
+
+    public void setBusdate(Date busdate) {
+        this.busdate = busdate;
+    }
 
     public Integer getBusid() {
         return busid;

@@ -20,7 +20,7 @@
     客户信息
 </div>
 
-<form class="layui-form layui-form-pane" action="/clientinfo/addclient.do"  method="post">
+<form class="layui-form layui-form-pane">
     <div class="layui-inline">
     <div class="layui-form-item">
         <label class="layui-form-label"><font color="red">*</font> 客户名称</label>
@@ -33,9 +33,10 @@
 
     <div class="layui-inline">
     <div class="layui-form-item">
-        <label class="layui-form-label">拼音</label>
+        <label class="layui-form-label"><font color="red">*</font>拼音</label>
         <div class="layui-input-inline" style="width:400px;">
-            <input name="clipingyin"  class="layui-input" type="text" style="width:400px;"  autocomplete="off">
+            <input name="clipingyin"  class="layui-input" type="text" style="width:400px;"
+                   required    lay-verify="clipingyin"      autocomplete="off">
         </div>
     </div>
     </div>
@@ -57,7 +58,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label"><font color="red">*</font>客户来源</label>
         <div class="layui-input-inline" style="width:400px;">
-            <select name="clifrom" style="width:400px;">
+            <select required    lay-verify="clifrom"  name="clifrom" style="width:400px;">
                 <option value="0">请选择</option>
                 <option value="老客户">老客户</option>
                 <option value="代理商">代理商</option>
@@ -82,7 +83,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label"><font color="red">*</font>所属行业</label>
             <div class="layui-input-inline" style="width:400px;">
-                <select name="cliindustry" style="width:400px;">
+                <select required    lay-verify="cliindustry" name="cliindustry" style="width:400px;">
                     <option value="0">请选择</option>
                     <option value="IT|互联网|通信|电子">IT|互联网|通信|电子</option>
                     <option value="金融|银行|保险">金融|银行|保险</option>
@@ -218,7 +219,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">注册资本</label>
         <div class="layui-input-block">
-            <input name="registeredcapital"  class="layui-input" type="text"  autocomplete="off">
+            <input name="registeredcapital"  class="layui-input" type="text"
+                   required   lay-verify="registeredcapital"     autocomplete="off">
         </div>
     </div>
 
@@ -300,7 +302,7 @@
     <div class="layui-inline">
         <div class="layui-form-item">
             <div class="layui-input-block" style="width: 200px;">
-                <a href="javascript:window.opener=null;window.open('','_self');window.close();" style="width: 200px;"  style="color: black" class="layui-btn layui-btn-primary layui-btn-radius" >返回</font></a>
+                <a href="javascript:window.opener=null;window.open('','_self');window.close();" style="width: 200px;"  style="color: black" class="layui-btn layui-btn-primary layui-btn-radius" ><font color="black">返回</font></a>
             </div>
         </div>
     </div>
@@ -316,23 +318,34 @@
 
         //table
         form.on('submit(sub)', function(data){
-            var field=data.field;
-            if(field.clifrom==0){
-                layer.msg('请选择客户来源',{anim: 6,icon:5});
-                return false;
-            }
-            if(field.cliindustry==0){
-                layer.msg('请选择客户所属行业',{anim: 6,icon:5});
-                return false;
-            }
-            layer.msg('添加成功',{anim: 6,
-                icon:1
+           var client=data.field;
+            $.ajax({
+                type: "POST"
+                , url: '/clientinfo/addclient.do'
+                , data: client
+                , success: function (res) {
+                    if (res == true) {
+                        layer.msg("添加成功", {icon: 1});
+                        window.close(document);
+                    }else{
+                        layer.msg("添加失败，请重新添加", {icon: 1});
+                        window.close(document);
+                    }
+                }
             });
-            window.close(document);
-            return true;
+            return false;
         });
 
         form.verify({
+            clifrom:function(value,item){
+                if(value==0){
+                    return '请选择客户来源';
+                }
+            },cliindustry:function(value,item){
+                if(value==0){
+                    return '请选择客户所属行业';
+                }
+            },
             cliname: function(value, item){ //value：表单的值、item：表单的DOM对象
                 if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
                     return '客户名称不能有特殊字符';
@@ -356,6 +369,12 @@
             city:[
                 /^[\S]{2,15}$/
                 ,'请输入正确的城市名称'
+            ],clipingyin:[
+                /^[\S]{2,15}$/
+                ,'请输入正确的拼音'
+            ],registeredcapital:[
+                /\d+/
+                ,'请输入正确的金额格式'
             ]
         });
 

@@ -1,7 +1,7 @@
 package com.hy.crm.system.mybusiness.mapper;
 
-import com.hy.crm.system.mybusiness.pojo.Business;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.hy.crm.system.mybusiness.pojo.Business;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

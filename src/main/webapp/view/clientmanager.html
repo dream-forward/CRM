@@ -22,11 +22,11 @@
                 <div class="layui-card-header"><span style="float: left;"><b>分类</b></span></div>
                 <div class="layui-card-body" style="width: 100%;">
                     <ul>
-                        <li><a lay-href="">VIP</a>
+                        <li><a href="javascript:;" id="vip" style="color: red" >VIP</a>
                         </li>
-                        <li><a lay-href="">SVIP</a>
+                        <li><a href="javascript:;" id="svip" style="color: gold" >SVIP</a>
                         </li>
-                        <li><a lay-href="">普通客户</a>
+                        <li><a href="javascript:;" id="putong" >普通客户</a>
                         </li>
                     </ul>
                 </div>
@@ -72,12 +72,18 @@
                     </div>
             <div class="layui-inline" style="left: 250px;">
                 <a href="javascript:;" id="add" style="color: black" class="layui-btn layui-icon layui-icon-add-1" ><font color="black">新增客户</font>
-                </a><a href="http://www.layui.com" style="color: black"  class="layui-btn layui-icon layui-icon-refresh"><font color="black">刷新</font></a>
+                </a><a href="javascript:;" id="flush" style="color: black"  class="layui-btn layui-icon layui-icon-refresh"><font color="black">刷新</font></a>
             </div>
         </form>
 
 
         <table lay-even lay-skin="line" lay-size="lg" id="demo" lay-filter="test" class="layui-table"></table>
+    <script type="text/html" id="toupdat">
+        <a href="/clientinfo/queryClientById.do?id={{d.cliid}}" style="color: #1991FA" target="_blank">{{d.clientname}}</a>
+    </script>
+    <script type="text/html" id="morebusiness">
+        <a href="/business/queryBusinessById.do?id={{d.cliid}}" style="color: #1991FA" target="_blank">{{d.buscount}}</a>
+    </script>
 </div>
 </div>
 <script>
@@ -91,7 +97,7 @@
             table.reload('demo', {
                  url: '/clientinfo/clientlist.do'
                  , where: {
-                     limit:5,
+                     limit:10,
                      did: data.field.did,
                      valu: data.field.titl
                  } //设定异步数据接口的额外参数
@@ -103,16 +109,69 @@
         $("#add").click(function(){
             window.open("addclient.html");
         });
+
+        $("#updat").click(function(){
+            window.open("addclient.html");
+        });
+
+        $("#vip").click(function(){
+            table.reload('demo', {
+                url: '/clientinfo/clientlist.do'
+                , where: {
+                    limit:10,
+                    did: 1007,
+                    valu:"VIP"
+                } //设定异步数据接口的额外参数
+                //,height: 300
+            });
+        });
+
+        $("#svip").click(function(){
+            table.reload('demo', {
+                url: '/clientinfo/clientlist.do'
+                , where: {
+                    limit:10,
+                    did: 1007,
+                    valu:"SVIP"
+                } //设定异步数据接口的额外参数
+                //,height: 300
+            });
+        });
+
+        $("#putong").click(function(){
+            table.reload('demo', {
+                url: '/clientinfo/clientlist.do'
+                , where: {
+                    limit:10,
+                    did: 1007,
+                    valu:"普通客户"
+                } //设定异步数据接口的额外参数
+                //,height: 300
+            });
+        });
+
+        $("#flush").click(function(){
+            table.reload('demo', {
+                url: '/clientinfo/clientlist.do'
+                , where: {
+                    limit:10
+                } //设定异步数据接口的额外参数
+                //,height: 300
+            });
+        });
+
+
+
         //table
         table.render({
-             limit: 5
-            , limits: [1, 3, 5, 7, 9]
+             limit: 10
+            , limits: [2, 4, 6, 8, 10]
             , elem: '#demo'
             , url: '/clientinfo/clientlist.do' //数据接口
             , page: true //开启分页
             , cols: [[ //表头
-                  {field: 'clientname', title: '客户名称'}
-                , {field: 'buscount', title: '商机数'}
+                  {field: 'clientname', title: '客户名称',toolbar:'#toupdat'}
+                , {field: 'buscount', title: '商机数',toolbar:'#morebusiness'}
                 , {field: 'summoney', title: '预计成交金额',}
                 , {field: 'concount', title: '合同数',}
                 , {field: 'sumcon', title: '合同金额',}

@@ -9,35 +9,37 @@
     <script src="/layui/layui.js"></script>
 </head>
 <body>
-<form class="layui-form layui-form-pane" action="/business/business.do"  method="post">
-    <input type="hidden" name="clientid"  id="cid"/>
+<form class="layui-form layui-form-pane" id="for" action="/business/business.do" method="post">
     <div class="layui-inline">
         <div class="layui-form-item">
             <label class="layui-form-label"><font color="red">*</font>商机名称</label>
-            <div class="layui-input-inline"  style="width:400px;">
-                <input name="busname" id="busname" class="layui-input" type="text" style="width:400px;" placeholder="请输入姓名"
-                    readonly   required    lay-verify="busname"   autocomplete="off">
+            <div class="layui-input-inline" style="width:400px;">
+                <input name="busname" id="busname" class="layui-input" type="text" style="width:400px;"
+                       placeholder="请输入姓名"
+                       readonly required lay-verify="busname" autocomplete="off">
             </div>
         </div>
     </div>
 
     <div class="layui-inline">
-    <div class="layui-form-item" pane="">
-        <label class="layui-form-label">优先级</label>
-        <div class="layui-input-block">
-            <input name="priority" title="高" type="radio" checked="" value="1">
-            <input name="priority" title="中" type="radio" value="2">
-            <input name="priority" title="低" type="radio" value="3">
+        <div class="layui-form-item" pane="">
+            <label class="layui-form-label">优先级</label>
+            <div class="layui-input-block">
+                <input name="priority" title="高" type="radio" checked="" value="1">
+                <input name="priority" title="中" type="radio" value="2">
+                <input name="priority" title="低" type="radio" value="3">
+            </div>
         </div>
     </div>
-    </div>
 
-   <div class="layui-inline" style="margin-left: 140px;">
+    <div class="layui-inline" style="margin-left: 140px;">
         <div class="layui-form-item">
-    <div class="layui-inline">
-        <a href="javascript:window.opener=null;window.open('','_self');window.close();" style="color: black" class="layui-btn layui-icon layui-icon-return" ><font color="black">返回</font></a>
-        <a href="addclient.html" id="flush" style="color: black"  class="layui-btn layui-icon layui-icon-refresh"><font color="black">刷新</font></a>
-    </div>
+            <div class="layui-inline">
+                <a href="javascript:window.opener=null;window.open('','_self');window.close();" style="color: black"
+                   class="layui-btn layui-icon layui-icon-return"><font color="black">返回</font></a>
+                <a href="javascript:;" id="res" style="color: black"
+                   class="layui-btn layui-icon layui-icon-refresh"><font color="black">刷新</font></a>
+            </div>
         </div>
     </div>
 
@@ -50,7 +52,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label"><font color="red">*</font>客户名称</label>
             <div class="layui-input-inline" style="width:400px;">
-                <select  lay-filter="se" id="clilist" style="width:400px;">
+                <select name="clientid" lay-filter="se" id="clilist" style="width:400px;">
                 </select>
             </div>
         </div>
@@ -60,7 +62,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">所属行业</label>
             <div class="layui-input-inline" style="width:400px;">
-                <input  id="hangye"  class="layui-input" readonly type="text" style="width:400px;"  autocomplete="off">
+                <input id="hangye" class="layui-input" readonly type="text" style="width:400px;" autocomplete="off">
             </div>
         </div>
     </div>
@@ -69,7 +71,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">所在城市</label>
             <div class="layui-input-inline" style="width:400px;">
-                <input id="chengshi"  class="layui-input" readonly type="text" style="width:400px;"  autocomplete="off">
+                <input id="chengshi" class="layui-input" readonly type="text" style="width:400px;" autocomplete="off">
             </div>
         </div>
     </div>
@@ -78,7 +80,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">详细地址</label>
             <div class="layui-input-inline" style="width:400px;">
-                <input id="dizhi" class="layui-input" readonly type="text" style="width:400px;"  autocomplete="off">
+                <input id="dizhi" class="layui-input" readonly type="text" style="width:400px;" autocomplete="off">
             </div>
         </div>
     </div>
@@ -92,8 +94,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label"><font color="red">*</font>商机名称</label>
             <div class="layui-input-inline" style="width:400px;">
-                <input name="shortname" onblur="myblur(this.value)"  class="layui-input"  type="text" style="width:400px;"
-                      required autocomplete="off">
+                <input name="shortname" onblur="myblur(this.value)" class="layui-input" type="text" style="width:400px;"
+                       required autocomplete="off"/>
             </div>
         </div>
     </div>
@@ -125,149 +127,134 @@
 
     <div class="layui-inline">
         <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 150px;">预计成交金额</label>
+            <label class="layui-form-label" style="width: 150px;"><font color="red">*</font>预计成交金额</label>
             <div class="layui-input-inline" style="width:360px;">
-                <input name="maymoney"  class="layui-input"  type="text" style="width:360px;"  autocomplete="off">
+                <input name="maymoney" class="layui-input" type="text" style="width:360px;"
+                       required lay-verify="maymoney" autocomplete="off">
             </div>
         </div>
     </div>
 
-        <div class="layui-inline">
-            <div class="layui-form-item">
-                <label class="layui-form-label" style="width: 150px;">预计结单日期</label>
-                <div class="layui-input-inline">
-                    <input name="maydate" id="date" class="layui-input" type="text" style="width:360px;" placeholder="yyyy-MM-dd" autocomplete="off">
-                </div>
-            </div>
-        </div>
-
-            <div class="layui-inline">
-                <div class="layui-form-item">
-                    <label class="layui-form-label"><font color="red">*</font>联系人</label>
-                    <div class="layui-input-inline" style="width:400px;">
-                        <input name="busperson"  class="layui-input"  type="text" style="width:400px;"
-                               required  autocomplete="off" lay-verify="busperson">
-                    </div>
-                </div>
-            </div>
-
-            <div class="layui-inline">
-                <div class="layui-form-item">
-                    <label class="layui-form-label"><font color="red">*</font>联系人部门</label>
-                    <div class="layui-input-inline" style="width:400px;">
-                        <select name="perdept" required style="width:400px;">
-                            <option value="0">请选择</option>
-                            <option value="销售部">销售部</option>
-                            <option value="售后部">售后部</option>
-                            <option value="财务部">财务部</option>
-                            <option value="人事部">人事部</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-              <div class="layui-inline">
-                  <div class="layui-form-item">
-                      <label class="layui-form-label">职务</label>
-                      <div class="layui-input-inline" style="width:400px;">
-                          <input name="busposition"  class="layui-input"  type="text" style="width:400px;"  autocomplete="off">
-                      </div>
-                  </div>
-              </div>
-
-              <div class="layui-inline">
-                  <div class="layui-form-item">
-                      <label class="layui-form-label">固定电话</label>
-                      <div class="layui-input-inline" style="width:400px;">
-                          <input name="busofficenum"  class="layui-input"  type="text" style="width:400px;"  autocomplete="off">
-                      </div>
-                  </div>
-              </div>
-
-                  <div class="layui-inline">
-                      <div class="layui-form-item">
-                          <label class="layui-form-label">移动电话</label>
-                          <div class="layui-input-inline" style="width:400px;">
-                              <input name="busnum"  class="layui-input"  type="text" style="width:400px;"  autocomplete="off">
-                          </div>
-                      </div>
-                  </div>
-
-                      <div class="layui-inline">
-                          <div class="layui-form-item">
-                              <label class="layui-form-label">邮件/QQ</label>
-                              <div class="layui-input-inline" style="width:400px;">
-                                  <input name="busqq"  class="layui-input"  type="text" style="width:400px;"  autocomplete="off">
-                              </div>
-                          </div>
-                      </div>
-
-                         <div class="layui-form-item layui-form-text">
-                             <label class="layui-form-label">主要业务需求</label>
-                             <div class="layui-input-block">
-                                 <textarea name="busneed" class="layui-textarea" placeholder="请输入内容"></textarea>
-                             </div>
-                         </div>
-
-
-                          <div class="layui-form-item">
-                                 <label class="layui-form-label">相关附件</label>
-                                 <div class="layui-input-block" >
-                                     <input name="busfile"  class="layui-input"  type="text"  autocomplete="off">
-                                 </div>
-                             </div>
-
-                         <div class="layui-inline">
-                             <div class="layui-form-item">
-                                 <label class="layui-form-label" style="width: 150px;"><font color="red">*</font>商机所属部门</label>
-                                 <div class="layui-input-inline" style="width:400px;">
-                                     <input name="busdept"  class="layui-input"  type="text" style="width:400px;"
-                                            required lay-verify="busdept"  autocomplete="off">
-                                 </div>
-                             </div>
-                         </div>
-
-                         <div class="layui-inline">
-                             <div class="layui-form-item">
-                                 <label class="layui-form-label"><font color="red">*</font>商机负责人</label>
-                                 <div class="layui-input-inline" style="width:400px;">
-                                     <input name="busprincipal"  class="layui-input"  type="text" style="width:400px;"
-                                            required lay-verify="busprincipal" autocomplete="off">
-                                 </div>
-                             </div>
-                         </div>
-
-                         <div class="layui-inline">
-                             <div class="layui-form-item">
-                                 <label class="layui-form-label">商机参与人</label>
-                                 <div class="layui-input-inline" style="width:400px;">
-                                     <input name="busparticipant"  class="layui-input"  type="text" style="width:400px;"  autocomplete="off">
-                                 </div>
-                             </div>
-                         </div>
-
-                         <div class="layui-inline">
-                             <div class="layui-form-item">
-                                 <label class="layui-form-label">商机关注人</label>
-                                 <div class="layui-input-inline" style="width:400px;">
-                                     <input name="busfocus"  class="layui-input"  type="text" style="width:400px;"  autocomplete="off">
-                                 </div>
-                             </div>
-                         </div>
-
     <div class="layui-inline">
         <div class="layui-form-item">
-            <div class="layui-input-block" style="width: 170px;">
-                <button class="layui-btn layui-btn-normal layui-btn-radius" style="width: 170px;" lay-submit lay-filter="sub">确定</button>
+            <label class="layui-form-label" style="width: 150px;">预计结单日期</label>
+            <div class="layui-input-inline">
+                <input name="maydate" id="date" class="layui-input" type="text" style="width:360px;"
+                       required lay-verify="maydate" placeholder="yyyy-MM-dd" autocomplete="off">
             </div>
         </div>
     </div>
 
+    <div class="layui-inline">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><font color="red">*</font>联系人</label>
+            <div class="layui-input-inline" style="width:400px;">
+                <input name="busperson" class="layui-input" type="text" style="width:400px;"
+                       required autocomplete="off" lay-verify="busperson">
+            </div>
+        </div>
+    </div>
 
     <div class="layui-inline">
         <div class="layui-form-item">
-            <div class="layui-input-block" style="width: 170px;">
-                <button class="layui-btn layui-btn-normal layui-btn-radius" style="width: 170px;" >提交审核</button>
+            <label class="layui-form-label"><font color="red">*</font>联系人部门</label>
+            <div class="layui-input-inline" style="width:400px;">
+                <select name="perdept" required style="width:400px;">
+                    <option value="0">请选择</option>
+                    <option value="销售部">销售部</option>
+                    <option value="售后部">售后部</option>
+                    <option value="财务部">财务部</option>
+                    <option value="人事部">人事部</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-inline">
+        <div class="layui-form-item">
+            <label class="layui-form-label">职务</label>
+            <div class="layui-input-inline" style="width:400px;">
+                <input name="buspostion" class="layui-input" type="text" style="width:400px;" autocomplete="off">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-inline">
+        <div class="layui-form-item">
+            <label class="layui-form-label">固定电话</label>
+            <div class="layui-input-inline" style="width:400px;">
+                <input name="busofficenum" class="layui-input" type="text" style="width:400px;" autocomplete="off">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-inline">
+        <div class="layui-form-item">
+            <label class="layui-form-label">移动电话</label>
+            <div class="layui-input-inline" style="width:400px;">
+                <input name="busnum" class="layui-input" type="text" style="width:400px;" autocomplete="off">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-inline">
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮件/QQ</label>
+            <div class="layui-input-inline" style="width:400px;">
+                <input name="busqq" class="layui-input" type="text" style="width:400px;" autocomplete="off">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">主要业务需求</label>
+        <div class="layui-input-block">
+            <textarea name="busneed" class="layui-textarea" placeholder="请输入内容"></textarea>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">相关附件</label>
+        <div class="layui-input-block">
+            <input name="busfile" class="layui-input" type="text" autocomplete="off">
+        </div>
+    </div>
+
+    <div class="layui-inline">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 150px;"><font color="red">*</font>商机所属部门</label>
+            <div class="layui-input-inline" style="width:400px;">
+                <input name="busdept" class="layui-input" type="text" style="width:400px;"
+                       required lay-verify="busdept" autocomplete="off">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-inline">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><font color="red">*</font>商机负责人</label>
+            <div class="layui-input-inline" style="width:400px;">
+                <input name="busprincipal" class="layui-input" type="text" style="width:400px;"
+                       required lay-verify="busprincipal" autocomplete="off">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-inline">
+        <div class="layui-form-item">
+            <label class="layui-form-label">商机参与人</label>
+            <div class="layui-input-inline" style="width:400px;">
+                <input name="busparticipant" class="layui-input" type="text" style="width:400px;" autocomplete="off">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-inline">
+        <div class="layui-form-item">
+            <label class="layui-form-label">商机关注人</label>
+            <div class="layui-input-inline" style="width:400px;">
+                <input name="busfocus" class="layui-input" type="text" style="width:400px;" autocomplete="off">
             </div>
         </div>
     </div>
@@ -275,7 +262,18 @@
     <div class="layui-inline">
         <div class="layui-form-item">
             <div class="layui-input-block" style="width: 170px;">
-                <button class="layui-btn layui-btn-normal layui-btn-radius" style="width: 170px;" >登记完成转跟单</button>
+                <button class="layui-btn layui-btn-normal layui-btn-radius" style="width: 170px;" lay-submit
+                        lay-filter="sub">确定
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="layui-inline">
+        <div class="layui-form-item">
+            <div class="layui-input-block" style="width: 170px;">
+                <button class="layui-btn layui-btn-normal layui-btn-radius" style="width: 170px;">提交审核</button>
             </div>
         </div>
     </div>
@@ -283,7 +281,16 @@
     <div class="layui-inline">
         <div class="layui-form-item">
             <div class="layui-input-block" style="width: 170px;">
-                <a href="javascript:window.opener=null;window.open('','_self');window.close();" style="width: 200px;"  style="color: black" class="layui-btn layui-btn-primary layui-btn-radius" >返回</font></a>
+                <button class="layui-btn layui-btn-normal layui-btn-radius" style="width: 170px;">登记完成转跟单</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-inline">
+        <div class="layui-form-item">
+            <div class="layui-input-block" style="width: 170px;">
+                <a href="javascript:window.opener=null;window.open('','_self');window.close();"
+                   style="width: 200px;color: black" class="layui-btn layui-btn-primary layui-btn-radius">返回</font></a>
             </div>
         </div>
     </div>
@@ -292,52 +299,58 @@
 
 <script>
     //失去焦点拼接名称
-    var myblur=function(valu){
-        if(valu==""){
+    var myblur = function (valu) {
+        if (valu == "") {
             $("#busname").val("");
-        }else{
-            var shortname=$("#clilist").find('option:selected').text();
-            var allname=shortname+"-"+valu;
+        } else {
+            var shortname = $("#clilist").find('option:selected').text();
+            var allname = shortname + "-" + valu;
             $("#busname").val(allname);
         }
 
     }
-    var listt="";
-    layui.use(['form','jquery','layer','laydate','upload'], function () {
-        var form = layui.form;
-        var $=layui.jquery;
-        var layer=layui.layer;
-        var laydate=layui.laydate;
-        var upload=layui.upload;
 
-        var uploadInst = upload.render({
-            elem: '#test1' //绑定元素
-            ,url: '/fileupload.do'
-            ,done: function(res){
-                $("#fileup").val(res.msg);
-                $('#demo3').attr('src', "/"+res.msg);
-                layer.alert('上传成功', {icon: 1});
-            }
-            ,error: function(){
-                layer.msg('系统繁忙，稍微等一下下欧', {icon: 5});
-            }
-        });
+    $("#res").click(function () {
+        document.getElementById("for").reset();
+    });
+
+
+    var listt = "";
+    layui.use(['form', 'jquery', 'layer', 'laydate', 'upload'], function () {
+        var form = layui.form;
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var laydate = layui.laydate;
+        var upload = layui.upload;
+
+        /*        var uploadInst = upload.render({
+                    elem: '#test1' //绑定元素
+                    ,url: '/fileupload.do'
+                    ,done: function(res){
+                        $("#fileup").val(res.msg);
+                        $('#demo3').attr('src', "/"+res.msg);
+                        layer.alert('上传成功', {icon: 1});
+                    }
+                    ,error: function(){
+                        layer.msg('系统繁忙，稍微等一下下欧', {icon: 5});
+                    }
+                });*/
 
         //日期
         laydate.render({
             elem: '#date'
         });
         //下拉框改变事件监听
-        form.on('select(se)', function(data){
-            if(data.value==0){
+        form.on('select(se)', function (data) {
+            if (data.value == 0) {
                 $("#hangye").val("");
                 $("#chengshi").val("");
                 $("#dizhi").val("");
                 $("#cid").val(0);
-            }else{
+            } else {
                 $("#cid").val(data.value);
-                for(var j=0;j<listt.length;j++){
-                    if(listt[j].cliid==data.value){
+                for (var j = 0; j < listt.length; j++) {
+                    if (listt[j].cliid == data.value) {
                         $("#hangye").val(listt[j].cliindustry);
                         $("#chengshi").val(listt[j].clicity);
                         $("#dizhi").val(listt[j].cliaddress);
@@ -347,55 +360,72 @@
 
         });
         //table
-        form.on('submit(sub)', function(data){
-            var field=data.field;
-            if(field.busfrom==0){
-                layer.msg('请选择商机来源',{anim: 6,icon:5});
-                return false;
-            }
-            if(field.perdept==0){
-                layer.msg('请选择联系人部门',{anim: 6,icon:5});
-                return false;
-            }
-            layer.msg('添加成功',{anim: 6,
-                icon:1
+        form.on('submit(sub)', function (data) {
+            var bus = data.field;
+            $.ajax({
+                type: "POST"
+                , url: '/business/business.do'
+                , data: bus
+                , success: function (res) {
+                    if (res == true) {
+                        layer.msg("添加成功", {icon: 1});
+                        window.close(document);
+                    } else {
+                        layer.msg("添加失败，请重新添加", {icon: 1});
+                        window.close(document);
+                    }
+                }
             });
-            window.close(document);
-            return true;
+            return false;
         });
 
         form.verify({
-            busname: function(value, item){ //value：表单的值、item：表单的DOM对象
-                if(/(^\_)|(\__)|(\_+$)/.test(value)){
+            busfrom: function (value, item) {
+                if (value == 0) {
+                    return '请选择商机来源';
+                }
+            },
+            perdept: function (value, item) {
+                if (value == 0) {
+                    return '请选择联系人部门';
+                }
+            },
+            busname: function (value, item) { //value：表单的值、item：表单的DOM对象
+                if (/(^\_)|(\__)|(\_+$)/.test(value)) {
                     return '商机名称首尾不能出现下划线\'_\'';
                 }
-                if(/^\d+\d+\d$/.test(value)){
+                if (/^\d+\d+\d$/.test(value)) {
                     return '商机名称不能全为数字';
                 }
-                if(!/^[^ ]+$/.test(value)){
+                if (!/^[^ ]+$/.test(value)) {
                     return '商机名称不能包含空格';
                 }
-            },busperson:[
+            }, busperson: [
                 /^[\S]{2,8}$/
-                ,'请输入正确的联系人'
-            ],busprincipal: [
-                    /^[\S]{2,8}$/
-                    ,'请输入正确的商机负责人名称'
-                ]
-              ,busdept : [
-                /^[\S]{2,15}$/
-                ,'请输入正确的商机所属部门'
+                , '请输入正确的联系人'
+            ], busprincipal: [
+                /^[\S]{2,8}$/
+                , '请输入正确的商机负责人名称'
             ]
-
+            , busdept: [
+                /^[\S]{2,15}$/
+                , '请输入正确的商机所属部门'
+            ], maymoney: [
+                /\d+/g
+                , '请输入正确的金额格式'
+            ], maydate: [
+                /^\d{4}[-]\d{2}[-]\d{2}$/
+                , '请输入正确的日期格式'
+            ]
         });
 
         $(function () {
             $.get("/business/getCliByUid.do", function (data) {
-                if(null!=data){
-                    listt=data;
-                    var str="<option value='0'>请选择</option>";
-                    for(var i=0;i<listt.length;i++){
-                    str+="<option value='"+listt[i].cliid+"' >"+listt[i].cliname+"</option>"
+                if (null != data) {
+                    listt = data;
+                    var str = "<option value='0'>请选择</option>";
+                    for (var i = 0; i < listt.length; i++) {
+                        str += "<option value='" + listt[i].cliid + "' >" + listt[i].cliname + "</option>"
                     }
                     $("#clilist").html(str);
                     form.render();//重载即渲染值进去

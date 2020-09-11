@@ -12,7 +12,7 @@
 <h1><center>查看/编辑客户</center></h1>
 <div class="layui-inline" style="left: 1000px;">
     <a href="javascript:window.opener=null;window.open('','_self');window.close();" style="color: black" class="layui-btn layui-icon layui-icon-return" ><font color="black">返回</font></a>
-    <a href="addclient.html" id="flush" style="color: black"  class="layui-btn layui-icon layui-icon-refresh"><font color="black">刷新</font></a>
+    <a href="javascript:;" style="color: black" id="res" class="layui-btn layui-icon layui-icon-refresh"><font color="black">刷新</font></a>
 </div>
 
 <div class="layui-form-item"
@@ -20,13 +20,14 @@
     客户信息
 </div>
 
-<form class="layui-form layui-form-pane" action="/clientinfo/addclient.do"  method="post">
+<form class="layui-form layui-form-pane" id="for" action="/clientinfo/updateCilentById.do"  method="post">
+    <input type="hidden" th:value="${client.cliid}" name="cliid" />
     <div class="layui-inline">
     <div class="layui-form-item">
         <label class="layui-form-label"><font color="red">*</font> 客户名称</label>
         <div class="layui-input-inline" style="width:400px;">
             <input name="cliname" class="layui-input" type="text" style="width:400px;" placeholder="请输入姓名" autocomplete="off"
-                   required    lay-verify="cliname">
+               th:value="${client.cliname}"    required    lay-verify="cliname">
         </div>
     </div>
     </div>
@@ -35,7 +36,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">拼音</label>
         <div class="layui-input-inline" style="width:400px;">
-            <input name="clipingyin"  class="layui-input" type="text" style="width:400px;"  autocomplete="off">
+            <input name="clipingyin"  class="layui-input" type="text" style="width:400px;"
+                  th:value="${client.clipingyin}" autocomplete="off">
         </div>
     </div>
     </div>
@@ -45,10 +47,10 @@
         <label class="layui-form-label">分类</label>
         <div class="layui-input-inline" style="width:400px;">
             <select name="clitype" style="width:400px;">
-                <option value="0">请选择</option>
-                <option value="VIP">VIP</option>
-                <option value="SVIP">SVIP</option>
-                <option value="普通客户">普通客户</option>
+                <option value="0" >请选择</option>
+                <option value="VIP" th:selected="${client.clitype eq 'VIP' ? true : false}" >VIP</option>
+                <option value="SVIP" th:selected="${client.clitype eq 'SVIP' ? true : false}">SVIP</option>
+                <option value="普通客户" th:selected="${client.clitype eq '普通客户' ? true : false}">普通客户</option>
             </select>
         </div>
     </div>
@@ -59,20 +61,20 @@
         <div class="layui-input-inline" style="width:400px;">
             <select name="clifrom" style="width:400px;">
                 <option value="0">请选择</option>
-                <option value="老客户">老客户</option>
-                <option value="代理商">代理商</option>
-                <option value="互联网">互联网</option>
-                <option value="独立开发">独立开发</option>
-                <option value="客户介绍">客户介绍</option>
-                <option value="合作伙伴">合作伙伴</option>
-                <option value="促销活动">促销活动</option>
-                <option value="媒体宣传">媒体宣传</option>
-                <option value="电话访问">电话访问</option>
-                <option value="客户来电">客户来电</option>
-                <option value="二次销售">二次销售</option>
-                <option value="公开招标">公开招标</option>
-                <option value="研讨会和展会">研讨会和展会</option>
-                <option value="其他">其他</option>
+                <option value="老客户" th:selected="${client.clifrom eq '老客户' ? true : false} ">老客户</option>
+                <option value="代理商" th:selected="${client.clifrom eq '代理商' ? true : false} ">代理商</option>
+                <option value="互联网" th:selected="${client.clifrom eq '互联网' ? true : false} ">互联网</option>
+                <option value="独立开发" th:selected="${client.clifrom eq '独立开发' ? true : false} ">独立开发</option>
+                <option value="客户介绍" th:selected="${client.clifrom eq '客户介绍' ? true : false} ">客户介绍</option>
+                <option value="合作伙伴" th:selected="${client.clifrom eq '合作伙伴' ? true : false} ">合作伙伴</option>
+                <option value="促销活动" th:selected="${client.clifrom eq '促销活动' ? true : false} ">促销活动</option>
+                <option value="媒体宣传" th:selected="${client.clifrom eq '媒体宣传' ? true : false} ">媒体宣传</option>
+                <option value="电话访问" th:selected="${client.clifrom eq '电话访问' ? true : false} ">电话访问</option>
+                <option value="客户来电" th:selected="${client.clifrom eq '客户来电' ? true : false} ">客户来电</option>
+                <option value="二次销售" th:selected="${client.clifrom eq '二次销售' ? true : false} ">二次销售</option>
+                <option value="公开招标" th:selected="${client.clifrom eq '公开招标' ? true : false} ">公开招标</option>
+                <option value="研讨会和展会" th:selected="${client.clifrom eq '研讨会和展会' ? true : false} ">研讨会和展会</option>
+                <option value="其他" th:selected="${client.clifrom eq '其他' ? true : false} ">其他</option>
             </select>
         </div>
     </div>
@@ -84,18 +86,18 @@
             <div class="layui-input-inline" style="width:400px;">
                 <select name="cliindustry" style="width:400px;">
                     <option value="0">请选择</option>
-                    <option value="IT|互联网|通信|电子">IT|互联网|通信|电子</option>
-                    <option value="金融|银行|保险">金融|银行|保险</option>
-                    <option value="房产|建筑设施|物业">房产|建筑设施|物业</option>
-                    <option value="广告|传媒|印刷出版">广告|传媒|印刷出版</option>
-                    <option value="销费零售|贸易|交通物流">销费零售|贸易|交通物流</option>
-                    <option value="加工制造|仪表设备">加工制造|仪表设备</option>
-                    <option value="管理咨询|教育科研|中介服务">管理咨询|教育科研|中介服务</option>
-                    <option value="医药生物|医疗保健">医药生物|医疗保健</option>
-                    <option value="酒店旅游">酒店旅游</option>
-                    <option value="能源矿产|石油化工">能源矿产|石油化工</option>
-                    <option value="政府|非盈利机构|科研">政府|非盈利机构|科研</option>
-                    <option value="其他">其他</option>
+                    <option value="IT|互联网|通信|电子" th:selected="${client.cliindustry eq 'IT|互联网|通信|电子' ? true : false} ">IT|互联网|通信|电子</option>
+                    <option value="金融|银行|保险" th:selected="${client.cliindustry eq '金融|银行|保险' ? true : false}" >金融|银行|保险</option>
+                    <option value="房产|建筑设施|物业" th:selected="${client.cliindustry eq '房产|建筑设施|物业' ? true : false}">房产|建筑设施|物业</option>
+                    <option value="广告|传媒|印刷出版" th:selected="${client.cliindustry eq '广告|传媒|印刷出版' ? true : false}">广告|传媒|印刷出版</option>
+                    <option value="销费零售|贸易|交通物流" th:selected="${client.cliindustry eq '销费零售|贸易|交通物流' ? true : false}">销费零售|贸易|交通物流</option>
+                    <option value="加工制造|仪表设备" th:selected="${client.cliindustry eq '加工制造|仪表设备' ? true : false}">加工制造|仪表设备</option>
+                    <option value="管理咨询|教育科研|中介服务" th:selected="${client.cliindustry eq '管理咨询|教育科研|中介服务' ? true : false}">管理咨询|教育科研|中介服务</option>
+                    <option value="医药生物|医疗保健" th:selected="${client.cliindustry eq '医药生物|医疗保健' ? true : false}">医药生物|医疗保健</option>
+                    <option value="酒店旅游" th:selected="${client.cliindustry eq '酒店旅游' ? true : false}">酒店旅游</option>
+                    <option value="能源矿产|石油化工" th:selected="${client.cliindustry eq '能源矿产|石油化工' ? true : false}">能源矿产|石油化工</option>
+                    <option value="政府|非盈利机构|科研" th:selected="${client.cliindustry eq '政府|非盈利机构|科研' ? true : false}">政府|非盈利机构|科研</option>
+                    <option value="其他" th:selected="${client.cliindustry eq '其他' ? true : false}">其他</option>
                 </select>
             </div>
         </div>
@@ -105,7 +107,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">客户网址</label>
             <div class="layui-input-inline" style="width:400px;">
-                <input name="cliurl"  class="layui-input" type="text" style="width:400px;"  autocomplete="off">
+                <input name="cliurl"  class="layui-input" type="text" style="width:400px;"
+                       th:value="${client.cliurl}"     autocomplete="off">
             </div>
         </div>
     </div>
@@ -115,7 +118,7 @@
             <label class="layui-form-label"><font color="red">*</font>国家/地区</label>
             <div class="layui-input-inline" style="width:400px;">
                 <input name="clicountry"  class="layui-input" type="text" style="width:400px;"
-                       required    lay-verify="country"      autocomplete="off">
+                   th:value="${client.clicountry}"    required    lay-verify="country"      autocomplete="off">
             </div>
         </div>
     </div>
@@ -125,7 +128,7 @@
             <label class="layui-form-label"><font color="red">*</font>城市</label>
             <div class="layui-input-inline" style="width:400px;">
                 <input name="clicity"  class="layui-input" type="text" style="width:400px;"
-                       required    lay-verify="city"       autocomplete="off">
+                     th:value="${client.clicity}"  required    lay-verify="city"       autocomplete="off">
             </div>
         </div>
     </div>
@@ -133,7 +136,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">详细地址</label>
         <div class="layui-input-block">
-            <input name="cliaddress"  class="layui-input" type="text"  autocomplete="off">
+            <input name="cliaddress"  class="layui-input" type="text"
+                   th:value="${client.cliaddress}"  autocomplete="off">
         </div>
     </div>
 
@@ -141,7 +145,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">邮政编码</label>
             <div class="layui-input-inline" style="width:400px;">
-                <input name="clipostlcode"  class="layui-input" type="text" style="width:400px;"  autocomplete="off">
+                <input name="clipostlcode"  class="layui-input" type="text" style="width:400px;"
+                      th:value="${client.clipostlcode}" autocomplete="off">
             </div>
         </div>
     </div>
@@ -150,7 +155,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">联系人</label>
             <div class="layui-input-inline" style="width:400px;">
-                <input name="person"  class="layui-input" type="text" style="width:400px;"  autocomplete="off">
+                <input name="person"  class="layui-input" type="text" style="width:400px;"
+                      th:value="${client.person}" autocomplete="off">
             </div>
         </div>
     </div>
@@ -174,7 +180,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">职务</label>
             <div class="layui-input-inline" style="width:400px;">
-                <input name="personposition"  class="layui-input" type="text" style="width:400px;"  autocomplete="off">
+                <input name="personposition"  class="layui-input" type="text" style="width:400px;"
+                      th:value="${client.personposition}" autocomplete="off">
             </div>
         </div>
     </div>
@@ -183,7 +190,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">办公电话</label>
             <div class="layui-input-inline" style="width:400px;">
-                <input name="perofficenum"  class="layui-input" type="text" style="width:400px;"  autocomplete="off">
+                <input name="perofficenum"  class="layui-input" type="text" style="width:400px;"
+                      th:value="${client.perofficenum}" autocomplete="off">
             </div>
         </div>
     </div>
@@ -192,7 +200,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">移动电话</label>
             <div class="layui-input-inline" style="width:400px;">
-                <input name="pernum"  class="layui-input" type="text" style="width:400px;"  autocomplete="off">
+                <input name="pernum"  class="layui-input" type="text" style="width:400px;"
+                      th:value="${client.pernum}" autocomplete="off">
             </div>
         </div>
     </div>
@@ -201,7 +210,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">邮件/QQ</label>
             <div class="layui-input-inline" style="width:400px;">
-                <input name="perqq"  class="layui-input" type="text" style="width:400px;"  autocomplete="off">
+                <input name="perqq"  class="layui-input" type="text" style="width:400px;"
+                      th:value="${client.perqq}" autocomplete="off">
             </div>
         </div>
     </div>
@@ -210,7 +220,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">法人代表</label>
             <div class="layui-input-inline" style="width:400px;">
-                <input name="perparent"  class="layui-input" type="text" style="width:400px;"  autocomplete="off">
+                <input name="perparent"  class="layui-input" type="text" style="width:400px;"
+                      th:value="${client.perparent}" autocomplete="off">
             </div>
         </div>
     </div>
@@ -218,14 +229,15 @@
     <div class="layui-form-item">
         <label class="layui-form-label">注册资本</label>
         <div class="layui-input-block">
-            <input name="registeredcapital"  class="layui-input" type="text"  autocomplete="off">
+            <input name="registeredcapital"  class="layui-input" type="text"
+                   required   lay-verify="registeredcapital"    th:value="${client.registeredcapital}" autocomplete="off">
         </div>
     </div>
 
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">附加说明</label>
         <div class="layui-input-block">
-            <textarea name="append" class="layui-textarea" placeholder="请输入内容"></textarea>
+            <textarea name="append" class="layui-textarea" th:value="${client.append}"  placeholder="请输入内容"></textarea>
         </div>
     </div>
 
@@ -239,7 +251,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">银行账号</label>
             <div class="layui-input-inline" style="width:400px;">
-                <input name="bankaccount"  class="layui-input" type="text" style="width:400px;"  autocomplete="off">
+                <input name="bankaccount"  class="layui-input" type="text" style="width:400px;"
+                      th:value="${client.bankaccount}" autocomplete="off">
             </div>
         </div>
     </div>
@@ -248,7 +261,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">开户名称</label>
             <div class="layui-input-inline" style="width:400px;">
-                <input name="bankname"  class="layui-input" type="text" style="width:400px;"  autocomplete="off">
+                <input name="bankname"  class="layui-input" type="text" style="width:400px;"
+                      th:value="${client.bankname}" autocomplete="off">
             </div>
         </div>
     </div>
@@ -257,7 +271,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">开户银行</label>
             <div class="layui-input-inline" style="width:400px;">
-                <input name="bank"  class="layui-input" type="text" style="width:400px;"  autocomplete="off">
+                <input name="bank"  class="layui-input" type="text" style="width:400px;"
+                      th:value="${client.bank}" autocomplete="off">
             </div>
         </div>
     </div>
@@ -266,7 +281,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">银行地址</label>
             <div class="layui-input-inline" style="width:400px;">
-                <input name="bankaddress"  class="layui-input" type="text" style="width:400px;"  autocomplete="off">
+                <input name="bankaddress"  class="layui-input" type="text" style="width:400px;"
+                      th:value="${client.bankaddress}" autocomplete="off">
             </div>
         </div>
     </div>
@@ -275,7 +291,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">税号</label>
             <div class="layui-input-inline" style="width:400px;">
-                <input name="taxnum"  class="layui-input" type="text" style="width:400px;"  autocomplete="off">
+                <input name="taxnum"  class="layui-input" type="text" style="width:400px;"
+                      th:value="${client.taxnum}" autocomplete="off">
             </div>
         </div>
     </div>
@@ -284,7 +301,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">预留电话</label>
             <div class="layui-input-inline" style="width:400px;">
-                <input name="bankphone"  class="layui-input" type="text" style="width:400px;"  autocomplete="off">
+                <input name="bankphone"  class="layui-input" type="text" style="width:400px;"
+                      th:value="${client.bankphone}" autocomplete="off">
             </div>
         </div>
     </div>
@@ -292,7 +310,7 @@
     <div class="layui-inline">
     <div class="layui-form-item">
         <div class="layui-input-block" style="width: 200px;">
-            <button class="layui-btn layui-btn-normal layui-btn-radius" style="width: 200px;"  lay-submit lay-filter="sub">确定</button>
+            <button class="layui-btn layui-btn-normal layui-btn-radius" style="width: 200px;"  lay-submit lay-filter="sub">修改</button>
         </div>
     </div>
     </div>
@@ -300,19 +318,41 @@
     <div class="layui-inline">
         <div class="layui-form-item">
             <div class="layui-input-block" style="width: 200px;">
-                <a href="javascript:window.opener=null;window.open('','_self');window.close();" style="width: 200px;"  style="color: black" class="layui-btn layui-btn-primary layui-btn-radius" >返回</font></a>
+                <a href="javascript:;" th:onclick="delet([[${client.cliid}]])"  style="width: 200px;"  class="layui-btn layui-btn-primary layui-btn-radius" ><font color="black">删除</font></a>
             </div>
         </div>
     </div>
 
+    <div class="layui-inline">
+        <div class="layui-form-item">
+            <div class="layui-input-block" style="width: 200px;">
+                <a href="javascript:window.opener=null;window.open('','_self');window.close();" style="width: 200px;"  class="layui-btn layui-btn-primary layui-btn-radius" ><font color="black">返回</font></a>
+            </div>
+        </div>
+    </div>
 
 </form>
 
 <script>
+    var delet=function(id){
+        $.get("/clientinfo/deleteClientById.do?id="+id,function(data){
+                if(data=="OK"){
+                    window.close(document);
+                }else{
+                    alert("删除失败");
+                }
+        });
+    }
+
     layui.use(['form','jquery','layer'], function () {
         var form = layui.form;
         var $=layui.jquery;
         var layer=layui.layer;
+
+
+        $("#res").click(function(){
+            document.getElementById("for").reset();
+        });
 
         //table
         form.on('submit(sub)', function(data){
@@ -325,7 +365,7 @@
                 layer.msg('请选择客户所属行业',{anim: 6,icon:5});
                 return false;
             }
-            layer.msg('添加成功',{anim: 6,
+            layer.msg('修改成功',{anim: 6,
                 icon:1
             });
             window.close(document);
@@ -356,6 +396,9 @@
             city:[
                 /^[\S]{2,15}$/
                 ,'请输入正确的城市名称'
+            ],registeredcapital:[
+                /\d+/g
+                ,'请输入正确的金额格式'
             ]
         });
 
