@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>统计分析</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<script src="/js/jquery-1.12.3.min.js"></script>
+<script src="/layui/layui.js" charset="utf-8"></script>
+
+<body>
+<div style="width:1366px;overflow-x:auto;overflow-y:hidden">
+    <!--头部-->
+
+    <!--左侧-->
+    <div id="left" style="width:20%;float:left;">
+        <!--标题-->
+        <div class="layui-header" style="height: 15vh;margin: 0 auto;text-align: left;line-height: 80px;">
+            <a class="logo">
+                <img src="/images/index.jpg" style="width: 50px;height: 50px;">
+            </a>
+            <span style="color: #0C0C0C;font-size: 30px">统计分析</span>
+        </div>
+        <!--分类-->
+        <div class="layui-col-md8" style="border: 1px solid #ddd;width: 90%;border-radius: 10px">
+            <div class="layui-card">
+                <div class="layui-card-header"><span style="float: left;"><b>分类</b></span></div>
+                <div class="layui-card-body" style="width: 100%;">
+                    <ul>
+                        <li><a href="javascript:void(0);" id="my-statistics" class="list"
+                               style="color: #01AAED">我的统计</a></li>
+                        <li><a id="This-week-the-statistics" class="list" data-type="reload"
+                               style="color: #01AAED">本周统计</a></li>
+                        <li><a id="This-month-the-statistics" class="list" data-type="reload" style="color: #01AAED">本月统计</a>
+                        </li>
+                        <li><a id="This-quarter-the-statistics" class="list" data-type="reload" style="color: #01AAED">本季度统计</a>
+                        </li>
+                        <li><a id="Annual-statistics" class="list" data-type="reload" style="color: #01AAED">本年度统计</a>
+                        </li>
+                        <li><a id="Business-funnel" class="list" style="color: #01AAED">商机销售漏斗</a></li>
+                        <li><a id="Distribution-by-industry" class="list" style="color: #01AAED">按行业分布</a></li>
+                        <li><a id="Source-by-business-opportunity" class="list" style="color: #01AAED">按商机来源</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--右侧-->
+    <div style="margin-right:10px;float:right;width:78%;">
+        <div class="layui-header" style="height: 15vh;margin: 0 auto;text-align: left;line-height: 80px;">
+        </div>
+        <!--<div class="layui-inline" style="height: 50vh;width: 100%;margin: 0 auto;text-align: center; ">
+            <div class="layui-inline" style="width: 16.6%">
+                <div class="text">
+                    <p style="font-size:14px;"><span style="font-family:'微软雅黑';font-weight:400;color:#666666;">全部合同</span></p><p style="font-size:20px;"><span  style="font-family:'Arial Normal', 'Arial';font-weight:400;">24</span></p>
+                </div>
+            </div>
+        </div>-->
+        <!--右侧内容区-->
+        <div class="content">
+            <!--默认展示我的统计-->
+            <div class="layui-card cate active" style="display: block">
+                <!-- <div class="layui-card-header">记录状态</div>-->
+                <div class="layui-card-body">
+                    <div class="layui-tab layui-tab-brief " lay-filter="component-tabs-hash">
+                        <ul class="layui-tab-title" style="text-align: center;">
+                            <li class="layui-this" lay-id="11"
+                                style="list-style-type: none;width: 150px;float: left;text-align: center;">
+                                商机数
+                            </li>
+                            <li lay-id="22" class=""
+                                style="list-style-type: none;width: 150px;float: left;text-align: center;">
+                                成交数
+                            </li>
+                            <li lay-id="33" class=""
+                                style="list-style-type: none;width: 150px;float: left;text-align: center;">
+                                跟单数
+                            </li>
+                            <li lay-id="44" class=""
+                                style="list-style-type: none;width: 150px;float: left;text-align: center;">
+                                合同数
+                            </li>
+                        </ul>
+
+                        <div class="layui-tab-content" style="height: 165px;">
+                            <div class="layui-tab-item layui-show">
+                                <!--每个选项卡内容（商机数）-->
+                                <div class="layui-content">
+                                    <div class="layui-row layui-col-space30">
+                                        <div class="layui-col-sm6 layui-col-md3">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body chart-card">
+                                                    <div class="chart-header ">
+                                                        <div class="metawrap">
+                                                            <div class="meta layui-form-item">
+                                                                <span>本周</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t1"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="meta layui-form-item">
+                                                                <span>上周</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t2"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-sm6 layui-col-md3">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body chart-card">
+                                                    <div class="chart-header">
+                                                        <div class="metawrap">
+                                                            <div class="meta layui-form-item">
+                                                                <span>本月</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t3"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="meta layui-form-item">
+                                                                <span>上月</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t4"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-sm6 layui-col-md3">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body chart-card">
+                                                    <div class="chart-header">
+                                                        <div class="metawrap">
+                                                            <div class="meta layui-form-item">
+                                                                <span>本季度</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t5"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="meta layui-form-item">
+                                                                <span>上季度</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t6"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-sm6 layui-col-md3">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body chart-card">
+                                                    <div class="chart-header">
+                                                        <div class="metawrap">
+                                                            <div class="meta layui-form-item">
+                                                                <span>本年度</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t7"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="meta layui-form-item">
+                                                                <span>上年度</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t8"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                点击该Tab的任一标题，观察地址栏变化，再刷新页面。选项卡将会自动定位到上一次切换的项-----------------------------------------------------------------------------------------------------------------------------------
+                            </div>
+                            <!--每个选项卡内容（成交数）-->
+                            <div class="layui-tab-item">
+                                <div class="layui-content">
+                                    <div class="layui-row layui-col-space30">
+                                        <div class="layui-col-sm6 layui-col-md3">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body chart-card">
+                                                    <div class="chart-header ">
+                                                        <div class="metawrap">
+                                                            <div class="meta layui-form-item">
+                                                                <span>本周</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t9"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="meta layui-form-item">
+                                                                <span>上周</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t10"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-sm6 layui-col-md3">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body chart-card">
+                                                    <div class="chart-header">
+                                                        <div class="metawrap">
+                                                            <div class="meta layui-form-item">
+                                                                <span>本月</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t11"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="meta layui-form-item">
+                                                                <span>上月</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t12"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-sm6 layui-col-md3">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body chart-card">
+                                                    <div class="chart-header">
+                                                        <div class="metawrap">
+                                                            <div class="meta layui-form-item">
+                                                                <span>本季度</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t13"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="meta layui-form-item">
+                                                                <span>上季度</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t14"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-sm6 layui-col-md3">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body chart-card">
+                                                    <div class="chart-header">
+                                                        <div class="metawrap">
+                                                            <div class="meta layui-form-item">
+                                                                <span>本年度</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t15"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="meta layui-form-item">
+                                                                <span>上年度</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t16"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--每个选项卡内容（跟单数）-->
+                            <div class="layui-tab-item">
+                                <div class="layui-content">
+                                    <div class="layui-row layui-col-space30">
+                                        <div class="layui-col-sm6 layui-col-md3">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body chart-card">
+                                                    <div class="chart-header ">
+                                                        <div class="metawrap">
+                                                            <div class="meta layui-form-item">
+                                                                <span>本周</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t17"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="meta layui-form-item">
+                                                                <span>上周</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t18"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-sm6 layui-col-md3">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body chart-card">
+                                                    <div class="chart-header">
+                                                        <div class="metawrap">
+                                                            <div class="meta layui-form-item">
+                                                                <span>本月</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t19"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="meta layui-form-item">
+                                                                <span>上月</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t20"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-sm6 layui-col-md3">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body chart-card">
+                                                    <div class="chart-header">
+                                                        <div class="metawrap">
+                                                            <div class="meta layui-form-item">
+                                                                <span>本季度</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t21"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="meta layui-form-item">
+                                                                <span>上季度</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t22"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-sm6 layui-col-md3">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body chart-card">
+                                                    <div class="chart-header">
+                                                        <div class="metawrap">
+                                                            <div class="meta layui-form-item">
+                                                                <span>本年度</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t23"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="meta layui-form-item">
+                                                                <span>上年度</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t24"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--每个选项卡内容（合同数）-->
+                            <div class="layui-tab-item">
+                                <div class="layui-content">
+                                    <div class="layui-row layui-col-space30">
+                                        <div class="layui-col-sm6 layui-col-md3">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body chart-card">
+                                                    <div class="chart-header ">
+                                                        <div class="metawrap">
+                                                            <div class="meta layui-form-item">
+                                                                <span>本周</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t25"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="meta layui-form-item">
+                                                                <span>上周</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t26"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-sm6 layui-col-md3">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body chart-card">
+                                                    <div class="chart-header">
+                                                        <div class="metawrap">
+                                                            <div class="meta layui-form-item">
+                                                                <span>本月</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t27"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="meta layui-form-item">
+                                                                <span>上月</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t28"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-sm6 layui-col-md3">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body chart-card">
+                                                    <div class="chart-header">
+                                                        <div class="metawrap">
+                                                            <div class="meta layui-form-item">
+                                                                <span>本季度</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t29"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="meta layui-form-item">
+                                                                <span>上季度</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t30"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-sm6 layui-col-md3">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body chart-card">
+                                                    <div class="chart-header">
+                                                        <div class="metawrap">
+                                                            <div class="meta layui-form-item">
+                                                                <span>本年度</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t31"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="meta layui-form-item">
+                                                                <span>上年度</span>
+                                                            </div>
+                                                            <div class="total layui-form-item">
+                                                                <h2>
+                                                                    <span class="num timer count-number" id="t32"
+                                                                          data-speed="1500"></span>
+                                                                    <span>个</span>
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--时间统计-->
+            <div class="cate" style="display: none">
+                <table lay-filter="test" id="demo1" style="width: 100%"></table>
+            </div>
+            <div class="cate" style="display: none">
+                <table lay-filter="test" id="demo2" style="width: 100%"></table>
+            </div>
+            <div class="cate" style="display: none">
+                <table lay-filter="test" id="demo3" style="width: 100%"></table>
+            </div>
+            <div class="cate" style="display: none">
+                <table lay-filter="test" id="demo4" style="width: 100%"></table>
+            </div>
+            <!--echarts漏斗图-->
+            <div class="cate" style="display: none">
+                <iframe style="width: 100%;height: 1600px;border: 0" src="echartstest.html"></iframe>
+            </div>
+            <div class="cate" style="display: none">
+                <iframe style="width: 100%;height: 1300px;border: 0" src="hangyetest.html"></iframe>
+            </div>
+            <div class="cate" style="display: none">
+                <iframe style="width: 100%;height: 1300px;border: 0" src="businessfrom.html"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.use(['form', 'table', 'element'], function () {
+        var form = layui.form;
+        var table = layui.table;
+        var element = layui.element;
+
+        element.on('tab(component-tabs-hash)', function (data) {
+            console.log(this); //当前Tab标题所在的原始DOM元素
+            console.log(data.index); //得到当前Tab的所在下标
+            console.log(data.elem); //得到当前的Tab大容器
+        });
+
+        //文档就绪赋予点击事件给--我的统计
+        $(function () {
+            //先将商机的查出来赋值
+            $.ajax({
+                url: '/myStatistics/queryStatisticsNum.do?flag=商机数',
+                success: function (res) {
+                    console.log(res);
+                    $("#t1").text(res.t1);//本周
+                    $("#t2").text(res.t2);//上周
+                    $("#t3").text(res.t3);//本月
+                    $("#t4").text(res.t4);//上月
+                    $("#t5").text(res.t5);//本季度
+                    $("#t6").text(res.t6);//上季度
+                    $("#t7").text(res.t7);//本年度
+                    $("#t8").text(res.t8);//上年度
+                }
+            });
+            $.ajax({
+                url: '/myStatistics/queryStatisticsNum.do?flag=成交数',
+                success: function (res) {
+                    console.log(res);
+                    $("#t9").text(res.t1);//本周
+                    $("#t10").text(res.t2);//上周
+                    $("#t11").text(res.t3);//本月
+                    $("#t12").text(res.t4);//上月
+                    $("#t13").text(res.t5);//本季度
+                    $("#t14").text(res.t6);//上季度
+                    $("#t15").text(res.t7);//本年度
+                    $("#t16").text(res.t8);//上年度
+                }
+            });
+            $.ajax({
+                url: '/myStatistics/queryStatisticsNum.do?flag=跟单数',
+                success: function (res) {
+                    console.log(res);
+                    $("#t17").text(res.t1);//本周
+                    $("#t18").text(res.t2);//上周
+                    $("#t19").text(res.t3);//本月
+                    $("#t20").text(res.t4);//上月
+                    $("#t21").text(res.t5);//本季度
+                    $("#t22").text(res.t6);//上季度
+                    $("#t23").text(res.t7);//本年度
+                    $("#t24").text(res.t8);//上年度
+                }
+            });
+            $.ajax({
+                url: '/myStatistics/queryStatisticsNum.do?flag=合同数',
+                success: function (res) {
+                    console.log(res);
+                    $("#t25").text(res.t1);//本周
+                    $("#t26").text(res.t2);//上周
+                    $("#t27").text(res.t3);//本月
+                    $("#t28").text(res.t4);//上月
+                    $("#t29").text(res.t5);//本季度
+                    $("#t30").text(res.t6);//上季度
+                    $("#t31").text(res.t7);//本年度
+                    $("#t32").text(res.t8);//上年度
+                }
+            });
+        });
+    });
+
+    //点击分类切换展示div
+    $(function () {
+        $(".list").each(function (index) {
+            $(this).on('click', function () {
+                //当点击对应下标展示对应内容并隐藏其兄弟元素
+                $(".content .cate").eq(index).show().siblings().hide();
+            })
+        });
+
+    });
+
+    //文档就绪自增展示金额
+    $(function () {
+
+        /* var num= 0;
+         var t = setInterval(function () {
+             num++;
+             $(".num").text(num);
+             if(num == 60.97){
+                 clearInterval(t);
+             }
+         },1)*/
+        /*var count = 0;
+        $(".num").each(function () {
+            var number = $(this).text();
+            count++;
+            numberShow(this,number);
+        });
+        function numberShow(e,number,time=300) {
+            var  per = time/number,i=1;
+            setInterval(function () {
+                if(parseFloat("i")<=number){
+                    $(e).text(parseFloat("i"));
+                }
+                i++;
+            },per);
+        }
+    })*/
+
+
+    });
+</script>
+<!--引入数字自增效果：带小数-->
+<!--<script src="/js/index.js"></script>-->
+
+<script src="/js/tabletitle.js"></script>
+<script>
+    layui.use(['element', 'jquery', 'table'], function () {
+            var $ = layui.jquery
+                , table = layui.table
+                , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+            //获取点击时的值
+            let id = "";
+
+            let publicHeader = [ //公共表头
+                {field: 'userName', title: '姓名', width: 100, rowspan: 2}
+                , {title: '商机数', width: 100, colspan: 2}
+                , {title: '成交数', width: 100, colspan: 2}
+                , {title: '跟单数', width: 100, colspan: 2}
+                , {title: '合同数', width: 100, colspan: 2}
+            ]
+            $(function () {
+                //点击本周统计时查出有关周的统计
+                $('#This-week-the-statistics').on('click', function () {
+                    id = $(this).text();
+                    table.reload('testReload1', {
+                        url: '/myStatistics/queryBnumByWeek.do',
+                        cols: [publicHeader, getTableTitle(id)]
+                    });
+                    return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+                });
+                //点击本月统计时查出有关月的统计
+                $('#This-month-the-statistics').on('click', function () {
+                    id = $(this).text();
+                    table.reload('testReload2', {
+                        url: '/myStatistics/queryBnumByMonth.do',
+                        cols: [publicHeader, getTableTitle(id)]
+                    });
+                    return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+                });
+                //点击本季度统计时查出有关季度的统计
+                $('#This-quarter-the-statistics').on('click', function () {
+                    id = $(this).text();
+                    table.reload('testReload3', {
+                        url: '/myStatistics/queryBnumByQuarter.do',
+                        cols: [publicHeader, getTableTitle(id)]
+                    });
+                    return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+                });
+                //点击本年统计时查出有关年的统计
+                $('#Annual-statistics').on('click', function () {
+                    id = $(this).text();
+                    table.reload('testReload4', {
+                        url: '/myStatistics/queryBnumByYear.do',
+                        cols: [publicHeader, getTableTitle(id)]
+                    });
+                    return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+                });
+            });
+
+            //第一个实例
+            var tableIns1 = table.render({
+                elem: '#demo1'
+                , id: 'testReload1'
+                , height: 312
+                //, url: '/demo/table/user/' //数据接口
+                //, data: data
+                , page: true //开启分页
+                //, cols: [title1,title2]
+                , cols: [
+                    /* [ //表头
+                         {field: 'username', title: '姓名', width: 100, rowspan: 2}
+                         , {field: 'sex', title: '商机数', width: 100, colspan: 2}
+                         , {field: 'city', title: '成交数', width: 100, colspan: 2}
+                         , {field: 'sign', title: '跟单数', width: 100, colspan: 2}
+                         , {field: 'experience', title: '合同数', width: 100, colspan: 2}
+                     ],
+                     getTableTitle(id)*/
+                ]
+            });
+            //第二个实例
+            var tableIns2 = table.render({
+                elem: '#demo2'
+                , id: 'testReload2'
+                , height: 312
+                //, url: '/demo/table/user/' //数据接口
+                //, data: data
+                , page: true //开启分页
+                //, cols: [title1,title2]
+                , cols: []
+            });
+            //第三个实例
+            var tableIns3 = table.render({
+                elem: '#demo3'
+                , id: 'testReload3'
+                , height: 312
+                //, url: '/demo/table/user/' //数据接口
+                //, data: data
+                , page: true //开启分页
+                //, cols: [title1,title2]
+                , cols: []
+            });
+            //第四个实例
+            var tableIns4 = table.render({
+                elem: '#demo4'
+                , id: 'testReload4'
+                , height: 312
+                //, url: '/demo/table/user/' //数据接口
+                //, data: data
+                , page: true //开启分页
+                //, cols: [title1,title2]
+                , cols: []
+            });
+
+
+            /**
+             * 获取表格头部
+             * @param id 条件
+             * @returns {*[]|*} 表格头部数据
+             */
+            function getTableTitle(id) {
+                console.log("我进来了---");
+                let result = "";
+                tableTitle.title.forEach(item => {
+                    if (id === item.id) {
+                        console.log(id);
+                        console.log(item.id);
+                        result = item.data[0]
+                    }
+                });
+                return result;
+            }
+        }
+    );
+</script>
+</body>
+</html>

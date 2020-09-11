@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -86,6 +87,17 @@ public class Business implements Serializable {
     private Integer clientid;
 
     private String busiphase;
+
+
+    private Timestamp addtime;
+
+    public Timestamp getAddtime() {
+        return addtime;
+    }
+
+    public void setAddtime(Timestamp addtime) {
+        this.addtime = addtime;
+    }
 
     public Integer getBusid() {
         return busid;
