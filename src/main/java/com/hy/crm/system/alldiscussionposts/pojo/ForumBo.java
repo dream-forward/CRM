@@ -2,26 +2,15 @@ package com.hy.crm.system.alldiscussionposts.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
-import java.util.Date;
-
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
-/**
- * <p>
- * 帖子表
- * </p>
- *
- * @author zzx
- * @since 2020-08-28
- */
-@TableName("forum")
-public class Forum implements Serializable {
+import java.io.Serializable;
+import java.util.Date;
 
-    private static final long serialVersionUID = 1L;
+
+public class ForumBo implements Serializable {
 
     @ApiModelProperty(value = "帖子ID")
     @TableId(value = "forid", type = IdType.AUTO)
@@ -30,7 +19,7 @@ public class Forum implements Serializable {
     @ApiModelProperty(value = "帖子主题")
     private String forsubject;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @ApiModelProperty(value = "发帖时间")
     private Date fordate;
 
@@ -64,6 +53,15 @@ public class Forum implements Serializable {
     @ApiModelProperty(value = "置顶")
     private String top;
 
+    @ApiModelProperty(value = "用户姓名")
+    private String username;
+
+    @ApiModelProperty(value = "商机名称（客户+商机）")
+    private String busname;
+
+//    @DateTimeFormat(pattern="yyyy-MM-dd")
+//    @ApiModelProperty(value = "评论时间")
+//    private Date pinlundate;
 
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
     @ApiModelProperty(value = "最后回复时间")
@@ -77,15 +75,12 @@ public class Forum implements Serializable {
         this.fortime = fortime;
     }
 
-    //    @ApiModelProperty(value = "评论ID")
-//    private Integer pinglid;
-
-//    public Integer getPinglid() {
-//        return pinglid;
+//    public Date getPinlundate() {
+//        return pinlundate;
 //    }
 //
-//    public void setPinglid(Integer pinglid) {
-//        this.pinglid = pinglid;
+//    public void setPinlundate(Date pinlundate) {
+//        this.pinlundate = pinlundate;
 //    }
 
     public Integer getForid() {
@@ -95,6 +90,7 @@ public class Forum implements Serializable {
     public void setForid(Integer forid) {
         this.forid = forid;
     }
+
     public String getForsubject() {
         return forsubject;
     }
@@ -102,6 +98,7 @@ public class Forum implements Serializable {
     public void setForsubject(String forsubject) {
         this.forsubject = forsubject;
     }
+
     public Date getFordate() {
         return fordate;
     }
@@ -109,6 +106,7 @@ public class Forum implements Serializable {
     public void setFordate(Date fordate) {
         this.fordate = fordate;
     }
+
     public Integer getUserid() {
         return userid;
     }
@@ -116,6 +114,7 @@ public class Forum implements Serializable {
     public void setUserid(Integer userid) {
         this.userid = userid;
     }
+
     public Integer getBusid() {
         return busid;
     }
@@ -123,6 +122,7 @@ public class Forum implements Serializable {
     public void setBusid(Integer busid) {
         this.busid = busid;
     }
+
     public String getFortype() {
         return fortype;
     }
@@ -130,6 +130,7 @@ public class Forum implements Serializable {
     public void setFortype(String fortype) {
         this.fortype = fortype;
     }
+
     public String getForfile() {
         return forfile;
     }
@@ -137,6 +138,7 @@ public class Forum implements Serializable {
     public void setForfile(String forfile) {
         this.forfile = forfile;
     }
+
     public String getForflag() {
         return forflag;
     }
@@ -144,6 +146,7 @@ public class Forum implements Serializable {
     public void setForflag(String forflag) {
         this.forflag = forflag;
     }
+
     public String getForbody() {
         return forbody;
     }
@@ -151,6 +154,7 @@ public class Forum implements Serializable {
     public void setForbody(String forbody) {
         this.forbody = forbody;
     }
+
     public Integer getForclick() {
         return forclick;
     }
@@ -158,6 +162,7 @@ public class Forum implements Serializable {
     public void setForclick(Integer forclick) {
         this.forclick = forclick;
     }
+
     public Integer getCallback() {
         return callback;
     }
@@ -165,6 +170,7 @@ public class Forum implements Serializable {
     public void setCallback(Integer callback) {
         this.callback = callback;
     }
+
     public String getSmert() {
         return smert;
     }
@@ -172,6 +178,7 @@ public class Forum implements Serializable {
     public void setSmert(String smert) {
         this.smert = smert;
     }
+
     public String getTop() {
         return top;
     }
@@ -180,22 +187,19 @@ public class Forum implements Serializable {
         this.top = top;
     }
 
-    @Override
-    public String toString() {
-        return "Forum{" +
-            "forid=" + forid +
-            ", forsubject=" + forsubject +
-            ", fordate=" + fordate +
-            ", userid=" + userid +
-            ", busid=" + busid +
-            ", fortype=" + fortype +
-            ", forfile=" + forfile +
-            ", forflag=" + forflag +
-            ", forbody=" + forbody +
-            ", forclick=" + forclick +
-            ", callback=" + callback +
-            ", smert=" + smert +
-            ", top=" + top +
-        "}";
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getBusname() {
+        return busname;
+    }
+
+    public void setBusname(String busname) {
+        this.busname = busname;
     }
 }

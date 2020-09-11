@@ -8,6 +8,7 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -29,14 +30,17 @@ public class Pinlun implements Serializable {
     @ApiModelProperty(value = "回复的帖子ID")
     private Integer forumid;
 
+
     @ApiModelProperty(value = "评论内容")
     private String pinlunbody;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
     @ApiModelProperty(value = "评论时间")
     private Date pinlundate;
 
-    @ApiModelProperty(value = "父级ID")
-    private Integer parentid;
+//    @ApiModelProperty(value = "父级ID")
+//    private Integer parentid;
+
 
     public Integer getPingid() {
         return pingid;
@@ -66,13 +70,13 @@ public class Pinlun implements Serializable {
     public void setPinlundate(Date pinlundate) {
         this.pinlundate = pinlundate;
     }
-    public Integer getParentid() {
-        return parentid;
-    }
-
-    public void setParentid(Integer parentid) {
-        this.parentid = parentid;
-    }
+//    public Integer getParentid() {
+//        return parentid;
+//    }
+//
+//    public void setParentid(Integer parentid) {
+//        this.parentid = parentid;
+//    }
 
     @Override
     public String toString() {
@@ -81,7 +85,7 @@ public class Pinlun implements Serializable {
             ", forumid=" + forumid +
             ", pinlunbody=" + pinlunbody +
             ", pinlundate=" + pinlundate +
-            ", parentid=" + parentid +
+//            ", parentid=" + parentid +
         "}";
     }
 }

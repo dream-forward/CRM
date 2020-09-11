@@ -8,13 +8,13 @@
 <script src="/js/jquery-1.12.3.min.js"></script>
 <script src="/layui/layui.js" charset="utf-8"></script>
 <body>
-<div style="width:1366px;overflow-x:auto;overflow-y:hidden">
+<div style="width:1400px;overflow-x:auto;overflow-y:hidden">
     <!--头部-->
 
     <!--左侧-->
     <div id="left" style="width:20%;float:left;">
         <div class="layui-header" style="height: 15vh;margin: 0 auto;text-align: left;line-height: 80px;">
-            <a class="logo">
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class="logo">
                 <img src="/images/index.jpg" style="width: 50px;height: 50px;">
             </a>
             <span style="color: #0C0C0C;font-size: 30px">全部合同</span>
@@ -70,29 +70,29 @@
         <div class="layui-header" style="height: 15vh;margin: 0 auto;text-align: left;line-height: 80px;">
             <form class="layui-form">
                 <!--下拉框-->
-                <div class="layui-inline" style="height: 40px;width: 180px;">
-                    <select id="zhiwei" name="positionname">
-                        <option value=''>请选择</option>
-                        <option>按合同名称</option>
-                        <option>按合同编号</option>
-                        <option>按合同所属部门</option>
-                        <option>按关联人员</option>
-                        <option>按合同金额</option>
-                        <option>按签约日期</option>
+                &nbsp;&nbsp;&nbsp;&nbsp;        <div class="layui-inline" style="height: 40px;width: 180px;">
+                    <select id="selectss" name="selectss">
+                        <option value="">请选择</option>
+                        <option value="1">按合同名称</option>
+                        <option value="2">按合同编号</option>
+                        <option value="3">按合同所属部门</option>
+                        <option value="4">按关联人员</option>
+                        <option value="5">按合同金额</option>
+                        <option value="6">按签约日期</option>
                     </select>
                 </div>
                 <!--文本框-->
                 <div class="layui-inline" style="height: 40px;width: 300px;">
-                    <input type="text" name="title" height="0" size="80px;" required lay-verify="required"
-                           placeholder="请输入关键字模糊查询" autocomplete="off" class="layui-input">
+                    <input type="text" name="inputss" height="0" size="80px;" required lay-verify="required"
+                           placeholder="请输入关键字查询" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-inline">
-                    <button class="layui-btn" lay-submit lay-filter="search" style="width: 90px;height: 40px;">🔍查找
+                    <button class="layui-btn" lay-submit  lay-filter="demo1" style="width: 90px;height: 40px;">🔍查找
                     </button>
                     <button type="reset" class="layui-btn layui-btn-primary" style="height: 40px;">重置</button>
                 </div>
                 <div class="layui-inline" style="left: 80px;">
-                    <a href="javascript:window.open('/view/addaftersales.html');" id="add" style="color: black" class="layui-btn layui-icon layui-icon-add-1">新增售后服务</a>
+                    <a href="javascript:;" onclick="aaa()" style="color: black" class="layui-btn layui-icon layui-icon-add-1">新增合同</a>
                     <a href="http://www.layui.com" style="color: black" class="layui-btn layui-icon layui-icon-refresh">刷新</a>
                 </div>
             </form>
@@ -102,7 +102,21 @@
         <table id="demo" lay-filter="test" style="width: 100%"></table>
     </div>
 </div>
+
+<script type="text/html" id="conname">
+    <a class="layui-table-link" target="blank" onclick=window.location.href="/contract/ToUpdate.do?conid={{d.conid}}&clientid={{d.clientid}}&userid={{d.userid}}">{{d.conname}}</a>
+</script>
+
+<script type="text/html" id="incmoney">
+    <a class="layui-table-link" target="blank" onclick=window.location.href="/contract/ToUpdate.do?conid={{d.conid}}">{{d.incmoney}}</a>
+</script>
+
 <script>
+
+    var aaa=function(){
+        window.open("/contract/add.html");
+    }
+
     layui.use(['form', 'table'], function () {
         var form = layui.form;
         var table = layui.table;
@@ -112,20 +126,34 @@
             elem: '#demo'
             , height: 'auto'
             , autoSort: true
-            , url: '/.do' //数据接口
+            , url: '/contract/QueryContractBo.do?selectss=0' //数据接口
             , page: true //开启分页
             , limit: 10
             , limits: [1, 3, 5, 7, 10, 20, 30]
             , cols: [
                 [ //表头
-                    , {field: '', title: '合同名称', align: 'center'}
-                    , {field: '', title: '合同编号', align: 'center'}
-                    , {field: '', title: '合同金额', align: 'center'}
-                    , {field: '', title: '汇款额', align: 'center'}
-                    , {field: '', title: '开票额', align: 'center'}
-                    , {field: '', title: '签约日期', align: 'center'}
+                    , {field: 'conname', title: '合同名称',width:1400*0.23,align: 'center',toolbar:'#conname'}
+                    , {field: 'connum', title: '合同编号',width:1400*0.11, align: 'center'}
+                    , {field: 'conmoney', title: '合同金额',width:1400*0.1, align: 'center'}
+                    , {field: 'incmoney', title: '汇款额',width:1400*0.1, align: 'center',toolbar:'#incmoney'}
+                    , {field: 'billmoney', title: '开票额',width:1400*0.1, align: 'center'}
+                    , {field: 'condate', title: '签约日期',width:1400*0.13, align: 'center',templet: "<div>{{layui.util.toDateString(d.starttime, 'yyyy-MM-dd')}}</div>"}
                 ]
             ]
+        });
+
+
+        //搜索按钮
+        form.on('submit(demo1)', function(data){
+            table.reload('demo',{
+                url: '/contract/QueryContractBo.do',
+                where:data.field,
+                method:'post',
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+            return false;
         });
     });
 </script>

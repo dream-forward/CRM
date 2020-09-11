@@ -21,20 +21,24 @@ public interface IDocumentaryService extends IService<Documentary> {
      */
     public JsonTable LikeDocumentary(int limit, int page, int selects, String inputs);
 
-    /**
-     * 查询所有
-     */
-    public List<Documentary> QueryDocumentary();
+//    /**
+//     * 查询所有
+//     */
+//    public List<Documentary> QueryDocumentary(Documentary documentary);
 
-    /**
-     * 根据商机ID查询
-     */
-    public List<Documentary> QueryDocumentaryByid(Integer busiid);
+//    /**
+//     * 根据商机ID查询
+//     */
+//    public List<Documentary> QueryDocumentaryByid(Integer busiid);
 
     /**
      * 新增跟单
      */
-    public int InsertDocumentary(Documentary documentary);
+    public Integer InsertDocumentary(Documentary documentary);
 
+    /**
+     * 修改跟单
+     */
+    public Integer UpdateDocumentary(Documentary documentary);
 
 }
