@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>帖子设置</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src="../js/jquery-1.12.3.min.js"></script>
+    <script src="../layui/layui.js" charset="utf-8"></script>
+</head>
+<body>
+<!--最外层-->
+<div style="width: 100%;">
+    <!--内层-->
+    <div style="margin: auto;width: 80%;">
+        <!--最内层-->
+        <br>
+        <div style="margin:0 auto; width:60%;height:auto;">
+            <div class="layui-inline" style="float: left">
+                <span style="color: #0C0C0C;font-size: 30px">新增帖子</span>
+            </div>
+            <div class="layui-inline"style="float: right">
+                <a href="javascript:window.opener=null;window.open('','_self');window.close()"
+                   class="layui-btn layui-icon layui-icon-return">返回</a>
+                <a href="javascript:;" id="flush" class="layui-btn layui-icon layui-icon-refresh">刷新</a>
+            </div>
+            <br><br><br>
+            <hr class="layui-bg-black"><br>
+
+            <form class="layui-form layui-form-pane"  method="post" action="/forum/InsertForum.do">
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="layui-form-item">
+                    <label class="layui-form-label">分类</label>
+                    <div class="layui-input-block">
+                        <select name="fortype" lay-verify="fortype" style="height: 30px;width: 200px;">
+                            <option value="0">请选择</option>
+                            <option value="电话沟通">合理化建议</option>
+                            <option value="邮件联系">技术交流</option>
+                            <option value="网上交流">网上交流</option>
+                            <option value="上门拜访">企业文化</option>
+                            <option value="产品送样">生活娱乐</option>
+                        </select>
+                    </div>
+                </div>
+
+
+
+                <div class="layui-form-item" >
+                    <label class="layui-form-label">设置</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="写作" checked="">
+                        <input type="checkbox" name="like1[read]" lay-skin="primary" title="阅读">
+                    </div>
+                </div>
+
+
+
+
+                <div class="layui-form-item" style="margin: 0 auto;text-align: center;">
+                    <button class="layui-btn layui-btn-radius layui-btn-normal">保存</button>
+                    <a href="javascript:window.opener=null;window.open('','_self');window.close()" class="layui-btn layui-btn-radius layui-btn-normal">取消</a>
+                </div>
+                <div class="layui-form-item" style="height: 20vh"></div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['table','form', 'laydate'], function () {
+        var table = layui.table;
+        var form = layui.form;
+        var laydate = layui.laydate;
+
+
+
+        //日期
+        laydate.render({
+            elem: '#action'
+        });
+        laydate.render({
+            elem: '#end'
+        });
+
+
+    })
+
+
+</script>
+</body>
+</html>
+

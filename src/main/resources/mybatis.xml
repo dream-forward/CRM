@@ -26,5 +26,8 @@
     <!--<typeHandlers>
         <typeHandler handler="com.hy.employmanager_ssm.service.converter.BooleanAndIntegerConverter" javaType="Boolean" jdbcType="INTEGER"/>
     </typeHandlers>-->
-
+    <!--配置拦截器-->
+    <plugins>
+       <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
 </configuration>

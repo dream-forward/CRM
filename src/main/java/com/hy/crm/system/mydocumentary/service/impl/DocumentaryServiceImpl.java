@@ -1,6 +1,7 @@
 package com.hy.crm.system.mydocumentary.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hy.crm.system.mydocumentary.pojo.Documentary;
@@ -37,12 +38,12 @@ public class DocumentaryServiceImpl extends ServiceImpl<DocumentaryMapper, Docum
         JsonTable jsonTable = new JsonTable();
         IPage iPage = new Page<Documentary>(page, limit);
         QueryWrapper<Documentary> queryWrapper = new QueryWrapper<>();
-        if (selects == 1){
+        if (selects == 1 && inputs != null && inputs.equals("")){
                 queryWrapper.like("docuser",inputs);
-        }else if (selects == 2){
+        }else if (selects == 2 && inputs != null && inputs.equals("")){
                 queryWrapper.like("doctime",inputs);
         }else
-            if (selects == 3){
+            if (selects == 3 && inputs != null && inputs.equals("")){
                 queryWrapper.like("docsubject",inputs);
         }
         IPage iPage1 = documentaryMapper.selectPage(iPage,queryWrapper);
@@ -55,25 +56,21 @@ public class DocumentaryServiceImpl extends ServiceImpl<DocumentaryMapper, Docum
 
 
     /**
-     * 查询所有商机
-     */
-    @Override
-    public List<Documentary> QueryDocumentary() {
-        QueryWrapper<Documentary> queryWrapper = new QueryWrapper<>();
-        return documentaryMapper.selectList(queryWrapper);
-    }
-
-    @Override
-    public List<Documentary> QueryDocumentaryByid(Integer busiid) {
-        return documentaryMapper.QueryDocumentaryByid(busiid);
-    }
-
-    /**
      * 新增跟单
      */
     @Override
-    public int InsertDocumentary(Documentary documentary) {
+    public Integer InsertDocumentary(Documentary documentary) {
         return documentaryMapper.insert(documentary);
+    }
+
+    /**
+     * 修改跟单
+     */
+    @Override
+    public Integer UpdateDocumentary(Documentary documentary) {
+        UpdateWrapper<Documentary> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("docid",documentary.getDocid());
+        return documentaryMapper.update(documentary,updateWrapper);
     }
 
 }

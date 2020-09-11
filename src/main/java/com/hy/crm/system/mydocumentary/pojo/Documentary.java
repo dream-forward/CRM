@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,8 +30,8 @@ public class Documentary implements Serializable {
     @ApiModelProperty(value = "商机id")
     private Integer busiid;
 
-    @ApiModelProperty(value = "跟单时间")
     @DateTimeFormat(pattern="yyyy-MM-dd")
+    @ApiModelProperty(value = "跟单时间")
     private Date doctime;
 
     @ApiModelProperty(value = "跟单主题")

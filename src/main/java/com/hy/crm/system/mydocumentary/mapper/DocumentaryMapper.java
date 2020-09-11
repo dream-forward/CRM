@@ -18,9 +18,5 @@ import java.util.List;
 @Mapper
 public interface DocumentaryMapper extends BaseMapper<Documentary> {
 
-    /**
-     * 根据商机ID查询
-     */
-    @Select("select * from documentary where busiid = #{busiid}")
-    public List<Documentary> QueryDocumentaryByid(Integer busiid);
+
 }

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>收入登记</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src="../js/jquery-1.12.3.min.js"></script>
+    <script src="../layui/layui.js" charset="utf-8"></script>
+</head>
+<body>
+<!--最外层-->
+<div style="width: 100%;">
+    <!--内层-->
+    <div style="margin: auto;width: 80%;">
+        <!--最内层-->
+        <div style="margin:0 auto; width:75%;height:auto;">
+
+            <form class="layui-form layui-form-pane" action="/contract/InsertContract.do"  method="post">
+                <!--<input type="hidden" name="clientid"  id="clientid"/>-->
+
+                <br>
+                <div class="layui-inline" style="float: left">
+                <span style="color: #0C0C0C;font-size: 30px">收入登记</span>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <div class="layui-inline" style="margin-left: 100px;">
+                    <div class="layui-inline">
+                        <a href="javascript:window.opener=null;window.open('','_self');window.close()"
+                           class="layui-btn layui-icon layui-icon-return">返回</a>
+                        <a href="javascript:;" id="flush" class="layui-btn layui-icon layui-icon-refresh">刷新</a>
+                    </div>
+                </div>
+                <hr class="layui-bg-black"><br>
+
+                <!--<form class="layui-form layui-form-pane">-->
+                <div class="layui-input-inline">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span style="color: #e7040f;">*</span>收入日期</label>
+                        <div class="layui-input-block">
+                            <input name="cliname" style="width: 400px" id="action" class="layui-input" type="text" placeholder="yyyy-MM-dd"
+                                   autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="layui-input-inline">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span style="color: #e7040f;">*</span>收入分类</label>
+                        <div class="layui-inline" style="width: 400px;">
+                            <select  id="cliindustry" name="cliindustry" lay-verify="required" >
+                                <option value="请选择" >请选择</option>
+                                <option value="利息收入" >利息收入</option>
+                                <option value="投资收益" >投资收益</option>
+                                <option value="主营业务收入" >主营业务收入</option>
+                                <option value="其他业务收入" >其他业务收入</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-input-inline">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span style="color: #e7040f;">*</span>收入金额</label>
+                        <div class="layui-input-block">
+                            <input name="clicity" required  style="width: 400px" class="layui-input" type="text" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="layui-input-inline">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">大写</label>
+                        <div class="layui-input-block">
+                            <input  name="cliaddress"  style="width: 400px" required class="layui-input" type="text"
+                                    autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-input-inline">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span style="color: #e7040f;">*</span>收款方式</label>
+                        <div class="layui-inline" style="width: 400px;">
+                            <select  id="" name="cliindustry" lay-verify="required" >
+                                <option value="请选择" >请选择</option>
+                                <option value="现金" >现金</option>
+                                <option value="转账" >转账</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="layui-input-inline">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span style="color: #e7040f;">*</span>登记人</label>
+                        <div class="layui-input-block">
+                            <input name="connum" required  style="width: 400px" class="layui-input" type="text" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-input-inline">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">关联人员</label>
+                        <div class="layui-input-block">
+                            <input  name="conperson"  style="width: 400px" required class="layui-input" type="text"
+                                    autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="layui-input-inline">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">关联部门</label>
+                        <div class="layui-input-block">
+                            <input  name="conofficenum"  style="width: 400px" required class="layui-input" type="text" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-input-inline">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">对方单位</label>
+                        <div class="layui-input-block">
+                            <input  name="conphone" style="width: 400px" required class="layui-input" type="text"
+                                    autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="layui-input-inline">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">关联合同</label>
+                        <div class="layui-input-block">
+                            <input  name="conqq" style="width: 400px" required class="layui-input" type="text" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">收入说明</label>
+                    <div class="layui-input-block">
+                        <textarea  name="Technicalclause" class="layui-textarea" placeholder="请输入内容"></textarea>
+                    </div>
+                </div>
+
+                <br><br>
+
+                <div class="layui-form-item" style="margin: 0 auto;text-align: center;">
+                    <button class="layui-btn layui-btn-radius layui-btn-normal" >确定</button>
+                    <a href="javascript:window.opener=null;window.open('','_self');window.close()"
+                       class="layui-btn layui-btn-radius layui-btn-normal">取消</a>
+                </div>
+                <div class="layui-form-item" style="height: 20vh"></div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+<script>
+
+
+    //拼接客户名称+合同编号
+    var selectClient = function (v) {
+        alert(v)
+    }
+
+
+    layui.use(['form', 'laydate'], function () {
+        var form = layui.form;
+        var laydate = layui.laydate;
+        var $ = layui.jquery;
+
+
+        //监听提交
+        form.on('submit(update)', function(data){
+            $.ajax({
+                type:"post",
+                url:"/documentary/UpdateDocumentary.do",
+                data:data.field,
+                cache:false,
+                traditional:true,
+                success:function (data) {
+                    if (data){
+                        layer.msg("修改失败!!!",{icon:5});
+                    } else {
+                        layer.msg("修改成功!!!",{icon:1});
+                        document.getElementById("from").reset();
+                        layer.from.reset();
+                    }
+                }
+            });
+            return false;
+        });
+
+
+
+        //日期
+        laydate.render({
+            elem: '#action'
+        });
+
+        //文档就绪查询所有客户
+        // $(function () {
+        //     $.get({
+        //             url: "/aftersales/queryAllClient.do",
+        //             dataType: 'JSON',
+        //             success: function (data) {
+        //                 for (let i = 0; i < data.length; i++) {
+        //                     $("#clientName").append(new Option(data[i].cliname, data[i].cliid))
+        //                 }
+        //                 form.render();
+        //             }
+        //         }
+        //     );
+        //
+        // });
+
+
+    })
+
+
+</script>
+</body>
+</html>

@@ -13,4 +13,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IPinlunService extends IService<Pinlun> {
 
+    /**
+     * 添加评论
+     */
+    public Integer InsertPinlun(Pinlun pinlun);
+
+    /**
+     * 修改评论
+     */
+    public Integer UpdatePinlun(Pinlun pinlun);
 }

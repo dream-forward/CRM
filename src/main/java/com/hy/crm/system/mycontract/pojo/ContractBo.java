@@ -3,31 +3,15 @@ package com.hy.crm.system.mycontract.pojo;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.format.annotation.DateTimeFormat;
-
-/**
- * <p>
- * 合同表
- * </p>
- *
- * @author zzx
- * @since 2020-08-28
- */
-@TableName("contract")
-public class Contract implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class ContractBo implements Serializable {
 
     @ApiModelProperty(value = "合同id")
     @TableId(value = "conid", type = IdType.AUTO)
@@ -59,7 +43,7 @@ public class Contract implements Serializable {
     @ApiModelProperty(value = "生效时间")
     private Date begindate;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @ApiModelProperty(value = "失效日期")
     private Date enddate;
 
@@ -96,13 +80,11 @@ public class Contract implements Serializable {
 
     private Integer userid;
 
-    public Integer getUserid() {
-        return userid;
-    }
+    @ApiModelProperty(value = "开户金额")
+    private BigDecimal billmoney;
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
+    @ApiModelProperty(value = "收入金额")
+    private BigDecimal incmoney;
 
     public Integer getConid() {
         return conid;
@@ -111,6 +93,7 @@ public class Contract implements Serializable {
     public void setConid(Integer conid) {
         this.conid = conid;
     }
+
     public String getConname() {
         return conname;
     }
@@ -118,6 +101,7 @@ public class Contract implements Serializable {
     public void setConname(String conname) {
         this.conname = conname;
     }
+
     public String getShortname() {
         return shortname;
     }
@@ -125,6 +109,7 @@ public class Contract implements Serializable {
     public void setShortname(String shortname) {
         this.shortname = shortname;
     }
+
     public String getConpriority() {
         return conpriority;
     }
@@ -132,6 +117,7 @@ public class Contract implements Serializable {
     public void setConpriority(String conpriority) {
         this.conpriority = conpriority;
     }
+
     public Integer getClientid() {
         return clientid;
     }
@@ -139,6 +125,7 @@ public class Contract implements Serializable {
     public void setClientid(Integer clientid) {
         this.clientid = clientid;
     }
+
     public String getConnum() {
         return connum;
     }
@@ -146,6 +133,7 @@ public class Contract implements Serializable {
     public void setConnum(String connum) {
         this.connum = connum;
     }
+
     public BigDecimal getConmoney() {
         return conmoney;
     }
@@ -153,6 +141,7 @@ public class Contract implements Serializable {
     public void setConmoney(BigDecimal conmoney) {
         this.conmoney = conmoney;
     }
+
     public Date getCondate() {
         return condate;
     }
@@ -160,6 +149,7 @@ public class Contract implements Serializable {
     public void setCondate(Date condate) {
         this.condate = condate;
     }
+
     public Date getBegindate() {
         return begindate;
     }
@@ -167,6 +157,7 @@ public class Contract implements Serializable {
     public void setBegindate(Date begindate) {
         this.begindate = begindate;
     }
+
     public Date getEnddate() {
         return enddate;
     }
@@ -174,6 +165,7 @@ public class Contract implements Serializable {
     public void setEnddate(Date enddate) {
         this.enddate = enddate;
     }
+
     public String getConperson() {
         return conperson;
     }
@@ -181,6 +173,7 @@ public class Contract implements Serializable {
     public void setConperson(String conperson) {
         this.conperson = conperson;
     }
+
     public String getConofficenum() {
         return conofficenum;
     }
@@ -188,6 +181,7 @@ public class Contract implements Serializable {
     public void setConofficenum(String conofficenum) {
         this.conofficenum = conofficenum;
     }
+
     public String getConphone() {
         return conphone;
     }
@@ -195,6 +189,7 @@ public class Contract implements Serializable {
     public void setConphone(String conphone) {
         this.conphone = conphone;
     }
+
     public String getConqq() {
         return conqq;
     }
@@ -202,13 +197,15 @@ public class Contract implements Serializable {
     public void setConqq(String conqq) {
         this.conqq = conqq;
     }
+
     public String getTechnicalclause() {
         return Technicalclause;
     }
 
-    public void setTechnicalclause(String Technicalclause) {
-        this.Technicalclause = Technicalclause;
+    public void setTechnicalclause(String technicalclause) {
+        Technicalclause = technicalclause;
     }
+
     public String getBusinessclause() {
         return businessclause;
     }
@@ -216,6 +213,7 @@ public class Contract implements Serializable {
     public void setBusinessclause(String businessclause) {
         this.businessclause = businessclause;
     }
+
     public String getConfile() {
         return confile;
     }
@@ -223,6 +221,7 @@ public class Contract implements Serializable {
     public void setConfile(String confile) {
         this.confile = confile;
     }
+
     public String getCondept() {
         return condept;
     }
@@ -238,6 +237,7 @@ public class Contract implements Serializable {
     public void setAssociatedpersonnel(String associatedpersonnel) {
         this.associatedpersonnel = associatedpersonnel;
     }
+
     public String getCurrentstatus() {
         return currentstatus;
     }
@@ -246,30 +246,27 @@ public class Contract implements Serializable {
         this.currentstatus = currentstatus;
     }
 
-    @Override
-    public String toString() {
-        return "Contract{" +
-                "conid=" + conid +
-                ", conname='" + conname + '\'' +
-                ", shortname='" + shortname + '\'' +
-                ", conpriority='" + conpriority + '\'' +
-                ", clientid=" + clientid +
-                ", connum='" + connum + '\'' +
-                ", conmoney=" + conmoney +
-                ", condate=" + condate +
-                ", begindate=" + begindate +
-                ", enddate=" + enddate +
-                ", conperson='" + conperson + '\'' +
-                ", conofficenum='" + conofficenum + '\'' +
-                ", conphone='" + conphone + '\'' +
-                ", conqq='" + conqq + '\'' +
-                ", Technicalclause='" + Technicalclause + '\'' +
-                ", businessclause='" + businessclause + '\'' +
-                ", confile='" + confile + '\'' +
-                ", condept='" + condept + '\'' +
-                ", associatedpersonnel='" + associatedpersonnel + '\'' +
-                ", currentstatus='" + currentstatus + '\'' +
-                ", userid=" + userid +
-                '}';
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
+
+    public BigDecimal getBillmoney() {
+        return billmoney;
+    }
+
+    public void setBillmoney(BigDecimal billmoney) {
+        this.billmoney = billmoney;
+    }
+
+    public BigDecimal getIncmoney() {
+        return incmoney;
+    }
+
+    public void setIncmoney(BigDecimal incmoney) {
+        this.incmoney = incmoney;
     }
 }
