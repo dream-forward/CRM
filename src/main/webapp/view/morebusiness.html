@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>查看商机</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <script src="/js/jquery-1.12.3.min.js"></script>
+    <script src="/layui/layui.js"></script>
+</head>
+<body>
+<input type="hidden" id="cid" th:value="${cid}">
+<div style="border: 1px solid #dddddd;">
+    <div class="layui-inline">
+       <h1>商机列表</h1>
+    </div>
+    <div class="layui-inline" style="left: 900px;">
+        <a href="javascript:window.opener=null;window.open('','_self');window.close();" style="color: black" class="layui-btn layui-icon layui-icon-return" ><font color="black">返回</font></a>
+        <a href="javascript:;" id="flush" style="color: black"  class="layui-btn layui-icon layui-icon-refresh"><font color="black">刷新</font></a>
+    </div>
+    <hr></hr>
+    <form class="layui-form layui-form-pane" id="for" style="margin-top: 20px;margin-left: 50px;" method="post">
+        <div class="layui-inline">
+            <div class="layui-form-item">
+                <label class="layui-form-label">商机全称</label>
+                <div class="layui-input-inline" style="width:400px;">
+                    <input name="busname" class="layui-input" type="text" style="width:400px;"
+                           autocomplete="off">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <div class="layui-form-item">
+                <label class="layui-form-label">商机阶段</label>
+                <div class="layui-input-inline" style="width:400px;">
+                    <input name="busiphase" class="layui-input" type="text" style="width:400px;"
+                           autocomplete="off">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <div class="layui-form-item">
+                <label class="layui-form-label">商机负责人</label>
+                <div class="layui-input-inline" style="width:400px;">
+                    <input name="busprincipal" class="layui-input" type="text" style="width:400px;"
+                           autocomplete="off">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <div class="layui-form-item">
+                <label class="layui-form-label">所属部门</label>
+                <div class="layui-input-inline" style="width:400px;">
+                    <input name="busdept" class="layui-input" type="text" style="width:400px;"
+                           autocomplete="off">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <div class="layui-form-item">
+                <label class="layui-form-label">成交金额</label>
+                <div class="layui-input-inline" style="width:400px;">
+                    <input name="maymoney" class="layui-input" type="text" style="width:400px;"
+                           autocomplete="off">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <div class="layui-form-item">
+                <label class="layui-form-label">结单日期</label>
+                <div class="layui-input-inline" style="width:400px;">
+                    <input name="maydate" id="date" class="layui-input" type="text" style="width:400px;"
+                           placeholder="yyyy-MM-dd" autocomplete="off">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="width: 400px;">
+                    <button class="layui-btn layui-btn-normal layui-btn-radius" style="width: 400px;" lay-submit
+                            lay-filter="sub">查找商机
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="width: 400px;">
+                    <a href="javascript:;" id="res" style="width: 400px;"
+                       class="layui-btn layui-btn-primary layui-btn-radius">重置</a>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+<table lay-even lay-skin="line" lay-size="lg" id="demo" lay-filter="test" class="layui-table"></table>
+<script type="text/html" id="toupdat">
+    <a href="/business/toUpdateBusinessById.do?id={{d.busid}}" style="color: #1991FA">{{d.busname}}</a>
+</script>
+<script th:inline="javascript" >
+    var cid=$("#cid").val();
+    layui.use(['laydate', 'form', 'table', 'jquery'], function () {
+        var laydate = layui.laydate,
+            table = layui.table,
+            form = layui.form,
+            $ = layui.jquery;
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        //重置
+        $("#res").click(function () {
+            document.getElementById("for").reset();
+        });
+
+        //刷新
+        $("#flush").click(function () {
+            table.reload('demo', {
+                url: '/business/queryBusinessByCid.do'
+                , where: {
+                    limit: 5,
+                    cid:cid
+                } //设定异步数据接口的额外参数
+                //,height: 300
+            });
+        });
+
+
+        //form条件查询
+        form.on('submit(sub)', function (data) {
+            table.reload('demo', {
+                url: '/business/queryBusinessByCid.do'
+                , where: {
+                    limit: 5,
+                    busname: data.field.busname,
+                    busiphase: data.field.busiphase,
+                    busdept: data.field.busdept,
+                    busprincipal: data.field.busprincipal,
+                    maymoney: data.field.maymoney,
+                    maydate: data.field.maydate,
+                    cid:cid
+                } //设定异步数据接口的额外参数
+                //,height: 300
+            });
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+        //表格重载
+        table.render({
+            limit: 5
+            , limits: [1, 3, 5, 7, 9]
+            , elem: '#demo'
+            , url: '/business/queryBusinessByCid.do?cid='+cid//数据接口
+            , page: true //开启分页
+            , cols: [[ //表头
+                {field: 'busname', title: '商机名称', toolbar: '#toupdat'}
+                , {field: 'busiphase', title: '商机阶段'}
+                , {field: 'maymoney', title: '预计成交金额',}
+                , {field: 'busprincipal', title: '商机负责人',}
+                , {field: 'lastdate', title: '最后跟单',}
+                , {field: '1', title: '讨论版'}
+
+            ]]
+        });
+
+
+    });
+
+</script>
+</body>
+</html>

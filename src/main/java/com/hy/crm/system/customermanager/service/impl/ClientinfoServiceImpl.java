@@ -64,6 +64,8 @@ public class ClientinfoServiceImpl extends ServiceImpl<ClientinfoMapper, Clienti
                 queryWrappe.like("clicity",valu);
             }else if("1006".equals(did)){
                 queryWrappe.like("cliindustry",valu);
+            }else if("1007".equals(did)){
+                queryWrappe.eq("clitype",valu);
             }
             iPage=clientinfoMapper.selectPage(page,queryWrappe);
         }
@@ -101,12 +103,10 @@ public class ClientinfoServiceImpl extends ServiceImpl<ClientinfoMapper, Clienti
                 clientBo.setSumcon(allmoney1);
 
                 BigDecimal lastMoney=getBackMoney(contractList);
-                System.out.println("当前客户收入总额："+lastMoney);
                 clientBo.setIncmoneyall(lastMoney);
                 QueryWrapper queryWrapper3=new QueryWrapper();
                 queryWrapper3.eq("clientname",clientinfo.getCliid());
                 List<Aftersales> aftersalesList=aftersalesMapper.selectList(queryWrapper3);
-                System.out.println("当前客户售后服务数："+aftersalesList.size());
 
                 clientBo.setAfterCount(aftersalesList.size());
 
@@ -116,14 +116,11 @@ public class ClientinfoServiceImpl extends ServiceImpl<ClientinfoMapper, Clienti
                 }
 
                 String q = new DecimalFormat("0.0").format((float)i/aftersalesList.size());
-                System.out.println("当前客户服务均分："+q);
 
                 clientBo.setAvgservicecore(q);
 
                 clientBoList.add(clientBo);
-               System.out.println("-----------------"+clientBo);
             }
-            System.out.println("最后最后最后+"+clientBoList.size());
             iPage.setRecords(clientBoList);
             return iPage;
         }
@@ -131,7 +128,6 @@ public class ClientinfoServiceImpl extends ServiceImpl<ClientinfoMapper, Clienti
     }
 
 public BigDecimal getBackMoney(List<Contract> contractList){
-        System.out.println("jinnjinsniida");
         BigDecimal lastMoney=new BigDecimal("0.00");
         for(Contract contract:contractList){
         QueryWrapper queryWrapper=new QueryWrapper();
@@ -141,7 +137,6 @@ public BigDecimal getBackMoney(List<Contract> contractList){
            for(Income income:incomeList){
                bigDecimal=bigDecimal.add(income.getIncmoney());
            }
-           System.out.println("------------"+bigDecimal);
             lastMoney=lastMoney.add(bigDecimal);
         }
         return lastMoney;

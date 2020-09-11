@@ -1,6 +1,7 @@
 package com.hy.crm.system.mybusiness.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
@@ -8,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -86,6 +88,51 @@ public class Business implements Serializable {
     private Integer clientid;
 
     private String busiphase;
+    //商机添加时间
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date busdate;
+
+    //最后跟单时间
+    private String lastdate;
+
+    //讨论版数量
+    @TableField(exist = false)
+    private Integer forumcount;
+
+    public Integer getForumcount() {
+        return forumcount;
+    }
+
+    public void setForumcount(Integer forumcount) {
+        this.forumcount = forumcount;
+    }
+
+    public String getLastdate() {
+        return lastdate;
+    }
+
+    public void setLastdate(String lastdate) {
+        this.lastdate = lastdate;
+    }
+
+    public Date getBusdate() {
+        return busdate;
+    }
+
+    public void setBusdate(Date busdate) {
+        this.busdate = busdate;
+    }
+
+
+    private Timestamp addtime;
+
+    public Timestamp getAddtime() {
+        return addtime;
+    }
+
+    public void setAddtime(Timestamp addtime) {
+        this.addtime = addtime;
+    }
 
     public Integer getBusid() {
         return busid;

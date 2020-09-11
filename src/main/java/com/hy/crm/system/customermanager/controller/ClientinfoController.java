@@ -7,9 +7,13 @@ import com.hy.crm.system.customermanager.service.IClientinfoService;
 import com.hy.crm.utils.LayuiUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -19,28 +23,34 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author th
  * @since 2020-08-28
  */
+/*新增用户*/
 @Controller
 @RequestMapping("/clientinfo")
 public class ClientinfoController {
     @Autowired
 private IClientinfoService clientinfoServiceImpl;
     @PostMapping("/addclient.do")
-    public void addclient(Clientinfo clientinfo){
+    @ResponseBody
+    public Boolean addclient(Clientinfo clientinfo,String registeredcapital){
         if(null!=clientinfo){
             if(clientinfo.getCliname()!="" && clientinfo.getCliname().trim().length()>0
             && clientinfo.getClifrom()!="" && clientinfo.getClifrom().trim().length()>0
             && clientinfo.getClicountry()!="" && clientinfo.getClicountry().trim().length()>0
             && clientinfo.getClicity()!="" && clientinfo.getClicity().trim().length()>0
             ){
+                BigDecimal bigDecimal=new BigDecimal(registeredcapital);
+                clientinfo.setRegisteredcapital(bigDecimal);
                 if(clientinfo.getClitype().equals("0")){
                 clientinfo.setClitype("普通客户");
             }
                 clientinfo.setBuserid(1);
-                clientinfoServiceImpl.save(clientinfo);
+               return  clientinfoServiceImpl.save(clientinfo);
             }
         }
+                return false;
     }
 
+    /*条件查询/查询所有*/
     @RequestMapping("/clientlist.do")
     @ResponseBody
     public LayuiUtils listClientAll(Integer page, Integer limit, String did, String valu){
@@ -65,5 +75,29 @@ private IClientinfoService clientinfoServiceImpl;
             return utils;
         }
 
+    }
+        /*修改前查询客户*/
+    @GetMapping("/queryClientById.do")
+    public String queryClientById(Integer id, Model model){
+        Clientinfo clientinfo=clientinfoServiceImpl.getById(id);
+        model.addAttribute("client",clientinfo);
+        return "/view/updateclient.html";
+    }
+        /*修改客户*/
+    @PostMapping("/updateCilentById.do")
+    public void updateClientById(Clientinfo clientinfo,String registeredcapital){
+            BigDecimal bigDecimal=new BigDecimal(registeredcapital);
+            clientinfo.setRegisteredcapital(bigDecimal);
+            if(clientinfo.getClitype().equals("0")){
+                clientinfo.setClitype("普通客户");
+            }
+            clientinfoServiceImpl.saveOrUpdate(clientinfo);
+    }
+        /*删除客户*/
+    @RequestMapping("/deleteClientById.do")
+    @ResponseBody
+    public String deleteClientById(Integer id){
+        clientinfoServiceImpl.removeById(id);
+        return "OK";
     }
 }
