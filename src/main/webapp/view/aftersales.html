@@ -24,37 +24,52 @@
                 <div class="layui-card-header"><span style="float: left;"><b>分类</b></span></div>
                 <div class="layui-card-body" style="width: 100%;">
                     <ul>
-                        <li><a lay-href="" style="color: #01AAED">处理中的服务</a><span class="layui-badge layui-bg-blue"
-                                                                                  style="width:20px;float: right;margin-top: 2px;margin-right: 20px">18</span>
+                        <li><a id="processing" style="color: #01AAED">处理中的服务</a><span id="-processing"
+                                                                                      class="layui-badge layui-bg-blue"
+                                                                                      style="width:20px;float: right;margin-top: 2px;margin-right: 20px"></span>
                         </li>
-                        <li><a lay-href="" style="color: #01AAED">已结束的服务</a><span class="layui-badge layui-bg-blue"
-                                                                                  style="width:20px;float: right;margin-top: 2px;margin-right: 20px">4</span>
+                        <li><a id="finished" style="color: #01AAED">已结束的服务</a><span id="-finished"
+                                                                                    class="layui-badge layui-bg-blue"
+                                                                                    style="width:20px;float: right;margin-top: 2px;margin-right: 20px"></span>
                         </li>
-                        <li><a lay-href="" style="color: #01AAED">已撤销的服务</a><span class="layui-badge layui-bg-blue"
-                                                                                  style="width:20px;float: right;margin-top: 2px;margin-right: 20px">9</span>
+                        <li><a id="revocation" style="color: #01AAED">已撤销的服务</a><span id="-revocation"
+                                                                                      class="layui-badge layui-bg-blue"
+                                                                                      style="width:20px;float: right;margin-top: 2px;margin-right: 20px"></span>
                         </li>
                     </ul>
                 </div>
                 <hr>
                 <div class="layui-card-body" style="width: 100%;">
                     <ul>
-                        <li><a lay-href="" style="color: #01AAED">本周新增</a><span class="layui-badge layui-bg-blue"
-                                                                                style="width:20px;float: right;margin-top: 2px;margin-right: 20px">0</span>
+                        <li><a id="This-week-the-new" style="color: #01AAED">本周新增</a><span
+                                id="-This-week-the-new"
+                                class="layui-badge layui-bg-blue"
+                                style="width:20px;float: right;margin-top: 2px;margin-right: 20px"></span>
                         </li>
-                        <li><a lay-href="" style="color: #01AAED">上周新增</a><span class="layui-badge layui-bg-blue"
-                                                                                style="width:20px;float: right;margin-top: 2px;margin-right: 20px">0</span>
+                        <li><a id="Last-week-the-new" style="color: #01AAED">上周新增</a><span
+                                id="-Last-week-the-new"
+                                class="layui-badge layui-bg-blue"
+                                style="width:20px;float: right;margin-top: 2px;margin-right: 20px"></span>
                         </li>
-                        <li><a lay-href="" style="color: #01AAED">本月新增</a><span class="layui-badge layui-bg-blue"
-                                                                                style="width:20px;float: right;margin-top: 2px;margin-right: 20px">0</span>
+                        <li><a id="This-month-the-new" style="color: #01AAED">本月新增</a><span
+                                id="-This-month-the-new"
+                                class="layui-badge layui-bg-blue"
+                                style="width:20px;float: right;margin-top: 2px;margin-right: 20px"></span>
                         </li>
-                        <li><a lay-href="" style="color: #01AAED">上月新增</a><span class="layui-badge layui-bg-blue"
-                                                                                style="width:20px;float: right;margin-top: 2px;margin-right: 20px">0</span>
+                        <li><a id="Last-month-the-new" style="color: #01AAED">上月新增</a><span
+                                id="-Last-month-the-new"
+                                class="layui-badge layui-bg-blue"
+                                style="width:20px;float: right;margin-top: 2px;margin-right: 20px"></span>
                         </li>
-                        <li><a lay-href="" style="color: #01AAED">本季度新增</a><span class="layui-badge layui-bg-blue"
-                                                                                 style="width:20px;float: right;margin-top: 2px;margin-right: 20px">0</span>
+                        <li><a id="This-quarter-the-new" style="color: #01AAED">本季度新增</a><span
+                                id="-This-quarter-the-new"
+                                class="layui-badge layui-bg-blue"
+                                style="width:20px;float: right;margin-top: 2px;margin-right: 20px"></span>
                         </li>
-                        <li><a lay-href="" style="color: #01AAED">上季度新增</a><span class="layui-badge layui-bg-blue"
-                                                                                 style="width:20px;float: right;margin-top: 2px;margin-right: 20px">0</span>
+                        <li><a id="Last-quarter-the-new" style="color: #01AAED">上季度新增</a><span
+                                id="-Last-quarter-the-new"
+                                class="layui-badge layui-bg-blue"
+                                style="width:20px;float: right;margin-top: 2px;margin-right: 20px"></span>
                         </li>
                     </ul>
                 </div>
@@ -68,18 +83,18 @@
             <form class="layui-form">
                 <!--下拉框-->
                 <div class="layui-inline" style="height: 40px;width: 180px;">
-                    <select id="zhiwei" name="positionname">
+                    <select name="name">
                         <option value=''>请选择</option>
-                        <option>按主题</option>
-                        <option>按服务类型</option>
-                        <option>按开始时间</option>
-                        <option>按服务人员</option>
-                        <option>按服务评分</option>
+                        <option value="assubject">按主题</option>
+                        <option value="servicetype">按服务类型</option>
+                        <option value="beginservicedate">按开始时间</option>
+                        <option value="serviceperson">按服务人员</option>
+                        <option value="servicecore">按服务评分</option>
                     </select>
                 </div>
                 <!--文本框-->
                 <div class="layui-inline" style="height: 40px;width: 300px;">
-                    <input type="text" name="title" height="0" size="80px;" required lay-verify="required"
+                    <input type="text" name="value" height="0" size="80px;"
                            placeholder="请输入关键字模糊查询" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-inline">
@@ -88,8 +103,10 @@
                     <button type="reset" class="layui-btn layui-btn-primary" style="height: 40px;">重置</button>
                 </div>
                 <div class="layui-inline" style="left: 80px;">
-                    <a href="javascript:window.open('/view/addaftersales.html');" id="add" style="color: black" class="layui-btn layui-icon layui-icon-add-1">新增售后服务</a>
-                    <a href="http://www.layui.com" style="color: black" class="layui-btn layui-icon layui-icon-refresh">刷新</a>
+                    <a href="javascript:window.open('/view/addaftersales.html');" id="add" style="color: black"
+                       class="layui-btn layui-icon layui-icon-add-1">新增售后服务</a>
+                    <a href="javascript:location.reload()" style="color: black"
+                       class="layui-btn layui-icon layui-icon-refresh">刷新</a>
                 </div>
             </form>
         </div>
@@ -99,6 +116,9 @@
         <table id="demo" lay-filter="test" style="width: 100%"></table>
     </div>
 </div>
+<script type="text/html" id="subject">
+    <a href="/aftersales/queryAfterSalesDetail.do?asid={{d.asid}}" style="color: #01AAED" target="_blank">{{d.assubject}}</a>
+</script>
 <script>
     layui.use(['form', 'table'], function () {
         var form = layui.form;
@@ -110,35 +130,204 @@
             , height: 'auto'
             , title: '售后服务一览'
             , autoSort: true
-            , url: '/.do' //数据接口
+            , url: '/aftersales/queryAftersales.do' //数据接口
             , page: true //开启分页
             , limit: 10
             , limits: [1, 3, 5, 7, 10, 20, 30]
             , cols: [
                 [ //表头
-                    , {field: 'assubject', title: '主题', align: 'center',width:1366*0.38}
-                    , {field: 'servicetype', title: '服务类型', align: 'center',width:1366*0.1}
-                    , {field: 'beginservicedate', title: '开始时间', align: 'center',width:1366*0.1}
-                    , {field: 'serviceperson', title: '服务人员', align: 'center',width:1366*0.1}
-                    , {field: 'servicecore', title: '服务评分', align: 'center',width:1366*0.1}
+                    {field: 'assubject', title: '主题', align: 'center', width: 1366 * 0.38, toolbar: '#subject'}
+                    , {field: 'servicetype', title: '服务类型', align: 'center', width: 1366 * 0.1}
+                    , {
+                    field: 'beginservicedate',
+                    title: '开始时间',
+                    align: 'center',
+                    width: 1366 * 0.1,
+                    templet: "<div>{{layui.util.toDateString(d.starttime, 'yyyy-MM-dd')}}</div>"
+                }
+                    , {field: 'serviceperson', title: '服务人员', align: 'center', width: 1366 * 0.1}
+                    , {field: 'servicecore', title: '服务评分', align: 'center'}
                 ]
-            ]
-        });
+            ]/*,done: function (res, curr, count) {// 表格渲染完成之后的回调
+                var that = this.elem.next();
+                res.data.forEach(function (item, index) {
+                    //console.log(item.empName);item表示每列显示的数据
+                    if (index % 2 == 0) {
+                        var tr = that.find(".layui-table-box tbody tr[data-index='" + index + "']").css("background-color", "#6666FF");
+                    } else {
+                        var tr = that.find(".layui-table-box tbody tr[data-index='" + index + "']").css("background-color", "#CCCCFF");
+                    }
+                });
+            }*/
+                });
 
         //表格重载
         form.on('submit(search)', function (data) {
             var kv = data.field //当前容器的全部表单字段，名值对形式：{name: value}
             console.log(data.field)
-            //执行重载
+            //执行重载 模糊查询
             tableIns.reload({
-                url: '/emp.do'
-                , where: {
-                    empname: kv.empname
-                    , positionname: kv.positionname
-                    , deptid: kv.deptid
-                }
+                url: '/aftersales/queryAftersales.do'
+                , where: kv
             });
             return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+        //-----------------------------------------------------------------------------
+        //关于分类查询--处理中
+        $("#processing").click(function () {
+            tableIns.reload({
+                url: '/aftersales/queryAftersales.do'
+                , where: {
+                    name: "aftersalesstatus",
+                    value: "处理中"
+                }
+            });
+        });
+        //关于分类查询--已完成
+        $("#finished").click(function () {
+            tableIns.reload({
+                url: '/aftersales/queryAftersales.do'
+                , where: {
+                    name: "aftersalesstatus",
+                    value: "已结束/已完成/已成交"
+                }
+            });
+        });
+        //关于分类查询--已撤销
+        $("#revocation").click(function () {
+            tableIns.reload({
+                url: '/aftersales/queryAftersales.do'
+                , where: {
+                    name: "aftersalesstatus",
+                    value: "已撤销/撤除"
+                }
+            });
+        });
+
+        //-----------------------------------------------------------------------------
+        //关于分类查询--本周新增 This-week-the-new
+        $("#This-week-the-new").click(function () {
+            tableIns.reload({
+                url: '/aftersales/queryAftersalesByTime.do'
+                , where: {
+                    flag: "This-week-the-new"
+                }
+            });
+        });
+        //关于分类查询--上周新增 Last-week-the-new
+        $("#Last-week-the-new").click(function () {
+            tableIns.reload({
+                url: '/aftersales/queryAftersalesByTime.do'
+                , where: {
+                    flag: "Last-week-the-new"
+                }
+            });
+        });
+        //关于分类查询--本月新增 This-month-the-new
+        $("#This-month-the-new").click(function () {
+            tableIns.reload({
+                url: '/aftersales/queryAftersalesByTime.do'
+                , where: {
+                    flag: "This-month-the-new"
+                }
+            });
+        });
+        //关于分类查询--上月新增 Last-month-the-new
+        $("#Last-month-the-new").click(function () {
+            tableIns.reload({
+                url: '/aftersales/queryAftersalesByTime.do'
+                , where: {
+                    flag: "Last-month-the-new"
+                }
+            });
+        });
+        //关于分类查询--本季度新增 This-quarter-the-new
+        $("#This-quarter-the-new").click(function () {
+            tableIns.reload({
+                url: '/aftersales/queryAftersalesByTime.do'
+                , where: {
+                    flag: "This-quarter-the-new"
+                }
+            });
+        });
+        //关于分类查询--上季度周新增 Last-quarter-the-new
+        $("#Last-quarter-the-new").click(function () {
+            tableIns.reload({
+                url: '/aftersales/queryAftersalesByTime.do'
+                , where: {
+                    flag: "Last-quarter-the-new"
+                }
+            });
+        });
+
+        //---------------------------------文档就绪查数量--------------------------------------
+        $(function () {
+            //处理中的数量
+            $.ajax({
+                url: "/aftersales/queryAftersales.do?name=aftersalesstatus&value=处理中&page=1&limit=1",
+                success: function (num) {
+                    $("#-processing").text(num.count);
+                }
+            });
+            //已完成的数量
+            $.ajax({
+                url: "/aftersales/queryAftersales.do?name=aftersalesstatus&value=已结束/已完成/已成交&page=1&limit=1",
+                success: function (num) {
+                    $("#-finished").text(num.count);
+                }
+            });
+            //已撤销的数量
+            $.ajax({
+                url: "/aftersales/queryAftersales.do?name=aftersalesstatus&value=已撤销/撤除&page=1&limit=1",
+                success: function (num) {
+                    $("#-revocation").text(num.count);
+                }
+            });
+            //统计本周新增数量
+            $.ajax({
+                url: "/aftersales/queryAftersalesByTime.do?flag=-This-week-the-new&page=1&limit=1",
+                success: function (num) {
+                    $("#-This-week-the-new").text(num.count);
+                }
+            });
+            //统计上周新增数量
+            $.ajax({
+                url: "/aftersales/queryAftersalesByTime.do?flag=-Last-week-the-new&page=1&limit=1",
+                success: function (num) {
+                    $("#-Last-week-the-new").text(num.count);
+                }
+            });
+            //统计本月新增数量
+            $.ajax({
+                url: "/aftersales/queryAftersalesByTime.do?flag=-This-month-the-new&page=1&limit=1",
+                success: function (num) {
+                    $("#-This-month-the-new").text(num.count);
+                }
+            });
+            //统计上月新增数量
+            $.ajax({
+                url: "/aftersales/queryAftersalesByTime.do?flag=-Last-month-the-new&page=1&limit=1",
+                success: function (num) {
+                    $("#-Last-month-the-new").text(num.count);
+                }
+            });
+            //统计本季度新增数量
+            $.ajax({
+                url: "/aftersales/queryAftersalesByTime.do?flag=-This-quarter-the-new&page=1&limit=1",
+                success: function (num) {
+                    $("#-This-quarter-the-new").text(num.count);
+                }
+            });
+            //统计上季度新增数量
+            $.ajax({
+                url: "/aftersales/queryAftersalesByTime.do?flag=-Last-quarter-the-new&page=1&limit=1",
+                success: function (num) {
+                    $("#-Last-quarter-the-new").text(num.count);
+                }
+            });
+
+
         });
     });
 </script>

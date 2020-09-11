@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商机销售漏斗</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+</head>
+<script src="/js/jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="/layui/layui.js" charset="utf-8"></script>
+<!-- 引入 echarts.js -->
+<script src="/echarts/echarts.min.js"></script>
+<body>
+<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+<div class="layui-form-item">
+    <div id="myecharts1" style="width: 400px;height:300px;" class="layui-inline"></div>
+    <div class="layui-inline" style="width: 400px;height:300px;">
+        <table id="demo1"></table>
+    </div>
+</div>
+<div class="layui-form-item">
+    <div id="myecharts2" style="width: 400px;height:300px;" class="layui-inline"></div>
+    <div class="layui-inline" style="width: 400px;height:300px;">
+        <table id="demo2"></table>
+    </div>
+</div>
+<div class="layui-form-item">
+    <div id="myecharts3" style="width: 400px;height:300px;" class="layui-inline"></div>
+    <div class="layui-inline" style="width: 400px;height:300px;">
+        <table id="demo3"></table>
+    </div>
+</div>
+<div class="layui-form-item">
+    <div id="myecharts4" style="width: 400px;height:300px;" class="layui-inline"></div>
+    <div class="layui-inline" style="width: 400px;height:300px;">
+        <table id="demo4"></table>
+    </div>
+</div>
+<div class="layui-form-item">
+    <div id="myecharts5" style="width: 400px;height:300px;" class="layui-inline"></div>
+    <div class="layui-inline" style="width: 400px;height:300px;">
+        <table id="demo5"></table>
+    </div>
+</div>
+
+<script>
+    layui.use(['element', 'jquery', 'table'], function () {
+        var $ = layui.jquery
+            , table = layui.table
+            , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+        //全部商机销售表
+        table.render({
+            elem: '#demo1'
+            , id: 'testReload1'
+            , url: '/myStatistics/queryBusinessFunnelAll.do?time=' //数据接口
+            , page: false //开启分页
+            , cols: [
+                [ //表头
+                    {field: 'num', title: '商机数',}
+                    , {field: 'numPercent', title: '百分比'}
+                    , {field: 'money', title: '金额'}
+                    , {field: 'moneyPercent', title: '百分比'}
+                ]
+            ]
+        });
+        //本年度商机销售表
+        table.render({
+            elem: '#demo2'
+            , id: 'testReload2'
+            , url: '/myStatistics/queryBusinessFunnelAll.do?time=本年度' //数据接口
+            , page: false //开启分页
+            , cols: [
+                [ //表头
+                    {field: 'num', title: '商机数'}
+                    , {field: 'numPercent', title: '百分比'}
+                    , {field: 'money', title: '金额'}
+                    , {field: 'moneyPercent', title: '百分比'}
+                ]
+            ]
+        });
+        //上年度商机销售表
+        table.render({
+            elem: '#demo3'
+            , id: 'testReload3'
+            , url: '/myStatistics/queryBusinessFunnelAll.do?time=上年度' //数据接口
+            , page: false //开启分页
+            , cols: [
+                [ //表头
+                    {field: 'num', title: '商机数'}
+                    , {field: 'numPercent', title: '百分比'}
+                    , {field: 'money', title: '金额'}
+                    , {field: 'moneyPercent', title: '百分比'}
+                ]
+            ]
+        });
+        //本季度商机销售表
+        table.render({
+            elem: '#demo4'
+            , id: 'testReload4'
+            , url: '/myStatistics/queryBusinessFunnelAll.do?time=本季度' //数据接口
+            , page: false //开启分页
+            , cols: [
+                [ //表头
+                    {field: 'num', title: '商机数'}
+                    , {field: 'numPercent', title: '百分比'}
+                    , {field: 'money', title: '金额'}
+                    , {field: 'moneyPercent', title: '百分比'}
+                ]
+            ]
+        });
+        //上季度商机销售表
+        table.render({
+            elem: '#demo5'
+            , id: 'testReload5'
+            , url: '/myStatistics/queryBusinessFunnelAll.do?time=上季度' //数据接口
+            , page: false //开启分页
+            , cols: [
+                [ //表头
+                    {field: 'num', title: '商机数'}
+                    , {field: 'numPercent', title: '百分比'}
+                    , {field: 'money', title: '金额'}
+                    , {field: 'moneyPercent', title: '百分比'}
+                ]
+            ]
+        });
+
+
+    });
+</script>
+<!--Echarts专用-->
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    var myChart1 = echarts.init(document.getElementById('myecharts1'));
+    var myChart2 = echarts.init(document.getElementById('myecharts2'));
+    var myChart3 = echarts.init(document.getElementById('myecharts3'));
+    var myChart4 = echarts.init(document.getElementById('myecharts4'));
+    var myChart5 = echarts.init(document.getElementById('myecharts5'));
+    option1 = {
+        title: {
+            text: '全部商机销售漏斗',
+            x: "center",
+            top: 20
+            //subtext: '全部商机销售漏斗'
+        },
+        tooltip: {
+            //配置提示信息：
+
+        } /*,
+        legend: {
+            data: ['初期沟通','方案和报价','竞争或投标','商务谈判','成交']
+        }*/,
+        color: ['#44aff0', '#01AAED', '#fca130', '#CD5C5C', '#9acd32'],
+        series: [{
+            name: '商机',  // 系列名称
+            type: 'funnel',  // 系列图表类型
+            top: 50,
+            label: {
+                show: true,
+                position: 'inside'
+            },
+            data: [
+                {value: 100, name: '初期沟通'},
+                {value: 80, name: "方案和报价"},
+                {value: 60, name: "竞争或投标"},
+                {value: 40, name: "商务谈判"},
+                {value: 20, name: "成交"}
+            ]  // 系列中的数据内容
+        }]
+    };
+    option2 = {
+        title: {
+            text: '本年度商机销售漏斗',
+            x: "center",
+            top: 20
+            //subtext: '全部商机销售漏斗'
+        },
+        tooltip: {
+            //配置提示信息：
+
+        } /*,
+        legend: {
+            data: ['初期沟通','方案和报价','竞争或投标','商务谈判','成交']
+        }*/,
+        color: ['#44aff0', '#01AAED', '#fca130', '#CD5C5C', '#9acd32'],
+        series: [{
+            name: '商机',  // 系列名称
+            type: 'funnel',  // 系列图表类型
+            top: 50,
+            label: {
+                show: true,
+                position: 'inside'
+            },
+            data: [
+                {value: 100, name: '初期沟通'},
+                {value: 80, name: "方案和报价"},
+                {value: 60, name: "竞争或投标"},
+                {value: 40, name: "商务谈判"},
+                {value: 20, name: "成交"}
+            ]  // 系列中的数据内容
+        }]
+    };
+    option3 = {
+        title: {
+            text: '上年度商机销售漏斗',
+            x: "center",
+            top: 20
+            //subtext: '全部商机销售漏斗'
+        },
+        tooltip: {
+            //配置提示信息：
+
+        } /*,
+        legend: {
+            data: ['初期沟通','方案和报价','竞争或投标','商务谈判','成交']
+        }*/,
+        color: ['#44aff0', '#01AAED', '#fca130', '#CD5C5C', '#9acd32'],
+        series: [{
+            name: '商机',  // 系列名称
+            type: 'funnel',  // 系列图表类型
+            top: 50,
+            label: {
+                show: true,
+                position: 'inside'
+            },
+            data: [
+                {value: 100, name: '初期沟通'},
+                {value: 80, name: "方案和报价"},
+                {value: 60, name: "竞争或投标"},
+                {value: 40, name: "商务谈判"},
+                {value: 20, name: "成交"}
+            ]  // 系列中的数据内容
+        }]
+    };
+    option4 = {
+        title: {
+            text: '本季度商机销售漏斗',
+            x: "center",
+            top: 20
+            //subtext: '全部商机销售漏斗'
+        },
+        tooltip: {
+            //配置提示信息：
+
+        } /*,
+        legend: {
+            data: ['初期沟通','方案和报价','竞争或投标','商务谈判','成交']
+        }*/,
+        color: ['#44aff0', '#01AAED', '#fca130', '#CD5C5C', '#9acd32'],
+        series: [{
+            name: '商机',  // 系列名称
+            type: 'funnel',  // 系列图表类型
+            top: 50,
+            label: {
+                show: true,
+                position: 'inside'
+            },
+            data: [
+                {value: 100, name: '初期沟通'},
+                {value: 80, name: "方案和报价"},
+                {value: 60, name: "竞争或投标"},
+                {value: 40, name: "商务谈判"},
+                {value: 20, name: "成交"}
+            ]  // 系列中的数据内容
+        }]
+    };
+    option5 = {
+        title: {
+            text: '上季度商机销售漏斗',
+            x: "center",
+            top: 20
+            //subtext: '全部商机销售漏斗'
+        },
+        tooltip: {
+            //配置提示信息：
+
+        } /*,
+        legend: {
+            data: ['初期沟通','方案和报价','竞争或投标','商务谈判','成交']
+        }*/,
+        color: ['#44aff0', '#01AAED', '#fca130', '#CD5C5C', '#9acd32'],
+        series: [{
+            name: '商机',  // 系列名称
+            type: 'funnel',  // 系列图表类型
+            top: 50,
+            label: {
+                show: true,
+                position: 'inside'
+            },
+            data: [
+                {value: 100, name: '初期沟通'},
+                {value: 80, name: "方案和报价"},
+                {value: 60, name: "竞争或投标"},
+                {value: 40, name: "商务谈判"},
+                {value: 20, name: "成交"}
+            ]  // 系列中的数据内容
+        }]
+    };
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart1.setOption(option1);
+    myChart2.setOption(option2);
+    myChart3.setOption(option3);
+    myChart4.setOption(option4);
+    myChart5.setOption(option5);
+</script>
+</body>
+</html>

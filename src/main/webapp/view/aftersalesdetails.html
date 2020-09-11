@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--suppress ALL-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>新增售后服务</title>
+    <title>售后服务详情</title>
     <link rel="stylesheet" href="/layui/css/layui.css" media="all">
     <script src="/js/jquery-1.12.3.min.js"></script>
     <script src="/layui/layui.js" charset="utf-8"></script>
 </head>
+<script>
+    /*一键设置所有input只读*/
+
+</script>
 <body>
 <!--最外层-->
 <div style="width: 100%;">
@@ -15,7 +20,7 @@
         <!--最内层-->
         <div style="margin:0 auto; width:80%;height:auto;">
             <div class="layui-inline" style="float: left">
-                <span style="color: #0C0C0C;font-size: 30px">新增售后服务</span>
+                <span style="color: #0C0C0C;font-size: 30px">售后服务详情</span>
             </div>
 
             <div class="layui-form-item" style="float: right">
@@ -39,16 +44,17 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: #e7040f;">*</span>主题</label>
                     <div class="layui-input-block">
-                        <input name="assubject" id="assubject" required class="layui-input" type="text"
+                        <input readonly name="assubject" id="assubject" th:value="${aftersales.assubject}" required
+                               class="layui-input" type="text"
                                autocomplete="off">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <p>
-                        <label>步骤：<span id="bz"></span></label>
-                        <label>责任人：<span id="zrr"></span></label>
-                        <label>参与人：<span id="cyr"></span></label>
+                        <label>步骤：<span id="bz" readonly></span></label>
+                        <label>责任人：<span id="zrr" readonly>[[${contract.associatedpersonnel}]]</span></label>
+                        <label>参与人：<span id="cyr" readonly></span></label>
                     </p>
                 </div>
 
@@ -61,10 +67,10 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label"><span style="color: #e7040f;">*</span>客户名称</label>
                         <div class="layui-input-block">
-                            <select id="clientName" name="clientname"
+                            <select disabled id="clientName" name="clientname"
                                     lay-filter="clientName" required
                                     lay-verify="required">
-                                <option value="">请选择客户</option>
+                                <option th:value="${clientinfo.cliid}">[[${clientinfo.cliname}]]</option>
                             </select>
                         </div>
                     </div>
@@ -73,8 +79,8 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">合同编号</label>
                         <div class="layui-input-block">
-                            <select id="contact" name="contractnum" lay-filter="clientNum" lay-verify="required">
-
+                            <select disabled id="contact" lay-filter="clientNum" lay-verify="required">
+                                <option th:value="${contract.connum}">[[${contract.connum}]]</option>
                             </select>
                         </div>
                     </div>
@@ -82,15 +88,23 @@
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">合同主要信息</label>
                     <div class="layui-input-block">
-                        <textarea name="" required id="contractInfo" class="layui-textarea" type="text"
-                                  autocomplete="off"></textarea>
+                        <textarea readonly name="" required id="contractInfo" class="layui-textarea" type="text"
+                                  autocomplete="off"
+                                  th:text=" '【合同全称】' + ${contract.conname} +
+                            '【合同所属部门】' + ${contract.condept} +
+                            '【关联人员】' + ${contract.associatedpersonnel} +
+                            '【签约日期】' + ${#dates.format(contract.condate, 'yyyy-MM-dd')}  +
+                            '【生效日期】' + ${#dates.format(contract.begindate, 'yyyy-MM-dd')} +
+                            '【服务期至】' + ${#dates.format(contract.enddate, 'yyyy-MM-dd')} "
+                        ></textarea>
                     </div>
                 </div>
                 <div class="layui-input-inline">
                     <div class="layui-form-item">
                         <label class="layui-form-label"><span style="color: #e7040f;">*</span>对方联系人</label>
                         <div class="layui-input-block">
-                            <input required id="conperson" class="layui-input" type="text" autocomplete="off">
+                            <input readonly required th:value="${contract.conperson}" id="conperson" class="layui-input"
+                                   type="text" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -98,7 +112,8 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">固定电话</label>
                         <div class="layui-input-block">
-                            <input name="" id="conofficenum" required class="layui-input" type="text"
+                            <input readonly name="" id="conofficenum" required th:value="${contract.conofficenum}"
+                                   class="layui-input" type="text"
                                    autocomplete="off">
                         </div>
                     </div>
@@ -107,7 +122,8 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">移动电话</label>
                         <div class="layui-input-block">
-                            <input name="" id="conphone" required class="layui-input" type="text"
+                            <input readonly name="" id="conphone" required th:value="${contract.conphone}"
+                                   class="layui-input" type="text"
                                    autocomplete="off">
                         </div>
                     </div>
@@ -116,7 +132,9 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">邮件/QQ</label>
                         <div class="layui-input-block">
-                            <input name="" id="conqq" required class="layui-input" type="text" autocomplete="off">
+                            <input readonly name="" id="conqq" required th:value="${contract.conqq}" class="layui-input"
+                                   type="text"
+                                   autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -124,13 +142,8 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label"><span style="color: #e7040f;">*</span>服务类型</label>
                         <div class="layui-input-block">
-                            <select name="servicetype" required lay-verify="required">
-                                <option value="">请选择</option>
-                                <option value="故障申报">故障申报</option>
-                                <option value="业务咨询">业务咨询</option>
-                                <option value="实施或培训">实施或培训</option>
-                                <option value="主动关怀">主动关怀</option>
-                                <option value="其他">其他</option>
+                            <select disabled name="servicetype" required lay-verify="required">
+                                <option value="${aftersales.servicetype}">[[${aftersales.servicetype}]]</option>
                             </select>
                         </div>
                     </div>
@@ -139,13 +152,8 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">服务方式</label>
                         <div class="layui-input-block">
-                            <select name="servicefs" lay-verify="required">
-                                <option value="">请选择</option>
-                                <option value="故障申报">故障申报</option>
-                                <option value="业务咨询">业务咨询</option>
-                                <option value="实施或培训">实施或培训</option>
-                                <option value="主动关怀">主动关怀</option>
-                                <option value="其他">其他</option>
+                            <select disabled name="servicefs" lay-verify="required">
+                                <option value="${aftersales.servicefs}">[[${aftersales.servicefs}]]</option>
                             </select>
                         </div>
                     </div>
@@ -154,7 +162,9 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label"><span style="color: #e7040f;">*</span>开始时间</label>
                         <div class="layui-input-block">
-                            <input name="beginservicedate" id="begindate" class="layui-input" type="text"
+                            <input readonly name="beginservicedate" id="begindate"
+                                   th:value="${#dates.format(contract.begindate, 'yyyy-MM-dd')}" class="layui-input"
+                                   type="text"
                                    placeholder="yyyy-MM-dd"
                                    autocomplete="off">
                         </div>
@@ -164,7 +174,9 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label ">结束时间</label>
                         <div class="layui-input-block">
-                            <input name="endservicedate" id="enddate" class="layui-input" type="text"
+                            <input readonly name="endservicedate" id="enddate"
+                                   th:value="${#dates.format(contract.enddate, 'yyyy-MM-dd')}" class="layui-input"
+                                   type="text"
                                    placeholder="yyyy-MM-dd"
                                    autocomplete="off">
                         </div>
@@ -173,20 +185,24 @@
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label"><span style="color: #e7040f;">*</span>服务内容</label>
                     <div class="layui-input-block">
-                        <textarea name="servicecontent" class="layui-textarea" placeholder="请输入内容"></textarea>
+                        <textarea readonly name="servicecontent" th:text="${aftersales.servicecontent}"
+                                  class="layui-textarea" placeholder="请输入内容"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">客户反馈</label>
                     <div class="layui-input-block">
-                        <textarea name="clifeedback" class="layui-textarea" placeholder="请输入内容"></textarea>
+                        <textarea readonly name="clifeedback" th:text="${aftersales.clifeedback}" class="layui-textarea"
+                                  placeholder="请输入内容"></textarea>
                     </div>
                 </div>
                 <div class="layui-input-inline">
                     <div class="layui-form-item">
                         <label class="layui-form-label"><span style="color: #e7040f;">*</span>服务人员</label>
                         <div class="layui-input-block">
-                            <input name="serviceperson" required class="layui-input" type="text" autocomplete="off">
+                            <input readonly name="serviceperson" required th:value="${aftersales.serviceperson}"
+                                   class="layui-input" type="text"
+                                   autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -194,11 +210,16 @@
                     <div class="layui-form-item" pane="">
                         <label class="layui-form-label"><span style="color: #e7040f;">*</span>服务评分</label>
                         <div class="layui-input-block">
-                            <input name="servicecore" title="5分" type="radio" value="5">
-                            <input name="servicecore" title="4分" type="radio" value="4">
-                            <input name="servicecore" title="3分" type="radio" value="3">
-                            <input name="servicecore" title="2分" type="radio" value="2">
-                            <input name="servicecore" title="1分" type="radio" value="1">
+                            <input disabled name="servicecore" title="5分" type="radio" value="5"
+                                   th:checked="${aftersales.servicecore == 5 ? true:false}">
+                            <input disabled name="servicecore" title="4分" type="radio" value="4"
+                                   th:checked="${aftersales.servicecore == 4 ? true:false}">
+                            <input disabled name="servicecore" title="3分" type="radio" value="3"
+                                   th:checked="${aftersales.servicecore == 3 ? true:false}">
+                            <input disabled name="servicecore" title="2分" type="radio" value="2"
+                                   th:checked="${aftersales.servicecore == 2 ? true:false}">
+                            <input disabled name="servicecore" title="1分" type="radio" value="1"
+                                   th:checked="${aftersales.servicecore == 1 ? true:false}">
                         </div>
                     </div>
                 </div>
@@ -206,7 +227,7 @@
                     <div class="layui-card">
                         <div class="layui-card-header">附件</div>
                         <div class="layui-card-body">
-                            <input type="file" name="file" id="test--primary">
+                            <input readonly type="file" name="file" id="test--primary">
                         </div>
                     </div>
                 </div>
@@ -581,13 +602,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="layui-form-item" style="margin: 0 auto;text-align: center;">
+                <!--底层按钮-->
+                <!--<div class="layui-form-item" style="margin: 0 auto;text-align: center;">
                     <button class="layui-btn layui-btn-radius layui-btn-normal" lay-submit lay-filter="save">保存</button>
                     <button class="layui-btn layui-btn-radius layui-btn-normal">转服务人员处理</button>
                     <button class="layui-btn layui-btn-radius layui-btn-normal">本次服务完成</button>
                     <a href="javascript:window.opener=null;window.open('','_self');window.close()"
                        class="layui-btn layui-btn-radius layui-btn-normal">取消</a>
-                </div>
+                </div>-->
                 <div class="layui-form-item" style="height: 20vh"></div>
             </form>
 
@@ -656,7 +678,7 @@
                     contactList = data;
                     var str = "<option value=''>请选择合同编号</option>";
                     for (var i = 0; i < contactList.length; i++) {
-                        str += "<option value='" + contactList[i].connum + "' >" + contactList[i].connum + "</option>"
+                        str += "<option value='" + contactList[i].conid + "' >" + contactList[i].connum + "</option>"
                     }
                     $("#contact").html(str);
                     form.render();//重载即渲染值进去
@@ -676,7 +698,7 @@
                 //客户名称+合同编号
                 $("#assubject").val(subject + "-" + $("#contact option:selected").text());
                 for (let i = 0; i < contactList.length; i++) {
-                    if (cnum == contactList[i].connum) {//如果选择的id等于集合的合同id
+                    if (cnum == contactList[i].conid) {//如果选择的id等于集合的合同id
                         //合同主要信息
                         $("#contractInfo").val(
                             '【合同全称】' + contactList[i].conname +

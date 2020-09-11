@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>按行业分布</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+</head>
+<script src="/js/jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="/layui/layui.js" charset="utf-8"></script>
+<!-- 引入 echarts.js -->
+<script src="/echarts/echarts.min.js"></script>
+
+<body>
+<div>
+    <table id="tab"></table>
+</div>
+<div>
+    <div class="layui-tab layui-tab-card" lay-filter="demo">
+        <ul class="layui-tab-title">
+            <li class="layui-this">商机数-柱状图</li>
+            <li>金额-柱状图</li>
+            <li>商机数-饼状图</li>
+            <li>金额-饼状图</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div id="bobc" style="width: 1000px;height: 400px;"></div>
+            </div>
+            <div class="layui-tab-item">
+                <div id="bcoa" style="width: 1000px;height: 400px;"></div>
+            </div>
+            <div class="layui-tab-item">
+                <div id="pcobo" style="width: 1366px;height: 400px;"></div>
+            </div>
+            <div class="layui-tab-item">
+                <div id="pcoa" style="width: 1366px;height: 400px;"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--Echarts-->
+<script>
+    layui.use(['table', 'element'], function () {
+        var table = layui.table;
+
+        var element = layui.element;
+
+        //一些事件监听
+        element.on('tab(demo)', function (data) {
+            console.log(data);
+        });
+
+        table.render({
+            id: 'testReload',
+            elem: '#tab',
+            page: false,
+            //url: '/myStatistics/queryBcountBmoney.do',
+            cols: [
+                [
+                    {field: 'cliindustry', title: '行业分布'},
+                    {field: 'bcount', title: '商机数'},
+                    {field: 'bmoney', title: '金额'}
+                ]
+            ]
+        });
+
+        var array = [];
+        /*var Str = [
+            "IT|互联网|通信|电子",
+            "房产|建筑建设|物业",
+            "管理咨询|教育科研|中介服务",
+            "加工制造|仪表设备",
+            "金融|银行|保险",
+            "酒店旅游",
+            "能源矿产|石油化工",
+            "消费零售|贸易|交通物流",
+            "医药生物|医疗保健",
+            "政府|非赢利机构|科研",
+            "其他"
+        ];*/
+
+        var echartsData=[];//存商机数量
+        var countObj={};//数量对象
+        var money=[];//存商机金额
+        var moneyObj={};//金额对象
+        //文档就绪按行业分布查询
+        $(function () {
+            $.ajax({
+                url: '/myStatistics/queryBcountBmoney.do',
+                success: function (jsonResult) {
+                    array = jsonResult.data;
+                    table.reload('testReload', {
+                        data: array
+                    });
+                    for (let i = 0; i < array.length; i++) {
+                        countObj={value:array[i].bcount,name:array[i].cliindustry}
+                        moneyObj={value:array[i].bmoney,name:array[i].cliindustry}
+                        echartsData.push(countObj)//添加所有商机数到集合
+                        money.push(moneyObj)//添加所有金额到集合
+                    }
+                    /*商机数-柱状图*/
+                    option1 = {
+                        color: ['#3398DB'],
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                            }
+                        },
+                        grid: {
+                            left: '2%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: [
+                            {
+                                type: 'category',
+                                data: [
+                                    'IT|互联网|通信|电子',
+                                    '房产|建筑建设|物业',
+                                    '管理咨询|教育科研|中介服务',
+                                    '加工制造|仪表设备',
+                                    '金融|银行|保险',
+                                    '酒店旅游',
+                                    '能源矿产|石油化工',
+                                    '消费零售|贸易|交通物流',
+                                    '医药生物|医疗保健',
+                                    '政府|非赢利机构|科研',
+                                    '其他'
+                                ],
+                                axisTick: {
+                                    alignWithLabel: true
+                                }
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '商机数',
+                                type: 'bar',
+                                barWidth: '60%',
+                                label: {
+                                    show: true,
+                                    position: 'top'
+                                },
+                                data: [
+                                    echartsData[0],
+                                    echartsData[1],
+                                    echartsData[2],
+                                    echartsData[3],
+                                    echartsData[4],
+                                    echartsData[5],
+                                    echartsData[6],
+                                    echartsData[7],
+                                    echartsData[8],
+                                    echartsData[9],
+                                    echartsData[10]
+
+                                ]
+                            }
+                        ]
+                    };
+                    /*金额-柱状图*/
+                    option2 = {
+                        color: ['#3398DB'],
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                            }
+                        },
+                        grid: {
+                            left: '2%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: [
+                            {
+                                type: 'category',
+                                data: [
+                                    'IT|互联网|通信|电子',
+                                    '房产|建筑建设|物业',
+                                    '管理咨询|教育科研|中介服务',
+                                    '加工制造|仪表设备',
+                                    '金融|银行|保险',
+                                    '酒店旅游',
+                                    '能源矿产|石油化工',
+                                    '消费零售|贸易|交通物流',
+                                    '医药生物|医疗保健',
+                                    '政府|非赢利机构|科研',
+                                    '其他'
+                                ],
+                                axisTick: {
+                                    alignWithLabel: true
+                                }
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '金额',
+                                type: 'bar',
+                                barWidth: '60%',
+                                label: {//柱状头上的数
+                                    show: true,
+                                    position: 'top'
+                                },
+                                data: [
+                                    money[0],
+                                    money[1],
+                                    money[2],
+                                    money[3],
+                                    money[4],
+                                    money[5],
+                                    money[6],
+                                    money[7],
+                                    money[8],
+                                    money[9],
+                                    money[10]
+                                ]
+                            }
+                        ]
+                    };
+                    /*商机数-饼状图*/
+                    option3 = {
+                        title: {
+                            text: '商机数-饼状图',
+                            subtext: '实时数据',
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: '{a} <br/>{b} : {c} ({d}%)'
+                        },
+                        legend: {
+                            orient: 'vertical',
+                            left: 'left',
+                            data: [
+                                'IT|互联网|通信|电子',
+                                '房产|建筑建设|物业',
+                                '管理咨询|教育科研|中介服务',
+                                '加工制造|仪表设备',
+                                '金融|银行|保险',
+                                '酒店旅游',
+                                '能源矿产|石油化工',
+                                '消费零售|贸易|交通物流',
+                                '医药生物|医疗保健',
+                                '政府|非赢利机构|科研',
+                                '其他'
+                            ]
+                        },
+                        //设置饼状图每个颜色块的颜色
+                        color : [ '#DB7093', '#BA55D3', '#FF1493', '#8A2BE2', '#4169E1', '#1E90FF', '#00BFFF','#00FFFF','#008080','#00FA9A','#90EE90' ],
+                        series: [
+                            {
+                                name: '商机数',
+                                type: 'pie',
+                                radius: '55%',
+                                center: ['50%', '60%'],
+                                itemStyle: {
+                                    normal: {
+                                        label: {
+                                            show: true,
+                                            formatter: '{b} : {c} ({d}%)'
+                                        },
+                                        labelLine: {show: true}
+                                    }
+                                },
+                                data: [
+                                    echartsData[0],
+                                    echartsData[1],
+                                    echartsData[2],
+                                    echartsData[3],
+                                    echartsData[4],
+                                    echartsData[5],
+                                    echartsData[6],
+                                    echartsData[7],
+                                    echartsData[8],
+                                    echartsData[9],
+                                    echartsData[10]
+                                ],
+                                emphasis: {
+                                    itemStyle: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    },
+                                }
+                            }
+                        ]
+                    };
+                    /*金额-饼状图*/
+                    option4 = {
+                        title: {
+                            text: '金额-饼状图',
+                            subtext: '实时数据',
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: '{a} <br/>{b} : {c} ({d}%)'
+                        },
+                        legend: {
+                            orient: 'vertical',
+                            left: 'left',
+                            data: [
+                                'IT|互联网|通信|电子',
+                                '房产|建筑建设|物业',
+                                '管理咨询|教育科研|中介服务',
+                                '加工制造|仪表设备',
+                                '金融|银行|保险',
+                                '酒店旅游',
+                                '能源矿产|石油化工',
+                                '消费零售|贸易|交通物流',
+                                '医药生物|医疗保健',
+                                '政府|非赢利机构|科研',
+                                '其他'
+                            ]
+                        },
+                        series: [
+                            {
+                                name: '商机数',
+                                type: 'pie',
+                                radius: '55%',
+                                center: ['50%', '60%'],
+                                itemStyle: {
+                                    normal: {
+                                        label: {
+                                            show: true,
+                                            formatter: '{b} : {c} ({d}%)'
+                                        },
+                                        labelLine: {show: true}
+                                    }
+                                },
+                                data: [
+                                    money[0],
+                                    money[1],
+                                    money[2],
+                                    money[3],
+                                    money[4],
+                                    money[5],
+                                    money[6],
+                                    money[7],
+                                    money[8],
+                                    money[9],
+                                    money[10]
+                                ],
+                                emphasis: {
+                                    itemStyle: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                }
+                            }
+                        ]
+                    };
+                    myChart1.setOption(option1);
+                    myChart2.setOption(option2);
+                    myChart3.setOption(option3);
+                    myChart4.setOption(option4);
+                }
+            });
+        });
+        // 基于准备好的dom，初始化echarts实例
+        var myChart1 = echarts.init(document.getElementById('bobc'));
+        var myChart2 = echarts.init(document.getElementById('bcoa'));
+        var myChart3 = echarts.init(document.getElementById('pcobo'));
+        var myChart4 = echarts.init(document.getElementById('pcoa'));
+
+
+        /*myChart3.showLoading();
+        myChart2.showLoading();
+        myChart1.showLoading();*/
+
+
+
+    })
+</script>
+</body>
+</html>
