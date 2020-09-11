@@ -38,12 +38,12 @@ public class DocumentaryServiceImpl extends ServiceImpl<DocumentaryMapper, Docum
         JsonTable jsonTable = new JsonTable();
         IPage iPage = new Page<Documentary>(page, limit);
         QueryWrapper<Documentary> queryWrapper = new QueryWrapper<>();
-        if (selects == 1 && inputs != null && inputs.equals("")){
+        if (selects == 1 && inputs != null && !inputs.equals("")){
                 queryWrapper.like("docuser",inputs);
-        }else if (selects == 2 && inputs != null && inputs.equals("")){
+        }else if (selects == 2 && inputs != null && !inputs.equals("")){
                 queryWrapper.like("doctime",inputs);
         }else
-            if (selects == 3 && inputs != null && inputs.equals("")){
+            if (selects == 3 && inputs != null && !inputs.equals("")){
                 queryWrapper.like("docsubject",inputs);
         }
         IPage iPage1 = documentaryMapper.selectPage(iPage,queryWrapper);

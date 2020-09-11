@@ -75,7 +75,8 @@ public class ContractController {
         queryWrapper1.eq("cliid",contract.getClientid());
         Clientinfo clientinfo = clientinfoServiceImpl.getOne(queryWrapper1);
         QueryWrapper queryWrapper2 = new QueryWrapper();
-        queryWrapper.eq("userid",contract.getUserid());
+        System.out.println("contract1.getUserid()-------------------"+contract1.getUserid());
+        queryWrapper2.eq("userid",contract1.getUserid());
         User user = userServiceImpl.getOne(queryWrapper2);
         model.addAttribute("user",user);
         model.addAttribute("client",clientinfo);
