@@ -93,23 +93,3 @@
     background-position: 0 -13px;
 }
 
-.sliderIcon {
-    position: absolute;
-    top: 15px;
-    left: 13px;
-    width: 14px;
-    height: 10px;
-    background: url(/static1/img/5a1279b804b06.jpg) 0 -26px;
-    background-size: 34px 471px;
-}
-
-.refreshIcon {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 34px;
-    height: 34px;
-    cursor: pointer;
-    background: url(/static1/img/timg.jpg) 0 -437px;
-    background-size: 34px 471px;
-}

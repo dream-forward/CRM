@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>统计分析</title>
     <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <!--里面有字体样式-->
+    <link rel="stylesheet" href="/css/x-admin.css" media="all">
+
 </head>
 <script src="/js/jquery-1.12.3.min.js"></script>
 <script src="/layui/layui.js" charset="utf-8"></script>
@@ -17,7 +20,7 @@
         <!--标题-->
         <div class="layui-header" style="height: 15vh;margin: 0 auto;text-align: left;line-height: 80px;">
             <a class="logo">
-                <img src="/images/index.jpg" style="width: 50px;height: 50px;">
+                <img src="/images/crm.jpg" style="width: 50px;height: 50px;">
             </a>
             <span style="color: #0C0C0C;font-size: 30px">统计分析</span>
         </div>
@@ -98,7 +101,7 @@
                                                             </div>
                                                             <div class="total layui-form-item">
                                                                 <h2>
-                                                                    <span class="num timer count-number" id="t1"
+                                                                    <span style="font-family: 'yjsz';" class="num timer count-number" id="t1"
                                                                           data-speed="1500"></span>
                                                                     <span>个</span>
                                                                 </h2>
@@ -108,7 +111,7 @@
                                                             </div>
                                                             <div class="total layui-form-item">
                                                                 <h2>
-                                                                    <span class="num timer count-number" id="t2"
+                                                                    <span style="font-family: 'yjsz';" class="num timer count-number" id="t2"
                                                                           data-speed="1500"></span>
                                                                     <span>个</span>
                                                                 </h2>
@@ -128,7 +131,7 @@
                                                             </div>
                                                             <div class="total layui-form-item">
                                                                 <h2>
-                                                                    <span class="num timer count-number" id="t3"
+                                                                    <span style="font-family: 'yjsz';" class="num timer count-number" id="t3"
                                                                           data-speed="1500"></span>
                                                                     <span>个</span>
                                                                 </h2>
@@ -138,7 +141,7 @@
                                                             </div>
                                                             <div class="total layui-form-item">
                                                                 <h2>
-                                                                    <span class="num timer count-number" id="t4"
+                                                                    <span style="font-family: 'yjsz';" class="num timer count-number" id="t4"
                                                                           data-speed="1500"></span>
                                                                     <span>个</span>
                                                                 </h2>
@@ -158,7 +161,7 @@
                                                             </div>
                                                             <div class="total layui-form-item">
                                                                 <h2>
-                                                                    <span class="num timer count-number" id="t5"
+                                                                    <span style="font-family: 'yjsz';" class="num timer count-number" id="t5"
                                                                           data-speed="1500"></span>
                                                                     <span>个</span>
                                                                 </h2>
@@ -168,7 +171,7 @@
                                                             </div>
                                                             <div class="total layui-form-item">
                                                                 <h2>
-                                                                    <span class="num timer count-number" id="t6"
+                                                                    <span style="font-family: 'yjsz';" class="num timer count-number" id="t6"
                                                                           data-speed="1500"></span>
                                                                     <span>个</span>
                                                                 </h2>
@@ -188,7 +191,7 @@
                                                             </div>
                                                             <div class="total layui-form-item">
                                                                 <h2>
-                                                                    <span class="num timer count-number" id="t7"
+                                                                    <span style="font-family: 'yjsz';" class="num timer count-number" id="t7"
                                                                           data-speed="1500"></span>
                                                                     <span>个</span>
                                                                 </h2>
@@ -198,7 +201,7 @@
                                                             </div>
                                                             <div class="total layui-form-item">
                                                                 <h2>
-                                                                    <span class="num timer count-number" id="t8"
+                                                                    <span style="font-family: 'yjsz';" class="num timer count-number" id="t8"
                                                                           data-speed="1500"></span>
                                                                     <span>个</span>
                                                                 </h2>
@@ -210,7 +213,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                点击该Tab的任一标题，观察地址栏变化，再刷新页面。选项卡将会自动定位到上一次切换的项-----------------------------------------------------------------------------------------------------------------------------------
                             </div>
                             <!--每个选项卡内容（成交数）-->
                             <div class="layui-tab-item">
@@ -614,9 +616,11 @@
             <div class="cate" style="display: none">
                 <iframe style="width: 100%;height: 1600px;border: 0" src="echartstest.html"></iframe>
             </div>
+            <!--按行业查询-->
             <div class="cate" style="display: none">
                 <iframe style="width: 100%;height: 1300px;border: 0" src="hangyetest.html"></iframe>
             </div>
+            <!--按来源查询-->
             <div class="cate" style="display: none">
                 <iframe style="width: 100%;height: 1300px;border: 0" src="businessfrom.html"></iframe>
             </div>
@@ -653,6 +657,7 @@
                     $("#t8").text(res.t8);//上年度
                 }
             });
+            //查询成交数
             $.ajax({
                 url: '/myStatistics/queryStatisticsNum.do?flag=成交数',
                 success: function (res) {
@@ -667,6 +672,7 @@
                     $("#t16").text(res.t8);//上年度
                 }
             });
+            //查询跟单数
             $.ajax({
                 url: '/myStatistics/queryStatisticsNum.do?flag=跟单数',
                 success: function (res) {
@@ -681,6 +687,7 @@
                     $("#t24").text(res.t8);//上年度
                 }
             });
+            //查询合同数
             $.ajax({
                 url: '/myStatistics/queryStatisticsNum.do?flag=合同数',
                 success: function (res) {
@@ -723,10 +730,11 @@
         /*var count = 0;
         $(".num").each(function () {
             var number = $(this).text();
+            console.log(number)
             count++;
             numberShow(this,number);
         });
-        function numberShow(e,number,time=300) {
+        function numberShow(e,number,time=3000) {
             var  per = time/number,i=1;
             setInterval(function () {
                 if(parseFloat("i")<=number){
@@ -734,8 +742,8 @@
                 }
                 i++;
             },per);
-        }
-    })*/
+        }*/
+
 
 
     });
@@ -809,14 +817,6 @@
                 , page: true //开启分页
                 //, cols: [title1,title2]
                 , cols: [
-                    /* [ //表头
-                         {field: 'username', title: '姓名', width: 100, rowspan: 2}
-                         , {field: 'sex', title: '商机数', width: 100, colspan: 2}
-                         , {field: 'city', title: '成交数', width: 100, colspan: 2}
-                         , {field: 'sign', title: '跟单数', width: 100, colspan: 2}
-                         , {field: 'experience', title: '合同数', width: 100, colspan: 2}
-                     ],
-                     getTableTitle(id)*/
                 ]
             });
             //第二个实例

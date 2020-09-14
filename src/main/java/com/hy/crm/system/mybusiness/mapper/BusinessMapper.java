@@ -2,6 +2,7 @@ package com.hy.crm.system.mybusiness.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hy.crm.system.mybusiness.pojo.Business;
+import com.hy.crm.system.mydesktop.bo.MyDesktop;
 import com.hy.crm.system.statisticalanalysis.bo.ByBusinessSource;
 import com.hy.crm.system.statisticalanalysis.bo.ByIndustryStatistics;
 import com.hy.crm.system.statisticalanalysis.bo.SalesFunnel;
@@ -21,6 +22,10 @@ import java.util.List;
  */
 @Mapper
 public interface BusinessMapper extends BaseMapper<Business> {
+
+    //我的桌面--根据条件查询商机的预计金额
+    @SelectProvider(value = com.hy.crm.system.mydesktop.SelectProvider.class, method = "queryBusMoneyByStatus")
+    MyDesktop queryBusMoneyByStatus(String status);
 
     //统计里面按行业分布查询--占用在此
     @Select("select cli.cliindustry , count(cli.cliindustry) as bcount,sum(bus.maymoney) as bmoney from clientinfo cli  right join business bus on bus.clientid=cli.cliid group by cli.cliindustry")
@@ -108,7 +113,7 @@ public interface BusinessMapper extends BaseMapper<Business> {
     @Select("select count(*) from business where YEAR(addtime)=YEAR(NOW()) and busprincipal=#{uname}")
     public Integer queryLastYear(String uname);
 
-//-----------------------------------------------------------------------------
+//---------------------------------成交量--------------------------------------------
 
     /**
      * 查询本周成交数量

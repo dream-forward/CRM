@@ -1,16 +1,15 @@
 package com.hy.crm.system.mycontract.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.github.pagehelper.Page;
-import com.hy.crm.system.mycontract.pojo.Contract;
 import com.hy.crm.system.mycontract.mapper.ContractMapper;
+import com.hy.crm.system.mycontract.pojo.Contract;
 import com.hy.crm.system.mycontract.pojo.ContractBo;
 import com.hy.crm.system.mycontract.service.IContractService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hy.crm.system.mydocumentary.pojo.JsonTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,6 +61,13 @@ public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract> i
         }
         return iPage;
     }
+
+    @Override
+    public List<ContractBo> queryContractByCid(Page page, Integer selectss, String inputss,Integer cid){
+        List<ContractBo> contractBoList=contractMapper.queryContractByCid(page,selectss,inputss,cid);
+        return contractBoList;
+}
+
 
     @Override
     public IPage queryContract(String name, String value, int page, int limit) {

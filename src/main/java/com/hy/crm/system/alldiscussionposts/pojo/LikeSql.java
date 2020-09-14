@@ -1,7 +1,7 @@
 package com.hy.crm.system.alldiscussionposts.pojo;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.pagehelper.Page;
+import org.apache.ibatis.annotations.Param;
 import com.hy.crm.system.mycontract.pojo.Contract;
 
 public class LikeSql {
@@ -50,6 +50,33 @@ public class LikeSql {
         }
         if(contract.getUserid() != null){
             sql.append(" and userid =  '"+contract.getUserid()+"'");
+        }
+        return sql.toString();
+    }
+
+
+    public String select3(Page page, @Param("selectss") Integer selectss, @Param("inputss") String inputss, @Param("cid") Integer cid) {
+        StringBuffer sql = new StringBuffer("SELECT * FROM contract c LEFT JOIN billing b ON c.conid = b.kconid LEFT JOIN  income i   ON c.conid = i.contid WHERE 1=1");
+        if(null!=selectss && selectss == 1 &&  !"".equals(inputss)){
+            sql.append(" and conname like  '%"+inputss+"%'");
+        }
+        if(null!=selectss && selectss == 2 && !"".equals(inputss)){
+            sql.append(" and connum like  '%"+inputss+"%'");
+        }
+        if(null!=selectss && selectss == 3 && !"".equals(inputss)){
+            sql.append(" and condept like  '%"+inputss+"%'");
+        }
+        if(null!=selectss && selectss == 4 && !"".equals(inputss)){
+            sql.append(" and associatedpersonnel like  '%"+inputss+"%'");
+        }
+        if(null!=selectss && selectss == 5 && !"".equals(inputss)){
+            sql.append(" and conmoney like  '%"+inputss+"%'");
+        }
+        if(null!=selectss && selectss == 6 && !"".equals(inputss)){
+            sql.append(" and condate like  '%"+inputss+"%'");
+        }
+        if(null!=cid){
+            sql.append(" and clientid="+cid);
         }
         return sql.toString();
     }

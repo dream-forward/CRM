@@ -127,4 +127,26 @@ public class AftersalesController {
         layuiUtils.setData(iPage.getRecords());
         return layuiUtils;
     }
+
+
+    //去客户管理页面查询某客户的售后列表
+    @RequestMapping("/toAfterList.do")
+    public String toAfterList(Integer cid,Model model){
+        model.addAttribute("cid",cid);
+        return "/view/moreafter.html";
+    }
+
+    //客户管理页面查询某客户的售后列表
+    @RequestMapping("/afterList.do")
+    @ResponseBody
+    public LayuiUtils queryAfterListByCid(String name, String value, int page, int limit,Integer cid){
+        LayuiUtils layuiUtils = new LayuiUtils();
+        IPage iPage = aftersalesServiceImpl.queryAfterListByCid(name,value,page,limit,cid);
+        layuiUtils.setCode(0);
+        layuiUtils.setMsg("查询成功");
+        layuiUtils.setCount((int) iPage.getTotal());
+        layuiUtils.setData(iPage.getRecords());
+        return layuiUtils;
+    }
+
 }

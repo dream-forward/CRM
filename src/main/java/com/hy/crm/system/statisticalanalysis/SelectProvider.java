@@ -3,7 +3,7 @@ package com.hy.crm.system.statisticalanalysis;
 /**
  * @Author : Administrator
  * @Date : 2020/9/10 11:56
- * @Description :统计查询辅助类
+ * @Description :漏斗统计查询辅助类
  */
 public class SelectProvider {
     public String queryBusinessSales(String stage, String time) {

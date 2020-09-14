@@ -1,11 +1,12 @@
 package com.hy.crm.system.mycontract.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.pagehelper.Page;
 import com.hy.crm.system.alldiscussionposts.pojo.LikeSql;
 import com.hy.crm.system.mycontract.pojo.Contract;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hy.crm.system.mycontract.pojo.ContractBo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
@@ -102,6 +103,15 @@ public interface ContractMapper extends BaseMapper<Contract> {
 
     @SelectProvider(type= LikeSql.class,method="select2")
     public List<ContractBo> QueryContractBo(Page page,int selectss, String inputss,Contract contract);
+
+
+
+
+    @SelectProvider(type= LikeSql.class,method="select2")
+    public List<ContractBo> QueryContractBo(Page page, int selectss, String inputss);
+
+    @SelectProvider(type= LikeSql.class,method="select3")
+    public List<ContractBo> queryContractByCid(Page page, @Param("selectss") Integer selectss, @Param("inputss") String inputss, @Param("cid") Integer cid);
 
 
 }

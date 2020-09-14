@@ -4,40 +4,82 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 ">
 
+
+    <!--rememberMe cookie-->
+    <bean id="rememberMe" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg  value="rememberMe"></constructor-arg>
+        <property name="httpOnly" value="true"></property>
+        <!--cookie 的最大失效时间 30天-->
+        <property name="maxAge" value="259200"></property>
+    </bean>
+
+    <!--rememberMe 管理器-->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"></property>
+        <property name="cookie" ref="rememberMe"></property>
+    </bean>
+    <!--form表单验证的过滤器-->
+    <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
+        <!--loginName 对应form表单的用户名-->
+        <property name="usernameParam" value="loginName" />
+        <!--password 对应form表单的密码-->
+        <property name="passwordParam" value="password" />
+        <!--rememberMe 记住我checkbox 是否记住我默认为false-->
+        <property name="rememberMeParam" value="rememberMe" />
+        <!--form 的action-->
+        <property name="loginUrl" value="/shiro/doLogin" />
+    </bean>
+
+
+
+    <!--密码加密匹配器-->
+    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <property name="hashAlgorithmName" value="MD5"></property>
+        <property name="hashIterations" value="1024"></property>
+    </bean>
+    <!--密码比对-->
+    <bean id="myrealm" class="com.hy.crm.utils.LoginRealm">
+        <property name="credentialsMatcher" ref="credentialsMatcher"></property>
+    </bean>
     <!--配置shiro的web过滤器-->
-    <!--<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-        &lt;!&ndash;必须注入SecurityManager&ndash;&gt;
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!--必须注入SecurityManager-->
         <property name="securityManager" ref="securityManager"/>
-        &lt;!&ndash; 如果没有认证访问其他需要认证的连接则跳转到的页面 &ndash;&gt;
-        <property name="loginUrl" value="/html/login.html" />
-        &lt;!&ndash;
-        	配置哪些页面需要受保护.
+        <!-- 如果没有认证访问其他需要认证的连接则跳转到的页面 -->
+        <property name="loginUrl" value="/view/noLogin.html" />
+        <!--没有权限跳转的页面-->
+        <property name="unauthorizedUrl" value="/view/error/500.html"/>
+        	<!--配置哪些页面需要受保护.
         	以及访问这些页面需要的权限.
         	1). anon 可以被匿名访问
         	2). authc 必须认证(即登录)后才可能访问的页面.
         	3). logout 登出.
-        	4). roles 角色过滤器
-        &ndash;&gt;
+        	4). roles 角色过滤器-->
+
         <property name="filterChainDefinitions">
             <value>
+                /view/user/index.html=anon
+                /view/statistical-analysis.html=roles[admin]
             </value>
         </property>
     </bean>
-    &lt;!&ndash;配置安全管理器&ndash;&gt;
+    <!--配置安全管理器-->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-        &lt;!&ndash;注入realm&ndash;&gt;
+        <!--注入realm-->
         <property name="realm" ref="myRealm"/>
+        <!--记住我-->
+        <property name="rememberMeManager" ref="rememberMeManager"/>
     </bean>
-    &lt;!&ndash;配置realm，自己开发的类&ndash;&gt;
-    <bean id="myRealm" class="com.hy.realm.MyRealm">
+    <!--配置realm，自己开发的类-->
+    <bean id="myRealm" class="com.hy.crm.utils.LoginRealm">
         <property name="credentialsMatcher">
             <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
-                &lt;!&ndash;配置加密算法&ndash;&gt;
+                <!--配置加密算法-->
                 <property name="hashAlgorithmName" value="MD5"/>
-                &lt;!&ndash;配置加密次数&ndash;&gt;
+                <!--配置加密次数-->
                 <property name="hashIterations" value="10"/>
             </bean>
         </property>
-    </bean>-->
+    </bean>
 
 </beans>
