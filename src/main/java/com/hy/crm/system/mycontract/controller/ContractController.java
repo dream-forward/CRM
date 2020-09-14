@@ -3,28 +3,21 @@ package com.hy.crm.system.mycontract.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.hy.crm.system.alldiscussionposts.pojo.ForumBo;
 import com.hy.crm.system.customermanager.pojo.Clientinfo;
 import com.hy.crm.system.customermanager.service.IClientinfoService;
-import com.hy.crm.system.mybusiness.pojo.Business;
 import com.hy.crm.system.mycontract.pojo.Contract;
 import com.hy.crm.system.mycontract.pojo.ContractBo;
 import com.hy.crm.system.mycontract.service.IContractService;
-import com.hy.crm.system.mydocumentary.pojo.Documentary;
 import com.hy.crm.system.mydocumentary.pojo.JsonTable;
 import com.hy.crm.user.pojo.User;
-import com.hy.crm.user.service.IUserRoleService;
 import com.hy.crm.user.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -120,5 +113,24 @@ public class ContractController {
         return "/contract/list.html";
     }
 
+    /*根据客户ID去看合同信息*/
+    @RequestMapping("/toqueryConByCid.do")
+    public String toqueryConByCid(Integer cid,Model model){
+        model.addAttribute("cid",cid);
+        return "/contract/contractbycid.html";
+    }
+
+    /*根据客户ID查询其下所有合同信息*/
+    @RequestMapping("/queryConByCid.do")
+    @ResponseBody
+    public JsonTable queryConByCid(int limit, int page,Integer selectss,String inputss,Integer cid){
+        Page page1 =  PageHelper.startPage(page,limit);
+        JsonTable jsontable = new JsonTable();
+        jsontable.setCode(0);
+        List<ContractBo> boList = contractServiceImpl.queryContractByCid(page1,selectss,inputss,cid);
+        jsontable.setData(boList);
+        jsontable.setCount((int) page1.getTotal());
+        return jsontable;
+    }
 
 }

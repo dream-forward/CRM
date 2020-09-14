@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>售后列表</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <script src="/js/jquery-1.12.3.min.js"></script>
+    <script src="/layui/layui.js"></script>
+</head>
+<body>
+<div class="layui-inline">
+    <h1>售后列表</h1>
+</div>
+<div class="layui-inline" style="left: 900px;">
+    <a href="javascript:window.opener=null;window.open('','_self');window.close();" style="color: black" class="layui-btn layui-icon layui-icon-return" ><font color="black">返回</font></a>
+    <a href="javascript:;" id="flush" style="color: black"  class="layui-btn layui-icon layui-icon-refresh"><font color="black">刷新</font></a>
+</div>
+<hr></hr>
+<!--右侧-->
+<div>
+        <form class="layui-form">
+            <!--下拉框-->
+            <input type="hidden" id="cid" name="cid" th:value="${cid}" />
+            <div class="layui-inline" style="height: 40px;width: 180px;">
+                <select name="name">
+                    <option value=''>请选择</option>
+                    <option value="assubject">按主题</option>
+                    <option value="servicetype">按服务类型</option>
+                    <option value="beginservicedate">按开始时间</option>
+                    <option value="serviceperson">按服务人员</option>
+                    <option value="servicecore">按服务评分</option>
+                </select>
+            </div>
+            <!--文本框-->
+            <div class="layui-inline" style="height: 40px;width: 300px;">
+                <input type="text" name="value" height="0" size="80px;"
+                       placeholder="请输入关键字模糊查询" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn" lay-submit lay-filter="search" style="width: 90px;height: 40px;">🔍查找
+                </button>
+            </div>
+        </form>
+    </div>
+    <!--<table lay-even lay-skin="line" lay-size="lg" id="demo" lay-filter="test" class="layui-table"></table>-->
+    <table id="demo" lay-filter="test" style="width: 100%"></table>
+
+<script type="text/html" id="subject">
+    <a href="/aftersales/queryAfterSalesDetail.do?asid={{d.asid}}" style="color: #01AAED" target="_blank">{{d.assubject}}</a>
+</script>
+<script>
+    var cid=$("#cid").val();
+    layui.use(['laydate', 'form', 'table', 'jquery'], function () {
+        var laydate = layui.laydate,
+            table = layui.table,
+            form = layui.form,
+            $ = layui.jquery;
+
+        //刷新
+        $("#flush").click(function () {
+            table.reload('demo', {
+                url: '/aftersales/afterList.do'
+                , where: {
+                    limit: 5,
+                    cid:cid
+                } //设定异步数据接口的额外参数
+                //,height: 300
+            });
+        });
+
+        //表格重载
+        form.on('submit(search)', function (data) {
+            var kv = data.field //当前容器的全部表单字段，名值对形式：{name: value}
+            //执行重载 模糊查询
+            tableIns.reload({
+                url: '/aftersales/afterList.do'
+                , where: kv
+            });
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+        //第一个表格
+        var tableIns = table.render({
+            elem: '#demo'
+            , height: 'auto'
+            , title: '售后服务一览'
+            , autoSort: true
+            , url: '/aftersales/afterList.do?cid='+cid //数据接口
+            , page: true //开启分页
+            , limit: 10
+            , limits: [1, 3, 5, 7, 10, 20, 30]
+            , cols: [
+                [ //表头
+                    {field: 'assubject', title: '主题', align: 'center', width: 1366 * 0.38, toolbar: '#subject'}
+                    , {field: 'servicetype', title: '服务类型', align: 'center', width: 1366 * 0.1}
+                    , {
+                    field: 'beginservicedate',
+                    title: '开始时间',
+                    align: 'center',
+                    width: 1366 * 0.1,
+                    templet: "<div>{{layui.util.toDateString(d.starttime, 'yyyy-MM-dd')}}</div>"
+                }
+                    , {field: 'serviceperson', title: '服务人员', align: 'center', width: 1366 * 0.1}
+                    , {field: 'servicecore', title: '服务评分', align: 'center'}
+                ]
+            ]
+        });
+
+
+    });
+
+</script>
+</body>
+</html>
