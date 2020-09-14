@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>左右过度切换的登录注册页面演示</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <script src="/js/jquery-1.12.3.min.js"></script>
+    <script src="/layui/layui.js" charset="utf-8"></script>
+</head>
+
+<body style="background-image: url('/images/login-background.jpg')">
+<div class="content" style="filter:Alpha(opacity=50);background: #ffffff60">
+    <div class="form sign-in" style="opacity: 50; position: relative;">
+        <h2>欢迎回来</h2>
+        <form class="layui-form">
+            <label>
+                <span>账号</span>
+                <input name="useraccount" type="text" lay-verify="useraccount"/>
+            </label>
+            <label>
+                <span>密码</span>
+                <input name="userpassword" type="password" lay-verify="userpassword"/>
+            </label>
+            <p class="forgot-pass"><input type="checkbox" class="layui-inline" value="">记住我</p>
+            <p class="forgot-pass"><a href="javascript:">忘记密码？</a></p>
+            <div style="text-align: center;">
+                <button class="layui-btn layui-btn-radius layui-btn-normal" lay-submit lay-filter="login">登 录</button>
+            </div>
+        </form>
+        <!--<button type="button" class="fb-btn">使用 <span>facebook</span> 帐号登录</button>-->
+    </div>
+    <div class="sub-cont">
+        <div class="img">
+            <div class="img__text m--up">
+                <h2>还未注册？</h2>
+                <p>立即注册，发现大量机会！</p>
+            </div>
+            <div class="img__text m--in">
+                <h2>已有帐号？</h2>
+                <p>有帐号就登录吧，好久不见了！</p>
+            </div>
+            <div class="img__btn">
+                <span class="m--up">注 册</span>
+                <span class="m--in">登 录</span>
+            </div>
+        </div>
+        <div class="form sign-up">
+            <h2>立即注册</h2>
+            <form class="layui-form">
+                <label>
+                    <span>姓名</span>
+                    <input type="text" name="username" placeholder="请输入真实姓名" lay-verify="username"/>
+                </label>
+                <label>
+                    <span>账号</span>
+                    <input type="text" name="useraccount" placeholder="请输入账号" lay-verify="useraccount"/>
+                </label>
+                <label>
+                    <span>密码</span>
+                    <input type="password" name="userpassword" placeholder="请输入密码" lay-verify="userpassword"/>
+                </label>
+                <label>
+                    <span>部门</span>
+                    <input type="text" name="deptname" placeholder="请输入部门" lay-verify="deptname"/>
+                </label>
+                <label>
+                    <span>头像</span>
+                    <div class="layui-upload">
+                        <input type="hidden" name="userimg" id="userimg" lay-verify="userimg">
+                        <div class="layui-upload-list">
+                            <button type="button" class="layui-btn layui-btn-sm" id="test1"><i
+                                    class="layui-icon layui-icon-upload"></i>请上传头像
+                            </button>
+                            <p id="demoText1"></p>
+                        </div>
+                    </div>
+                </label>
+                <label>
+                    <div class="layui-form-item">
+                        <button class="layui-btn layui-btn-radius" lay-submit lay-filter="register">注 册</button>
+                    </div>
+                </label>
+            </form>
+            <!--<button type="button" class="fb-btn">使用 <span>facebook</span> 帐号注册</button>-->
+        </div>
+    </div>
+</div>
+
+<script src="/js/script.js"></script>
+</body>
+<script>
+    layui.use(['form', 'jquery', 'upload'], function () {
+        var form = layui.form;
+        var $ = layui.jquery;
+        var upload = layui.upload;
+        var layer = layui.layer;
+
+        //文件上传接口(监听正面图片)
+        upload.render({
+            elem: '#test1'
+            , url: '/.do' //改成您自己的上传接口
+            , done: function (res) {//上传返回
+                //将值放入文本框
+                $("#userimg").val(res.data);
+                layer.msg('上传成功');
+                console.log(res)
+            }
+        });
+
+        form.on('submit(login)',function (obj) {
+            var field = obj.field;
+            console.log(field)
+        })
+
+        //提交
+        form.on('submit(register)', function (obj) {
+            var field = obj.field;
+            console.log(field)
+
+            //请求接口
+            $.ajax({
+                url: '/user/zhuceuser.do' //实际使用请改成服务端真实接口
+                , data: {
+                    username: field.username
+                    , useraccount: field.useraccount
+                    , password: field.password
+                    , deptname: field.deptname
+                    , userimg: field.userimg
+                }
+                , success: function (data) {
+                    if (data == 'yes') {
+                        layer.msg('注册成功', {
+                            offset: '15px'
+                            , icon: 1
+                            , time: 1000
+                        }, function () {
+                            location.href = '/view/user/index.html'; //跳转到登入页
+                        });
+                    }
+                },
+                error: function (data) {
+                    layer.msg(data, {icon: 5});
+                    return false;
+                }
+            });
+
+            return false;
+        });
+
+
+        //表单验证
+        form.verify({
+            username: function (value, item) { //value：表单的值、item：表单的DOM对象
+                if (value.length > 20 | value.length <= 0) {
+                    return '用户名为空或字符超长';
+                }
+            },
+            useraccount: function (value, item) { //value：表单的值、item：表单的DOM对象
+                if (value.length <= 0) {
+                    return '请输入账号';
+                }
+            },
+            userpassword: function (value, item) { //value：表单的值、item：表单的DOM对象
+                if (value.length <= 0) {
+                    return '请输入密码';
+                }
+            },
+            deptname: function (value, item) { //value：表单的值、item：表单的DOM对象
+                if (value.length <= 0) {
+                    return '请输入部门';
+                }
+            }
+
+        });
+
+
+    });
+
+</script>
+</html>

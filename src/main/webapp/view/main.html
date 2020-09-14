@@ -189,7 +189,7 @@
                     </dl>-->
                 </li>
                 <li class="layui-nav-item">
-                    <a class="javascript:;" href="javascript:;" target="right">
+                    <a class="javascript:;" id="start" href="javascript:;" target="right">
                         <i class="layui-icon iconfont icon-anquantuichu2" style="top: 3px;"></i>
                         <cite>安全退出</cite>
                     </a>
@@ -234,31 +234,52 @@
        // laydate = layui.laydate;//日期插件
        // lement = layui.element;//面包导航
        // laypage = layui.laypage;//分页
-       // layer = layui.layer;//弹出层
+        layer = layui.layer;//弹出层
         //以上模块根据需要引入
+
+
+        $(function(){
+            //打开弹窗
+            $("#start").on("click",function(){
+                layer.confirm('确认要退出吗？', {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function(index) {//确认index为1
+                    layer.close(index);//点击确认时先关闭弹框
+                    //此处请求后台程序，下方是成功后的前台处理……
+                    var index = layer.load(1,{shade: [0.7, '#393D49']}, {shadeClose: true}); //0代表加载的风格，支持0-2
+                    console.log(index)
+                    if(index==2){
+                        logout();
+                    }
+                });
+
+
+            });
+        });
 
     });
 
-    /*function logout() {
-
+    function logout() {
+        console.log("进来")
         $.ajax({
-            type:"post",
-            url:"",
-            data:{e:1},
-            dataType:"json",
+            type:"get",
+            url:"//user/logout.do",
+            //data:{e:1},
+            //dataType:"json",
             success:function (data) {
-                if(data.status==1){
-                    layer.msg(data.info,{icon:1,time:1000});
-                    setTimeout("window.location.href='{:url('Login/login')}'",2000);return false;
+                console.log(data)
+                /*if(data === "exist"){
+                    layer.msg(data,{icon:1,time:1000});
+                    setTimeout("window.location.href='{:url('/view/user/index.html')}'",2000);return false;
                     return false;
                 }else{
-                    layer.msg(data.info,{icon:5,time:2000});return false;
-                }
+                    layer.msg(data,{icon:5,time:2000});return false;
+                }*/
             }
 
         })
         return false;
-    }*/
+    }
 
     /*function member_show(title, url, id, w, h) {
         x_admin_show(title, url, w, h);
