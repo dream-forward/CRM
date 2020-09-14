@@ -1,6 +1,8 @@
 package com.hy.crm.system.mycontract.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.pagehelper.Page;
+import com.hy.crm.system.alldiscussionposts.pojo.Forum;
 import com.hy.crm.system.mycontract.pojo.Contract;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hy.crm.system.mycontract.pojo.ContractBo;
@@ -19,8 +21,12 @@ import java.util.List;
 public interface IContractService extends IService<Contract> {
 
 
-    public List<ContractBo> QueryContractBo(Page page,int selectss, String inputss);
+    public List<ContractBo> QueryContractBo(Page page,int selectss, String inputss,Contract contract);
 
 
+    public IPage QueryContractByTime(String flag, int page, int limit);
 
+    public IPage queryContract(String name,String value, int page, int limit);
+
+    public Integer UpdateContract(Contract contract);
 }

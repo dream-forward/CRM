@@ -54,8 +54,8 @@ public class Contract implements Serializable {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     @ApiModelProperty(value = "签约日期")
     private Date condate;
-
     @DateTimeFormat(pattern="yyyy-MM-dd")
+
     @ApiModelProperty(value = "生效时间")
     private Date begindate;
 

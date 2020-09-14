@@ -133,6 +133,10 @@ public class ForumController {
     }
 
 
+    @RequestMapping("/delete.do")
+    public boolean delete(Forum forum){
+       return forumServiceImpl.removeById(forum.getForid());
+    }
 
 
 }

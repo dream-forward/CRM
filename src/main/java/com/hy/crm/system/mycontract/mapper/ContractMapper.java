@@ -99,8 +99,9 @@ public interface ContractMapper extends BaseMapper<Contract> {
      */
     @Select("select count(*) from contract where YEAR(condate)=YEAR(NOW()) and userid=#{uid}")
     public Integer LastYear(Integer uid);
+
     @SelectProvider(type= LikeSql.class,method="select2")
-    public List<ContractBo> QueryContractBo(Page page,int selectss, String inputss);
+    public List<ContractBo> QueryContractBo(Page page,int selectss, String inputss,Contract contract);
 
 
 }

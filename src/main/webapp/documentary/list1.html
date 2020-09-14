@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>跟单管理</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<script src="../layui/layui.js" charset="utf-8"></script>
+<script src="../js/jquery-1.12.3.min.js"></script>
+<body>
+<div style="width:1400px;overflow-x:auto;overflow-y:hidden">
+    <!--头部-->
+<br><br>
+    <!--右侧-->
+    <div style="margin-right:10px;float:right;width:90%;">
+        <div class="layui-header" style="height: 15vh;margin: 0 auto;text-align: left;line-height: 80px;">
+            <form class="layui-form">
+                <!--左侧-->
+                <div class="layui-inline">
+                    <span style="color: #0C0C0C;font-size: 30px">全部跟单</span>
+                </div>&nbsp;&nbsp;&nbsp;
+                <!--下拉框-->
+                <div class="layui-inline" style="height: 40px;width: 180px;">
+                    <select name="selects" id="selects" >
+                        <option value="">请选择</option>
+                        <option value="1">按跟单人</option>
+                        <option value="2">按跟单时间</option>
+                        <option value="3">按跟单主题</option>
+                    </select>
+                </div>
+                <!--文本框-->
+                <div class="layui-inline" style="height: 40px;width: 300px;">
+                    <input type="text" name="inputs" height="0" size="80px;" required lay-verify="required"
+                           placeholder="请输入关键字查询" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn layui-btn-radius" lay-submit lay-filter="demo1" style="width: 90px;height: 40px;">查找
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-radius" style="height: 40px;">重置</button>
+                </div>
+                <div class="layui-inline" style="left: 80px;">
+                    <a href="javascript:;" onclick="aaa()" style="color: black" class="layui-btn layui-btn-radius layui-icon-add-1">新增跟单</a>
+                    <a href="http://www.layui.com" style="color: black" class="layui-btn layui-btn-radius">刷新</a>
+                </div>
+            </form>
+        </div>
+        <table id="demo" lay-filter="test" style="width: 100%"></table>
+    </div>
+</div>
+
+<script type="text/html" id="docsubject">
+    <a class="layui-table-link" target="blank" onclick=window.location.href="/documentary/ToUpdate.do?docid={{d.docid}}&busiid={{d.busiid}}">{{d.docsubject}}</a>
+</script>
+
+<script>
+
+    var aaa=function(){
+        window.open("/documentary/AddDocumentarys.do");
+    }
+
+    layui.use(['table','upload','form'], function(){
+        var table = layui.table,
+            form = layui.form,
+            upload = layui.upload;
+
+        table.render({
+            elem: '#demo'
+            ,url:'/documentary/LikeDocumentary.do?selects=0'
+            , height: 'auto'
+            , autoSort: true
+            ,limit:2
+            ,page:true
+            ,limits:[2,4,6,8,10]
+            ,cols: [[
+                ,{field:'doctime', title: '跟单时间',width:1400*0.1,align: 'center',templet: "<div>{{layui.util.toDateString(d.starttime, 'yyyy-MM-dd')}}</div>"}
+                ,{field:'docsubject',title: '跟单主题',width:1400*0.28,align: 'center',toolbar:'#docsubject'}
+                ,{field:'docuser',  title: '跟单人',width:1400*0.10,align: 'center'}
+                ,{field:'content',  title: '详细内容',width:1400*0.214,align: 'center'}
+                ,{field:'docfile',  title: '相关附件',width:1400*0.228,align: 'center'}
+            ]]
+        });
+
+
+        //搜索按钮
+        form.on('submit(demo1)', function(data){
+                    table.reload('demo',{
+                        url: '/documentary/LikeDocumentary.do',
+                        where:data.field,
+                        method:'post',
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                    });
+            return false;
+        });
+
+    });
+</script>
+
+</body>
+</html>

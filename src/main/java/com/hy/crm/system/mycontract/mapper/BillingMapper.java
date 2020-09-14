@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author TH
  * @since 2020-09-08
  */
+
 public interface BillingMapper extends BaseMapper<Billing> {
 
 }

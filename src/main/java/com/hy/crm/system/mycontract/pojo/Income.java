@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -28,6 +29,7 @@ public class Income implements Serializable {
     @TableId(value = "incid", type = IdType.AUTO)
     private Integer incid;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @ApiModelProperty(value = "收入日期")
     private Date incdate;
 
