@@ -9,8 +9,6 @@
     <script src="/layui/layui.js"></script>
 </head>
 <body>
-<input type="hidden" id="cid" th:value="${cid}">
-<div style="border: 1px solid #dddddd;">
     <div class="layui-inline">
        <h1>商机列表</h1>
     </div>
@@ -19,7 +17,9 @@
         <a href="javascript:;" id="flush" style="color: black"  class="layui-btn layui-icon layui-icon-refresh"><font color="black">刷新</font></a>
     </div>
     <hr></hr>
+<div style="border: 1px solid #dddddd;">
     <form class="layui-form layui-form-pane" id="for" style="margin-top: 20px;margin-left: 50px;" method="post">
+        <input type="hidden" id="cid" th:value="${cid}" />
         <div class="layui-inline">
             <div class="layui-form-item">
                 <label class="layui-form-label">商机全称</label>
@@ -102,18 +102,22 @@
     </form>
 </div>
 
-
-<table lay-even lay-skin="line" lay-size="lg" id="demo" lay-filter="test" class="layui-table"></table>
+<table lay-even lay-skin="line" id="demo" lay-filter="test" class="layui-table"></table>
 <script type="text/html" id="toupdat">
     <a href="/business/toUpdateBusinessById.do?id={{d.busid}}" style="color: #1991FA">{{d.busname}}</a>
 </script>
-<script th:inline="javascript" >
+<script type="text/html" id="forum">
+    <a href="javascript:;" style="color: #1991FA" target="_blank">{{d.forumcount}}</a>
+</script>
+
+<script>
     var cid=$("#cid").val();
     layui.use(['laydate', 'form', 'table', 'jquery'], function () {
         var laydate = layui.laydate,
             table = layui.table,
             form = layui.form,
             $ = layui.jquery;
+
         //日期
         laydate.render({
             elem: '#date'
@@ -161,15 +165,17 @@
             , elem: '#demo'
             , url: '/business/queryBusinessByCid.do?cid='+cid//数据接口
             , page: true //开启分页
-            , cols: [[ //表头
+            , cols: [
+                [ //表头
                 {field: 'busname', title: '商机名称', toolbar: '#toupdat'}
                 , {field: 'busiphase', title: '商机阶段'}
-                , {field: 'maymoney', title: '预计成交金额',}
-                , {field: 'busprincipal', title: '商机负责人',}
-                , {field: 'lastdate', title: '最后跟单',}
-                , {field: '1', title: '讨论版'}
+                , {field: 'maymoney', title: '预计成交金额'}
+                , {field: 'busprincipal', title: '商机负责人'}
+                , {field: 'lastdate', title: '最后跟单'}
+                , {field: 'forumcount', title: '讨论版',toolbar:'#forum'}
 
-            ]]
+            ]
+            ]
         });
 
 

@@ -75,4 +75,20 @@ public class AftersalesServiceImpl extends ServiceImpl<AftersalesMapper, Aftersa
         }
         return iPage;
     }
+
+    @Override
+    public IPage queryAfterListByCid(String name, String value, int page, int limit, Integer cid) {
+        QueryWrapper wrapper = new QueryWrapper<>();
+        Page<Aftersales> page1 = new Page<>(page, limit);
+        if(StringUtils.isNotEmpty(name) && StringUtils.isNotEmpty(value)){
+            wrapper.like(name, value);//主题
+            wrapper.eq("clientname",cid);
+            IPage iPage = aftersalesMapper.selectPage(page1, wrapper);
+            return iPage;
+        }else{
+            wrapper.eq("clientname",cid);
+            IPage iPage = aftersalesMapper.selectPage(page1, wrapper);
+            return iPage;
+        }
+    }
 }

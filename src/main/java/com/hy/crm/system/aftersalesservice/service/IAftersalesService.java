@@ -1,10 +1,8 @@
 package com.hy.crm.system.aftersalesservice.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.hy.crm.system.aftersalesservice.pojo.Aftersales;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
+import com.hy.crm.system.aftersalesservice.pojo.Aftersales;
 
 /**
  * <p>
@@ -43,4 +41,15 @@ public interface IAftersalesService extends IService<Aftersales> {
      * @return
      */
     IPage queryAftersalesByTime(String flag, int page, int limit);
+
+    /**
+     *
+     * @param name
+     * @param value
+     * @param page
+     * @param limit
+     * @param cid
+     * @return
+     */
+    IPage queryAfterListByCid(String name, String value, int page, int limit,Integer cid);
 }

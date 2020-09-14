@@ -84,6 +84,12 @@
     <script type="text/html" id="morebusiness">
         <a href="/business/queryBusinessById.do?id={{d.cliid}}" style="color: #1991FA" target="_blank">{{d.buscount}}</a>
     </script>
+    <script type="text/html" id="moreclient">
+        <a href="/contract/toqueryConByCid.do?cid={{d.cliid}}" style="color: #1991FA" target="_blank">{{d.concount}}</a>
+    </script>
+    <script type="text/html" id="moreafter">
+        <a href="/aftersales/toAfterList.do?cid={{d.cliid}}" style="color: #1991FA" target="_blank">{{d.afterCount}}</a>
+    </script>
 </div>
 </div>
 <script>
@@ -169,17 +175,19 @@
             , elem: '#demo'
             , url: '/clientinfo/clientlist.do' //数据接口
             , page: true //开启分页
-            , cols: [[ //表头
+            , cols: [
+                [ //表头
                   {field: 'clientname', title: '客户名称',toolbar:'#toupdat'}
                 , {field: 'buscount', title: '商机数',toolbar:'#morebusiness'}
-                , {field: 'summoney', title: '预计成交金额',}
-                , {field: 'concount', title: '合同数',}
-                , {field: 'sumcon', title: '合同金额',}
+                , {field: 'summoney', title: '预计成交金额'}
+                , {field: 'concount', title: '合同数',toolbar:'#moreclient'}
+                , {field: 'sumcon', title: '合同金额'}
                 , {field: 'incmoneyall', title: '回款额'}
-                , {field: 'afterCount', title: '售后服务数'}
+                , {field: 'afterCount', title: '售后服务数',toolbar:'#moreafter'}
                 , {field: 'avgservicecore', title: '服务均分'}
 
-            ]]
+            ]
+            ]
         });
 
 

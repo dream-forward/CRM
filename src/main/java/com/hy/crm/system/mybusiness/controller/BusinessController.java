@@ -3,6 +3,7 @@ package com.hy.crm.system.mybusiness.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hy.crm.system.alldiscussionposts.service.IForumService;
 import com.hy.crm.system.customermanager.pojo.Clientinfo;
 import com.hy.crm.system.customermanager.service.IClientinfoService;
 import com.hy.crm.system.mybusiness.pojo.Business;
@@ -38,6 +39,8 @@ public class BusinessController {
     private IBusinessService businessServiceImpl;
     @Autowired
     private IClientinfoService clientinfoServiceImpl;
+    @Autowired
+    private IForumService forumServiceImpl;
 
     /*我的商机里新增商机页面查询当前用户下的所有客户*/
     @RequestMapping(value = "/getCliByUid.do")
@@ -102,8 +105,14 @@ public class BusinessController {
         }
         IPage iPage=businessServiceImpl.queryBusiness(page1,business,day,time,jieduan,doing,request);
         if(null!=iPage){
+            List<Business> businessList=iPage.getRecords();
+            for(Business business1:businessList){
+                QueryWrapper queryWrapper=new QueryWrapper();
+                queryWrapper.eq("busid",business1.getBusid());
+                business1.setForumcount(forumServiceImpl.list(queryWrapper).size());
+            }
             LayuiUtils utils=new LayuiUtils();
-            utils.setData(iPage.getRecords());
+            utils.setData(businessList);
             utils.setCode(0);
             utils.setMsg("成功");
             utils.setCount((int)iPage.getTotal());
@@ -145,8 +154,14 @@ public class BusinessController {
         }
         IPage iPage=businessServiceImpl.myQueryBusiness(page1,business,type,day,time,jieduan,request);
         if(null!=iPage){
+            List<Business> businessList=iPage.getRecords();
+            for(Business business1:businessList){
+                QueryWrapper queryWrapper=new QueryWrapper();
+                queryWrapper.eq("busid",business1.getBusid());
+                business1.setForumcount(forumServiceImpl.list(queryWrapper).size());
+            }
             LayuiUtils utils=new LayuiUtils();
-            utils.setData(iPage.getRecords());
+            utils.setData(businessList);
             utils.setCode(0);
             utils.setMsg("成功");
             utils.setCount((int)iPage.getTotal());
@@ -224,6 +239,7 @@ public class BusinessController {
         model.addAttribute("cid",id);
         return "/view/morebusiness.html";
     }
+
     /*客户下查找商机*/
     @RequestMapping("/queryBusinessByCid.do")
     @ResponseBody
@@ -239,8 +255,14 @@ public class BusinessController {
 
         IPage iPage=businessServiceImpl.getBusinessByCid(page1,business,cid);
         if(null!=iPage){
+            List<Business> businessList=iPage.getRecords();
+            for(Business business1:businessList){
+                QueryWrapper queryWrapper=new QueryWrapper();
+                queryWrapper.eq("busid",business1.getBusid());
+                business1.setForumcount(forumServiceImpl.list(queryWrapper).size());
+            }
             LayuiUtils utils=new LayuiUtils();
-            utils.setData(iPage.getRecords());
+            utils.setData(businessList);
             utils.setCode(0);
             utils.setMsg("成功");
             utils.setCount((int)iPage.getTotal());

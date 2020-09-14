@@ -199,6 +199,9 @@
         <script type="text/html" id="toupdat">
             <a href="/business/toUpdateBusinessById.do?id={{d.busid}}" style="color: #1991FA" target="_blank">{{d.busname}}</a>
         </script>
+        <script type="text/html" id="forum">
+            <a href="javascript:;" style="color: #1991FA" target="_blank">{{d.forumcount}}</a>
+        </script>
     </div>
 </div>
 
@@ -424,15 +427,17 @@
             , elem: '#demo'
             , url: '/business/myqueryBusiness.do' //数据接口
             , page: true //开启分页
-            , cols: [[ //表头
+            , cols: [
+                [ //表头
                 {field: 'busname', title: '商机名称', toolbar: '#toupdat'}
                 , {field: 'busiphase', title: '商机阶段'}
-                , {field: 'maymoney', title: '预计成交金额',}
-                , {field: 'busprincipal', title: '商机负责人',}
-                , {field: 'lastdate', title: '最后跟单',}
-                , {field: 'forumcount', title: '讨论版'}
+                , {field: 'maymoney', title: '预计成交金额'}
+                , {field: 'busprincipal', title: '商机负责人'}
+                , {field: 'lastdate', title: '最后跟单'}
+                , {field: 'forumcount', title: '讨论版',toolbar:'#forum'}
 
-            ]]
+            ]
+            ]
         });
 
 
